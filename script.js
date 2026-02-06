@@ -5,12 +5,11 @@ const questions = [
 
 const container = document.getElementById('quiz-container');
 
-// แสดงข้อสอบ
 questions.forEach((item, index) => {
-    let html = `<div class="mb-6 p-4 border rounded">
-        <p class="font-semibold mb-2">${item.q}</p>`;
+    let html = `<div class="mb-6 p-4 border rounded-lg shadow-sm bg-white">
+        <p class="font-semibold mb-3 text-lg">${item.q}</p>`;
     item.options.forEach((opt, i) => {
-        html += `<label class="block mb-1">
+        html += `<label class="block mb-2 cursor-pointer hover:bg-blue-50 p-2 rounded">
             <input type="radio" name="q${index}" value="${i}" class="mr-2"> ${opt}
         </label>`;
     });
@@ -18,8 +17,10 @@ questions.forEach((item, index) => {
     container.innerHTML += html;
 });
 
-function submitExam() {
+async function submitExam() {
     let score = 0;
+    let studentName = "นักเรียนทดสอบ"; // ในอนาคตจะดึงจาก Google Login
+
     questions.forEach((item, index) => {
         const selected = document.querySelector(`input[name="q${index}"]:checked`);
         if (selected && parseInt(selected.value) === item.answer) {
@@ -27,11 +28,16 @@ function submitExam() {
         }
     });
 
-    alert(`คุณได้คะแนน ${score} / ${questions.length}`);
-    sendToLine(score);
+    alert(`บันทึกคำตอบเรียบร้อย! คุณได้คะแนน ${score} / ${questions.length}`);
+    
+    // ส่งข้อมูลเข้า LINE (ผ่านระบบ Notify หรือ API ที่คุณตั้งค่าไว้)
+    await sendToLine(studentName, score);
 }
 
-function sendToLine(score) {
-    // ตรงนี้เราจะเชื่อมต่อกับ LINE API ต่อไป
-    console.log("กำลังส่งคะแนนเข้า LINE...");
+async function sendToLine(name, score) {
+    const message = `📢 รายงานผลสอบ: ${name}\nวิชา: คณิตศาสตร์ ป.6\nคะแนนที่ได้: ${score}/${questions.length} ข้อ`;
+    
+    console.log("ส่งข้อมูลไป LINE:", message);
+    // หมายเหตุ: การเชื่อมต่อ LINE API จริงต้องใช้ไฟล์หลังบ้าน (Serverless Function) 
+    // เพื่อความปลอดภัยของ Token ซึ่ง Vercel รองรับครับ
 }
