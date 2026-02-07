@@ -3,69 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>โรงเรียนพระจอมเกล้าติวเตอร์</title>
+    <title>โรงเรียนพระจอมเกล้าติวเตอร์ | ระบบการเรียนการสอนออนไลน์</title>
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>body { font-family: 'Kanit', sans-serif; }</style>
+    <style>
+        body { font-family: 'Kanit', sans-serif; }
+        .grade-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        details > summary { list-none: none; }
+        details > summary::-webkit-details-marker { display: none; }
+    </style>
 </head>
-<body class="bg-gray-50">
-    <nav class="bg-blue-600 p-4 text-white shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold">โรงเรียนพระจอมเกล้าติวเตอร์</h1>
-            <button id="login-btn" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold">เข้าสู่ระบบด้วย Google</button>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Header Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600 p-2 rounded-lg text-white">
+                    <i class="fas fa-graduation-cap text-xl"></i>
+                </div>
+                <h1 class="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+                    โรงเรียนพระจอมเกล้าติวเตอร์
+                </h1>
+            </div>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-semibold text-sm transition-all shadow-md">
+                เข้าสู่ระบบด้วย <i class="fab fa-google ml-1"></i>
+            </button>
         </div>
     </nav>
 
-    <main class="container mx-auto mt-10 p-4">
-        <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">เลือกคอนเทนต์การเรียน</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- หมวดหมู่ระดับชั้น -->
-            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer border-t-4 border-blue-500">
-                <h3 class="text-xl font-bold mb-2">อนุบาล 1 - 3</h3>
-                <p class="text-gray-600">พื้นฐานภาษาไทย เลข และภาษาอังกฤษสำหรับน้องๆ</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer border-t-4 border-green-500">
-                <a href="exam.html"><h3 class="text-xl font-bold mb-2">ประถม 1 - 6</h3>
-                <p class="text-gray-600">เตรียมสอบเข้า ม.1 โรงเรียนดังทั่วประเทศ</p></a>
-                <!-- ส่วนเมนูคลังคำศัพท์ ป.5 -->
-<div class="container mx-auto mt-10 p-4">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">เมนูการเรียนการสอน</h2>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- ปุ่มคลังคำศัพท์ ป.5 -->
-        <a href="vocabulary-pri-5-1.html" class="flex items-center bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all border-l-8 border-yellow-500 group">
-            <div class="bg-yellow-100 p-4 rounded-xl group-hover:bg-yellow-500 transition-colors">
-                <i class="fas fa-spell-check text-yellow-600 group-hover:text-white text-3xl"></i>
-            </div>
-            <div class="ml-6">
-                <h3 class="text-2xl font-bold text-gray-800">คลังคำศัพท์ ป.5</h3>
-                <p class="text-gray-600 text-lg">รวบรวม 1,200 คำ พร้อมเสียงอ่าน (Part 1)</p>
-            </div>
-        </a>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-10 max-w-6xl">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4 text-slate-900">เลือกคอนเทนต์การเรียน</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto">ระบบจัดการเรียนรู้ที่ครอบคลุมเนื้อหาตั้งแต่อนุบาลจนถึงมัธยม พร้อมคลังข้อสอบจากโรงเรียนดังทั่วประเทศ</p>
+        </div>
 
-        <!-- ปุ่มทำข้อสอบ ป.5 (ที่คุณครูทำไว้ก่อนหน้า) -->
-        <a href="exam.html" class="flex items-center bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all border-l-8 border-blue-500 group">
-            <div class="bg-blue-100 p-4 rounded-xl group-hover:bg-blue-500 transition-colors">
-                <i class="fas fa-edit text-blue-600 group-hover:text-white text-3xl"></i>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Section: อนุบาล -->
+            <div class="grade-card bg-white rounded-3xl p-8 shadow-xl border-t-8 border-blue-400">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-blue-600">อนุบาล 1-3</h3>
+                    <i class="fas fa-child text-3xl text-blue-200"></i>
+                </div>
+                <p class="text-slate-400 italic mb-6">เตรียมความพร้อมพื้นฐาน...</p>
+                <div class="bg-slate-50 p-4 rounded-2xl text-center text-slate-400 text-sm">อยู่ระหว่างการพัฒนาเนื้อหา</div>
             </div>
-            <div class="ml-6">
-                <h3 class="text-2xl font-bold text-gray-800">ระบบทำข้อสอบ</h3>
-                <p class="text-gray-600 text-lg">ทดสอบความรู้พื้นฐาน ป.5 - ม.6</p>
-            </div>
-        </a>
-    </div>
-</div>
 
+            <!-- Section: ประถม (ไฮไลท์เด่นที่สุด) -->
+            <div class="grade-card bg-white rounded-3xl p-8 shadow-2xl border-t-8 border-green-500 ring-4 ring-green-50 ring-offset-0">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-green-600">ประถม 1-6</h3>
+                    <div class="bg-green-100 px-3 py-1 rounded-full text-green-600 text-xs font-bold uppercase tracking-wider">Active</div>
+                </div>
+                
+                <!-- ระดับชั้นย่อย -->
+                <div class="space-y-4">
+                    <!-- ประถม 5 (สมบูรณ์) -->
+                    <details class="group border border-slate-100 rounded-2xl bg-slate-50 overflow-hidden" open>
+                        <summary class="flex justify-between items-center p-5 cursor-pointer hover:bg-green-50 transition-colors">
+                            <span class="font-bold text-slate-700">📖 ระดับชั้นประถมศึกษาปีที่ 5</span>
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform text-slate-400"></i>
+                        </summary>
+                        <div class="p-5 bg-white space-y-5">
+                            <!-- รายวิชา -->
+                            <div class="space-y-3">
+                                <h4 class="text-sm font-bold text-indigo-500 uppercase tracking-widest"><i class="fas fa-language mr-1"></i> วิชาภาษาอังกฤษ</h4>
+                                <div class="grid grid-cols-1 gap-2">
+                                    <a href="vocabulary-pri-5-1.html" class="flex items-center justify-between p-3 rounded-xl border border-slate-100 hover:border-green-300 hover:bg-green-50 transition-all">
+                                        <span class="text-sm text-slate-600"><i class="fas fa-book-open mr-2 text-green-500"></i> คลังคำศัพท์ (1,200 คำ)</span>
+                                        <i class="fas fa-play text-[10px] text-green-400"></i>
+                                    </a>
+                                    <a href="#" class="flex items-center justify-between p-3 rounded-xl border border-slate-100 text-slate-400 cursor-not-allowed">
+                                        <span class="text-sm"><i class="fas fa-file-signature mr-2"></i> แบบฝึกหัดไวยากรณ์</span>
+                                        <span class="text-[10px]">SOON</span>
+                                    </a>
+                                    <a href="exam.html" class="flex items-center justify-between p-3 rounded-xl border border-slate-100 hover:border-blue-300 hover:bg-blue-50 transition-all">
+                                        <span class="text-sm text-slate-600"><i class="fas fa-tasks mr-2 text-blue-500"></i> ข้อสอบจำลอง</span>
+                                        <i class="fas fa-external-link-alt text-[10px] text-blue-400"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- วิชาอื่นๆ -->
+                            <div class="pt-4 border-t border-slate-50">
+                                <h4 class="text-sm font-bold text-red-500 uppercase tracking-widest"><i class="fas fa-calculator mr-1"></i> วิชาคณิตศาสตร์</h4>
+                                <div class="mt-2 flex gap-2">
+                                    <span class="px-3 py-1 bg-slate-100 rounded-lg text-xs text-slate-400">บทเรียน</span>
+                                    <a href="exam.html" class="px-3 py-1 bg-red-50 text-red-600 border border-red-100 rounded-lg text-xs hover:bg-red-100">ข้อสอบ</a>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- ประถมอื่นๆ -->
+                    <details class="group border border-slate-100 rounded-2xl bg-slate-50 overflow-hidden">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer hover:bg-slate-100 transition-colors">
+                            <span class="font-bold text-slate-400 italic">📚 ระดับชั้น ประถม 1 - 4 & 6</span>
+                            <i class="fas fa-lock text-slate-300 text-sm"></i>
+                        </summary>
+                    </details>
+                </div>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer border-t-4 border-red-500">
-                <h3 class="text-xl font-bold mb-2">มัธยม 1 - 6</h3>
-                <p class="text-gray-600">เน้นวิชาวิทยาศาสตร์ คณิตศาสตร์ และคอมพิวเตอร์</p>
+
+            <!-- Section: มัธยม -->
+            <div class="grade-card bg-white rounded-3xl p-8 shadow-xl border-t-8 border-red-400 opacity-60">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-red-600">มัธยม 1-6</h3>
+                    <i class="fas fa-user-graduate text-3xl text-red-200"></i>
+                </div>
+                <div class="space-y-3">
+                    <div class="p-4 border border-dashed border-slate-200 rounded-2xl text-slate-400 text-sm text-center">คลังข้อสอบ ม.ต้น - ม.ปลาย</div>
+                    <div class="p-4 bg-slate-50 rounded-2xl text-center text-slate-400 text-xs font-semibold uppercase">Coming Soon</div>
+                </div>
             </div>
+
         </div>
     </main>
 
-    <footer class="mt-20 text-center text-gray-500 pb-10">
-        &copy; 2024 โรงเรียนพระจอมเกล้าติวเตอร์ - ระบบข้อสอบออนไลน์
+    <footer class="mt-20 bg-slate-900 text-slate-500 py-12 px-4">
+        <div class="container mx-auto text-center">
+            <h4 class="text-white font-bold mb-4">โรงเรียนพระจอมเกล้าติวเตอร์</h4>
+            <p class="text-sm mb-6">เน้นคุณภาพการสอน ด้วยระบบเทคโนโลยีที่ทันสมัย</p>
+            <div class="flex justify-center space-x-6 text-xl mb-10">
+                <i class="fab fa-facebook hover:text-blue-500 cursor-pointer"></i>
+                <i class="fab fa-line hover:text-green-500 cursor-pointer"></i>
+                <i class="fas fa-phone-alt hover:text-white cursor-pointer"></i>
+            </div>
+            <p class="text-xs">&copy; 2024 King Mongkut Tutor. All Rights Reserved.</p>
+        </div>
     </footer>
+
 </body>
 </html>
