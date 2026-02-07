@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Chef Masterclass - ม.4</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <style>
+        body { font-family: 'Kanit', sans-serif; }
+        .vocab-hl { color: #f97316; font-weight: bold; cursor: pointer; text-decoration: underline; background: #fff7ed; padding: 2px 4px; }
+        .drop-zone { min-width: 130px; height: 35px; border-bottom: 2px solid #f97316; display: inline-block; vertical-align: middle; text-align: center; margin: 0 5px; color: #c2410c; }
+        .draggable { cursor: grab; background: #fff; border: 2px solid #fdba74; padding: 6px 15px; border-radius: 999px; display: inline-block; margin: 5px; font-weight: 600; color: #9a3412; }
+    </style>
+</head>
+<body class="bg-orange-50 pb-20">
+    <div class="max-w-4xl mx-auto p-4">
+        <!-- Cover Image -->
+        <div class="rounded-3xl overflow-hidden shadow-2xl mb-8 relative">
+            <img src="https://images.unsplash.com" class="w-full h-[400px] object-cover">
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-orange-900 p-8 text-white">
+                <h1 class="text-4xl font-bold">Dreaming of Being a World Chef 👨‍🍳</h1>
+                <p class="text-lg opacity-90 text-orange-100 italic">"เพราะหัวใจของอาหาร คือความรักในสิ่งที่ทำ"</p>
+            </div>
+        </div>
+
+        <button onclick="readFull()" class="w-full bg-orange-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-orange-700 mb-8"><i class="fas fa-volume-up mr-2"></i> ฟังเสียงอ่านบทความภาษาอังกฤษ</button>
+
+        <div class="bg-white p-8 rounded-3xl shadow-xl mb-12 text-xl leading-relaxed text-slate-700">
+            <p id="story">
+                To be a chef <span class="vocab-hl" onclick="speak('Abroad')">Abroad</span>, you need more than just a <span class="vocab-hl" onclick="speak('Recipe')">Recipe</span>. 
+                First, you start as an <span class="vocab-hl" onclick="speak('Apprentice')">Apprentice</span> to learn every <span class="vocab-hl" onclick="speak('Technique')">Technique</span>. 
+                Professional <span class="vocab-hl" onclick="speak('Cuisine')">Cuisine</span> requires high kitchen <span class="vocab-hl" onclick="speak('Hygiene')">Hygiene</span> and the best <span class="vocab-hl" onclick="speak('Equipment')">Equipment</span>. 
+                You must have a <span class="vocab-hl" onclick="speak('Passion')">Passion</span> for cooking <span class="vocab-hl" onclick="speak('Authentic')">Authentic</span> food. 
+                Before serving, always <span class="vocab-hl" onclick="speak('Garnish')">Garnish</span> the plate to make it look <span class="vocab-hl" onclick="speak('Delicious')">Delicious</span>. 
+                A great chef never stops learning!
+            </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl shadow-xl">
+            <h2 class="text-2xl font-bold text-orange-600 mb-6 text-center">🎯 แบบฝึกหัดเชฟมือโปร (20 ข้อ)</h2>
+            <div id="word-bank" class="mb-10 p-6 bg-orange-50 rounded-2xl border-2 border-dashed border-orange-200">
+                <!-- JavaScript will generate 20 words here -->
+            </div>
+            <div id="questions" class="space-y-6 text-lg">
+                <!-- JavaScript will generate 20 questions here -->
+            </div>
+            <button onclick="check()" class="w-full mt-10 bg-green-500 text-white py-5 rounded-2xl font-bold shadow-xl text-xl hover:bg-green-600">ตรวจคำตอบและรับคะแนน</button>
+        </div>
+    </div>
+
+    <script>
+        const words = ["Apprentice","Authentic","Beverage","Cuisine","Delicious","Equipment","Flavour","Garnish","Hygiene","Ingredient","Knife skills","Menu","Nutritious","Order","Passion","Recipe","Savory","Technique","Underdone","Ventilation"];
+        
+        const qList = [
+            "1. He works as an _ in a French restaurant.",
+            "2. This pizza is _, just like in Italy.",
+            "3. Wine is a popular _ with steak.",
+            "4. I love Japanese _.",
+            "5. This cake is so _!",
+            "6. We need a new oven in our kitchen _.",
+            "7. The soup has a spicy _.",
+            "8. Please _ the dish with some mint.",
+            "9. Always wash your hands for good _.",
+            "10. Salt is an important _.",
+            "11. Every chef must master his _.",
+            "12. Let's look at the dessert _.",
+            "13. Fruit is very _ and healthy.",
+            "14. The waiter took our _.",
+            "15. Cooking is my _.",
+            "16. I found a great _ for cookies.",
+            "17. I like _ snacks more than sweets.",
+            "18. Grilling is a great _ for salmon.",
+            "19. The chicken is _; please cook it more.",
+            "20. The kitchen needs better _ to remove smoke."
+        ];
+
+        const bank = document.getElementById('word-bank');
+        words.forEach((w, i) => {
+            bank.innerHTML += `<div class="draggable" draggable="true" ondragstart="drag(event)" id="w${i}">${w}</div>`;
+        });
+
+        const qBox = document.getElementById('questions');
+        qList.forEach((q, i) => {
+            const parts = q.split('_');
+            qBox.innerHTML += `<div class="p-2 border-b">${parts[0]} <div class="drop-zone" ondrop="drop(event, '${words[i]}')" ondragover="allowDrop(event)"></div> ${parts[1]}</div>`;
+        });
+
+        function drag(ev) { ev.dataTransfer.setData("text", ev.target.innerText); ev.dataTransfer.setData("id", ev.target.id); }
+        function allowDrop(ev) { ev.preventDefault(); }
+        function drop(ev, ans) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            ev.target.innerText = data;
+            ev.target.setAttribute("data-user", data);
+            ev.target.setAttribute("data-ans", ans);
+        }
+
+        function check() {
+            const zones = document.querySelectorAll('.drop-zone');
+            let score = 0;
+            zones.forEach(z => {
+                if(z.getAttribute('data-user') === z.getAttribute('data-ans')) {
+                    z.style.background = "#dcfce7"; score++;
+                } else {
+                    z.style.background = "#fee2e2";
+                    z.innerText += " (เฉลย: "+z.getAttribute('data-ans')+")";
+                }
+            });
+            alert("คุณทำได้ " + score + " / 20 คะแนน! เก่งมากว่าที่ที่เชฟต้องการ!");
+        }
+
+        function speak(t) { const m = new SpeechSynthesisUtterance(t); m.lang = 'en-US'; window.speechSynthesis.speak(m); }
+        function readFull() { speak(document.getElementById('story').innerText); }
+    </script>
+</body>
+</html>
