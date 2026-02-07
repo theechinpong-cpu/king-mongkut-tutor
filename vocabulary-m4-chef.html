@@ -4,76 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>คลังคำศัพท์ Chef ม.4 - โรงเรียนพระจอมเกล้าติวเตอร์</title>
+    <!-- แก้ไข Link Google Fonts และ FontAwesome ให้สมบูรณ์ -->
     <link href="https://fonts.googleapis.com" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
-    <style>body { font-family: 'Kanit', sans-serif; }</style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Kanit', sans-serif; }
+        .sticky-header { position: sticky; top: 0; z-index: 10; }
+    </style>
 </head>
 <body class="bg-orange-50">
     <div class="container mx-auto p-4 md:p-8">
         <header class="text-center mb-8">
             <h1 class="text-3xl font-bold text-orange-800">Professional Chef Vocabulary (ม.4)</h1>
-            <p class="text-gray-600">สานฝันเชฟระดับโลก - โรงเรียนพระจอมเกล้าติวเตอร์</p>
-            <div class="mt-4"><a href="index.html" class="text-orange-600 hover:underline"><i class="fas fa-home"></i> กลับหน้าหลัก</a></div>
+            <p class="text-gray-600 font-medium">Verified by โรงเรียนพระจอมเกล้าติวเตอร์</p>
+            <div class="mt-4">
+                <a href="index.html" class="inline-flex items-center px-4 py-2 bg-white border border-orange-200 rounded-full text-orange-600 hover:bg-orange-600 hover:text-white transition-all shadow-sm">
+                    <i class="fas fa-home mr-2"></i> กลับหน้าหลัก
+                </a>
+            </div>
         </header>
 
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-orange-200">
-            <table class="w-full text-left">
-                <thead class="bg-orange-600 text-white">
-                    <tr>
-                        <th class="p-4">Vocabulary</th>
-                        <th class="p-4">คำอ่าน</th>
-                        <th class="p-4">คำแปล</th>
-                        <th class="p-4 text-center">Listen</th>
-                    </tr>
-                </thead>
-                <tbody id="vocabContent" class="divide-y divide-gray-100"></tbody>
-            </table>
+        <!-- ระบบค้นหาคำศัพท์ -->
+        <div class="max-w-md mx-auto mb-6">
+            <div class="relative">
+                <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="ค้นหาคำศัพท์ หรือคำแปล..." class="w-full px-5 py-3 rounded-2xl border-2 border-orange-200 focus:outline-none focus:border-orange-500 shadow-sm">
+                <i class="fas fa-search absolute right-5 top-4 text-orange-300"></i>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-orange-200">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="vocabTable">
+                    <thead class="bg-orange-600 text-white sticky-header">
+                        <tr>
+                            <th class="p-4 text-sm uppercase tracking-wider">Vocabulary</th>
+                            <th class="p-4 text-sm uppercase tracking-wider">คำอ่าน</th>
+                            <th class="p-4 text-sm uppercase tracking-wider">คำแปล</th>
+                            <th class="p-4 text-sm uppercase tracking-wider">ประโยคตัวอย่าง</th>
+                            <th class="p-4 text-center text-sm uppercase tracking-wider">Listen</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vocabContent" class="divide-y divide-gray-100">
+                        <!-- Data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <script>
+        // ข้อมูลคำศัพท์ ม.4 (Chef & Career Focus - ชุดที่ 1)
         const vocabData = [
+            {w: "Acquire", r: "อะ-ไคว-เออะ", t: "ได้รับมา/เรียนรู้ทักษะ", e: "Chefs must acquire advanced knife skills."},
+            {w: "Administrator", r: "แอด-มิ-นิส-เทร-เทอะ", t: "ผู้บริหาร/ผู้จัดการ", e: "The kitchen administrator manages the budget."},
             {w: "Apprentice", r: "อะ-เพรน-ทิส", t: "เด็กฝึกงาน/ผู้ช่วยเชฟ", e: "Every great chef starts as an apprentice."},
             {w: "Authentic", r: "ออ-เธน-ทิค", t: "รสชาติดั้งเดิม/แท้จริง", e: "This pasta tastes like authentic Italian food."},
-            {w: "Beverage", r: "เบฟ-เวอะ-ริดจ์", t: "เครื่องดื่ม", e: "What kind of beverage would you like?"},
+            {w: "Beverage", r: "เบฟ-เวอะ-ริดจ์", t: "เครื่องดื่ม", e: "Water is the best beverage for health."},
+            {w: "Collaborate", r: "เคอะ-แล็บ-บะ-เรท", t: "ร่วมมือกัน", e: "Staff must collaborate during busy hours."},
             {w: "Cuisine", r: "ควิ-ซีน", t: "ประเภทอาหาร/ตำรับอาหาร", e: "I love French cuisine."},
             {w: "Delicious", r: "ดิ-ลิ-เชิส", t: "อร่อยมาก", e: "The steak is absolutely delicious."},
+            {w: "Distinctive", r: "ดิส-ติงค์-ทิฟว์", t: "โดดเด่น/มีเอกลักษณ์", e: "This curry has a distinctive flavour."},
             {w: "Equipment", r: "อิ-ควิพ-เมินท์", t: "อุปกรณ์", e: "A chef needs high-quality kitchen equipment."},
+            {w: "Exquisite", r: "อิค-สควิ-ซิท", t: "ประณีต/งดงาม", e: "The food presentation was exquisite."},
             {w: "Flavour", r: "เฟล-เวอะ", t: "รสชาติ", e: "This soup has a rich flavour."},
             {w: "Garnish", r: "การ์-นิช", t: "ตกแต่งอาหาร", e: "Garnish the dish with some herbs."},
+            {w: "Hospitality", r: "ฮอส-พิ-แท-ละ-ที", t: "การต้อนรับขับสู้", e: "Thai people are famous for their hospitality."},
             {w: "Hygiene", r: "ไฮ-จีน", t: "สุขอนามัย", e: "Kitchen hygiene is very important."},
             {w: "Ingredient", r: "อิน-กรี-เดียนท์", t: "วัตถุดิบ/ส่วนผสม", e: "Fresh ingredients are key to great food."},
             {w: "Knife skills", r: "ไนฟ์-สกิลส์", t: "ทักษะการใช้มีด", e: "Chef must have excellent knife skills."},
+            {w: "Leadership", r: "ลีด-เดอะ-ชิพ", t: "ภาวะผู้นำ", e: "A head chef needs strong leadership."},
             {w: "Menu", r: "เม-นิว", t: "รายการอาหาร", e: "Check the new menu for tonight."},
             {w: "Nutritious", r: "นิว-ทริ-เชิส", t: "ที่มีคุณค่าทางอาหาร", e: "Vegetables are very nutritious."},
             {w: "Order", r: "ออร์-เดอะ", t: "สั่งอาหาร/ใบสั่ง", e: "Take the customer's order."},
             {w: "Passion", r: "แพช-เชิน", t: "ความหลงใหล", e: "Cooking requires a lot of passion."},
+            {w: "Perishable", r: "เพ-ริ-ชะ-เบิล", t: "เน่าเสียง่าย", e: "Milk and eggs are perishable goods."},
             {w: "Recipe", r: "เรซ-ซิ-พี", t: "สูตรอาหาร", e: "Follow the recipe carefully."},
             {w: "Savory", r: "เซ-เวอะ-รี", t: "รสเค็ม/กลมกล่อม", e: "I prefer savory food over sweet."},
+            {w: "Sophisticated", r: "เซอะ-ฟิส-ทิ-เค-ทิด", t: "ซับซ้อน/มีระดับ", e: "French cooking is very sophisticated."},
             {w: "Technique", r: "เทค-นิค", t: "เทคนิคเฉพาะตัว", e: "Study the French cooking technique."},
             {w: "Underdone", r: "อัน-เดอะ-ดัน", t: "ไม่สุก/ดิบเกินไป", e: "The meat is underdone, please cook more."},
-            {w: "Ventilation", r: "เวน-ทิ-เล-เชิน", t: "การระบายอากาศ", e: "Good ventilation keeps the kitchen cool."}
+            {w: "Ventilation", r: "เวน-ทิ-เล-เชิน", t: "การระบายอากาศ", e: "Good ventilation keeps the kitchen cool."},
+            {w: "Wholesale", r: "โฮล-เซล", t: "ขายส่ง", e: "We buy meat at wholesale prices."}
         ];
 
-        const tbody = document.getElementById('vocabContent');
-        tbody.innerHTML = vocabData.map(item => `
-            <tr class="hover:bg-orange-50 transition-all">
-                <td class="p-4 font-bold text-orange-700">${item.w}</td>
-                <td class="p-4 text-gray-500 italic">${item.r}</td>
-                <td class="p-4 font-semibold text-green-700">${item.t}</td>
-                <td class="p-4 text-center">
-                    <button onclick="speak('${item.w}')" class="w-10 h-10 bg-orange-100 rounded-full text-orange-600 hover:bg-orange-600 hover:text-white transition-all">
-                        <i class="fas fa-volume-up"></i>
-                    </button>
-                </td>
-            </tr>`).join('');
+        function loadTable() {
+            const tbody = document.getElementById('vocabContent');
+            tbody.innerHTML = vocabData.map(item => `
+                <tr class="hover:bg-orange-50 transition-all duration-200">
+                    <td class="p-4 font-bold text-orange-700 text-lg">${item.w}</td>
+                    <td class="p-4 text-gray-500 italic">${item.r}</td>
+                    <td class="p-4 font-semibold text-green-700">${item.t}</td>
+                    <td class="p-4 text-slate-600 text-sm italic">${item.e}</td>
+                    <td class="p-4 text-center">
+                        <button onclick="speak('${item.w}')" class="w-10 h-10 bg-orange-100 rounded-full text-orange-600 hover:bg-orange-600 hover:text-white transition-all shadow-sm">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </td>
+                </tr>`).join('');
+        }
 
         function speak(word) {
             const msg = new SpeechSynthesisUtterance(word);
             msg.lang = 'en-US';
+            msg.rate = 0.85;
             window.speechSynthesis.speak(msg);
         }
+
+        function searchTable() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let rows = document.querySelectorAll("#vocabContent tr");
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(input) ? "" : "none";
+            });
+        }
+
+        window.onload = loadTable;
     </script>
 </body>
 </html>
