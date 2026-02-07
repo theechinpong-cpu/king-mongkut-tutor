@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คลังคำศัพท์ Chef ม.4 - โรงเรียนพระจอมเกล้าติวเตอร์</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <style>body { font-family: 'Kanit', sans-serif; }</style>
+</head>
+<body class="bg-orange-50">
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-orange-800">Professional Chef Vocabulary (ม.4)</h1>
+            <p class="text-gray-600">สานฝันเชฟระดับโลก - โรงเรียนพระจอมเกล้าติวเตอร์</p>
+            <div class="mt-4"><a href="index.html" class="text-orange-600 hover:underline"><i class="fas fa-home"></i> กลับหน้าหลัก</a></div>
+        </header>
+
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-orange-200">
+            <table class="w-full text-left">
+                <thead class="bg-orange-600 text-white">
+                    <tr>
+                        <th class="p-4">Vocabulary</th>
+                        <th class="p-4">คำอ่าน</th>
+                        <th class="p-4">คำแปล</th>
+                        <th class="p-4 text-center">Listen</th>
+                    </tr>
+                </thead>
+                <tbody id="vocabContent" class="divide-y divide-gray-100"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const vocabData = [
+            {w: "Apprentice", r: "อะ-เพรน-ทิส", t: "เด็กฝึกงาน/ผู้ช่วยเชฟ", e: "Every great chef starts as an apprentice."},
+            {w: "Authentic", r: "ออ-เธน-ทิค", t: "รสชาติดั้งเดิม/แท้จริง", e: "This pasta tastes like authentic Italian food."},
+            {w: "Beverage", r: "เบฟ-เวอะ-ริดจ์", t: "เครื่องดื่ม", e: "What kind of beverage would you like?"},
+            {w: "Cuisine", r: "ควิ-ซีน", t: "ประเภทอาหาร/ตำรับอาหาร", e: "I love French cuisine."},
+            {w: "Delicious", r: "ดิ-ลิ-เชิส", t: "อร่อยมาก", e: "The steak is absolutely delicious."},
+            {w: "Equipment", r: "อิ-ควิพ-เมินท์", t: "อุปกรณ์", e: "A chef needs high-quality kitchen equipment."},
+            {w: "Flavour", r: "เฟล-เวอะ", t: "รสชาติ", e: "This soup has a rich flavour."},
+            {w: "Garnish", r: "การ์-นิช", t: "ตกแต่งอาหาร", e: "Garnish the dish with some herbs."},
+            {w: "Hygiene", r: "ไฮ-จีน", t: "สุขอนามัย", e: "Kitchen hygiene is very important."},
+            {w: "Ingredient", r: "อิน-กรี-เดียนท์", t: "วัตถุดิบ/ส่วนผสม", e: "Fresh ingredients are key to great food."},
+            {w: "Knife skills", r: "ไนฟ์-สกิลส์", t: "ทักษะการใช้มีด", e: "Chef must have excellent knife skills."},
+            {w: "Menu", r: "เม-นิว", t: "รายการอาหาร", e: "Check the new menu for tonight."},
+            {w: "Nutritious", r: "นิว-ทริ-เชิส", t: "ที่มีคุณค่าทางอาหาร", e: "Vegetables are very nutritious."},
+            {w: "Order", r: "ออร์-เดอะ", t: "สั่งอาหาร/ใบสั่ง", e: "Take the customer's order."},
+            {w: "Passion", r: "แพช-เชิน", t: "ความหลงใหล", e: "Cooking requires a lot of passion."},
+            {w: "Recipe", r: "เรซ-ซิ-พี", t: "สูตรอาหาร", e: "Follow the recipe carefully."},
+            {w: "Savory", r: "เซ-เวอะ-รี", t: "รสเค็ม/กลมกล่อม", e: "I prefer savory food over sweet."},
+            {w: "Technique", r: "เทค-นิค", t: "เทคนิคเฉพาะตัว", e: "Study the French cooking technique."},
+            {w: "Underdone", r: "อัน-เดอะ-ดัน", t: "ไม่สุก/ดิบเกินไป", e: "The meat is underdone, please cook more."},
+            {w: "Ventilation", r: "เวน-ทิ-เล-เชิน", t: "การระบายอากาศ", e: "Good ventilation keeps the kitchen cool."}
+        ];
+
+        const tbody = document.getElementById('vocabContent');
+        tbody.innerHTML = vocabData.map(item => `
+            <tr class="hover:bg-orange-50 transition-all">
+                <td class="p-4 font-bold text-orange-700">${item.w}</td>
+                <td class="p-4 text-gray-500 italic">${item.r}</td>
+                <td class="p-4 font-semibold text-green-700">${item.t}</td>
+                <td class="p-4 text-center">
+                    <button onclick="speak('${item.w}')" class="w-10 h-10 bg-orange-100 rounded-full text-orange-600 hover:bg-orange-600 hover:text-white transition-all">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </td>
+            </tr>`).join('');
+
+        function speak(word) {
+            const msg = new SpeechSynthesisUtterance(word);
+            msg.lang = 'en-US';
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+</body>
+</html>
