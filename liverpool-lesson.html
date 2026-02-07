@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liverpool Adventure - โรงเรียนพระจอมเกล้าติวเตอร์</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <style>
+        body { font-family: 'Kanit', sans-serif; }
+        .vocab-highlight { 
+            color: #e11d48; font-weight: bold; cursor: pointer; text-decoration: underline;
+            background: #fff1f2; padding: 2px 6px; rounded: 4px; transition: all 0.2s;
+        }
+        .vocab-highlight:hover { background: #ffe4e6; transform: scale(1.1); }
+        .drop-zone { min-width: 100px; height: 35px; border-bottom: 2px solid #ef4444; display: inline-block; vertical-align: middle; text-align: center; }
+        .draggable { cursor: grab; background: #fee2e2; border: 1px solid #f87171; padding: 4px 12px; border-radius: 999px; display: inline-block; margin: 4px; }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <div class="max-w-4xl mx-auto p-4 md:p-8">
+        <!-- Header Image -->
+        <div class="rounded-3xl overflow-hidden shadow-2xl mb-8 relative">
+            <img src="https://images.unsplash.com" alt="Football Team" class="w-full h-[400px] object-cover">
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-red-700 p-8 text-white">
+                <h1 class="text-4xl font-bold">The Magic of Liverpool 🔴</h1>
+                <p class="text-lg opacity-90">เรียนรู้คำศัพท์ไปกับทีมรักหงส์แดง</p>
+            </div>
+        </div>
+
+        <!-- Audio Button -->
+        <div class="flex justify-center mb-8">
+            <button onclick="readFullText()" class="bg-red-600 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:bg-red-700 flex items-center space-x-3 transition-all">
+                <i class="fas fa-play-circle text-2xl"></i>
+                <span>ฟังเสียงอ่านบทความทั้งหมด</span>
+            </button>
+        </div>
+
+        <!-- Story Content -->
+        <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl leading-relaxed text-xl text-slate-700 mb-12">
+            <p id="story-text">
+                Liverpool is a famous football team from <span class="vocab-highlight" onclick="showVocab('Abroad', 'อะ-บรอด', 'ต่างประเทศ')">Abroad</span>. 
+                Every player has a great <span class="vocab-highlight" onclick="showVocab('Ability', 'อะ-บิล-ลิ-ที', 'ความสามารถ')">Ability</span> to kick the ball. 
+                Before the match, players must <span class="vocab-highlight" onclick="showVocab('Adjust', 'อะ-จัสท์', 'ปรับตัว')">Adjust</span> to the new weather. 
+                They are never <span class="vocab-highlight" onclick="showVocab('Absent', 'แอบ-เซินท์', 'ขาดเรียน/ขาดซ้อม')">Absent</span> from training because they want to win. 
+                Football is a fun <span class="vocab-highlight" onclick="showVocab('Activity', 'แอค-ทิ-วิ-ที', 'กิจกรรม')">Activity</span> for everyone. 
+                Mo Salah can run <span class="vocab-highlight" onclick="showVocab('Across', 'อะ-ครอส', 'ข้าม/ผ่าน')">Across</span> the field very fast. 
+                He can kick the ball in an <span class="vocab-highlight" onclick="showVocab('Accurate', 'แอค-คิว-เรท', 'แม่นยำ')">Accurate</span> way to score a goal! 
+                Sometimes, players have an <span class="vocab-highlight" onclick="showVocab('Accident', 'แอค-ซิ-เดนท์', 'อุบัติเหตุ')">Accident</span> on the field, but they are brave. 
+                They must <span class="vocab-highlight" onclick="showVocab('Accept', 'แอค-เซพท์', 'ยอมรับ')">Accept</span> the rules of the game. 
+                When they grow up, some players might even become an <span class="vocab-highlight" onclick="showVocab('Accountant', 'อะ-เคาน์-เทินท์', 'นักบัญชี')">Accountant</span> after they retire!
+            </p>
+        </div>
+
+        <!-- Drag & Drop Exercise -->
+        <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl border-2 border-red-100">
+            <h2 class="text-3xl font-bold text-red-600 mb-6 text-center">🎯 เกมเติมคำศัพท์ (Drag & Drop)</h2>
+            <p class="text-center text-slate-500 mb-8">ลากคำศัพท์ด้านล่างไปวางในช่องว่างให้ถูกต้อง</p>
+
+            <!-- Word Bank -->
+            <div id="word-bank" class="flex flex-wrap justify-center mb-10 p-4 bg-slate-50 rounded-2xl">
+                <div class="draggable" draggable="true" ondragstart="drag(event)" id="word1">Ability</div>
+                <div class="draggable" draggable="true" ondragstart="drag(event)" id="word2">Abroad</div>
+                <div class="draggable" draggable="true" ondragstart="drag(event)" id="word3">Accurate</div>
+                <div class="draggable" draggable="true" ondragstart="drag(event)" id="word4">Across</div>
+                <div class="draggable" draggable="true" ondragstart="drag(event)" id="word5">Adjust</div>
+            </div>
+
+            <!-- Questions -->
+            <div class="space-y-6 text-lg">
+                <div class="flex items-center space-x-2">
+                    <span>1. Mo Salah has a great </span>
+                    <div class="drop-zone" ondrop="drop(event, 'Ability')" ondragover="allowDrop(event)"></div>
+                    <span> to score goals.</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span>2. Liverpool team comes from </span>
+                    <div class="drop-zone" ondrop="drop(event, 'Abroad')" ondragover="allowDrop(event)"></div>
+                    <span>.</span>
+                </div>
+            </div>
+
+            <div class="mt-10 flex space-x-4">
+                <button onclick="checkAnswers()" class="flex-1 bg-green-500 text-white py-4 rounded-xl font-bold hover:bg-green-600 transition-all shadow-lg">ตรวจคำตอบ</button>
+                <button onclick="window.location.reload()" class="bg-slate-200 text-slate-600 px-6 py-4 rounded-xl font-bold">เริ่มใหม่</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showVocab(word, reading, translation) {
+            alert(word + "\nคำอ่าน: " + reading + "\nคำแปล: " + translation);
+            speak(word);
+        }
+
+        function speak(text) {
+            const msg = new SpeechSynthesisUtterance(text);
+            msg.lang = 'en-US';
+            msg.rate = 0.8;
+            window.speechSynthesis.speak(msg);
+        }
+
+        function readFullText() {
+            const text = document.getElementById('story-text').innerText;
+            const msg = new SpeechSynthesisUtterance(text);
+            msg.lang = 'en-US';
+            msg.rate = 0.9;
+            window.speechSynthesis.speak(msg);
+        }
+
+        // Drag and Drop Logic
+        function allowDrop(ev) { ev.preventDefault(); }
+        function drag(ev) { ev.dataTransfer.setData("text", ev.target.innerText); ev.dataTransfer.setData("id", ev.target.id); }
+        function drop(ev, correctAnswer) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const id = ev.dataTransfer.getData("id");
+            ev.target.innerText = data;
+            ev.target.setAttribute("data-user-answer", data);
+            ev.target.setAttribute("data-correct", correctAnswer);
+            document.getElementById(id).style.opacity = "0.3";
+        }
+
+        function checkAnswers() {
+            const zones = document.querySelectorAll('.drop-zone');
+            zones.forEach(zone => {
+                const userAns = zone.getAttribute('data-user-answer');
+                const correctAns = zone.getAttribute('data-correct');
+                if (userAns === correctAns) {
+                    zone.style.background = "#dcfce7";
+                    zone.style.borderColor = "#22c55e";
+                } else {
+                    zone.style.background = "#fee2e2";
+                    zone.style.borderColor = "#ef4444";
+                    zone.innerText = "ผิด (เฉลย: " + correctAns + ")";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
