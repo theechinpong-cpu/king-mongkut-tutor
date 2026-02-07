@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บทที่ 1: การลำเลียงสารเข้า-ออกจากเซลล์</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1 { color: var(--primary-color); text-align: center; border-bottom: 3px solid var(--secondary-color); padding-bottom: 15px; }
+        h2 { color: var(--secondary-color); margin-top: 30px; border-left: 5px solid var(--secondary-color); padding-left: 15px; }
+        
+        .content-section { margin-bottom: 40px; }
+        .highlight-box { background: #e8f4fd; border-radius: 10px; padding: 20px; margin: 20px 0; border: 1px solid #d0e3f0; }
+        
+        /* Quiz Styles */
+        .quiz-section { border-top: 2px dashed #ccc; pt: 40px; }
+        .question-block { background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 25px; margin-bottom: 25px; transition: 0.3s; }
+        .question-block:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .options-list { list-style: none; padding: 0; }
+        .option {
+            padding: 12px 18px;
+            margin: 10px 0;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option:hover { background: #f8f9fa; border-color: var(--secondary-color); }
+        .option.correct { background: #d4edda; border-color: var(--success-color); color: #155724; font-weight: bold; }
+        .option.wrong { background: #f8d7da; border-color: var(--danger-color); color: #721c24; }
+        
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+        .tip-badge { background: #f39c12; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>สรุปบทเรียน: การลำเลียงสารเข้า-ออกจากเซลล์</h1>
+    
+    <div class="content-section">
+        <h2>1. โครงสร้างเยื่อหุ้มเซลล์ (Cell Membrane)</h2>
+        <p>เยื่อหุ้มเซลล์ทำหน้าที่เป็น <strong>เยื่อเลือกผ่าน (Semi-permeable membrane)</strong> ประกอบด้วยโครงสร้างหลักคือ Phospholipid Bilayer ที่เรียงตัวแบบ 2 ชั้น มีลักษณะเป็น "Fluid Mosaic Model" คือมีการเคลื่อนที่ลื่นไหลอยู่ตลอดเวลา</p>
+        <div class="highlight-box">
+            <strong>สารที่ผ่านได้เลย:</strong> สารขนาดเล็ก ไม่มีขั้ว หรือละลายในไขมันได้ดี (เช่น O₂, CO₂, วิตามิน A,D,E,K)<br>
+            <strong>สารที่ต้องผ่านโปรตีน:</strong> สารมีขั้ว ไอออน หรือโมเลกุลน้ำตาล/กรดอะมิโน
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>2. ประเภทการลำเลียงสาร</h2>
+        <h3>A. Passive Transport (ไม่ใช้พลังงาน ATP)</h3>
+        <ul>
+            <li><strong>Simple Diffusion:</strong> แพร่จากเข้มข้นมากไปน้อย ผ่านชั้นไขมันตรงๆ</li>
+            <li><strong>Facilitated Diffusion:</strong> แพร่ผ่านโปรตีนตัวพา (Carrier) หรือช่องโปรตีน (Channel) เร็วกว่าแบบปกติในช่วงแรก</li>
+            <li><strong>Osmosis:</strong> การเคลื่อนที่ของน้ำ จากน้ำมาก (สารละลายเจือจาง) ไปหาน้ำน้อย (สารละลายเข้มข้น)</li>
+        </ul>
+
+        <h3>B. Active Transport (ใช้พลังงาน ATP)</h3>
+        <p>เป็นการลำเลียงทวนความเข้มข้น (น้อยไปมาก) ต้องใช้ ATP และโปรตีนตัวพาเสมอ เช่น Na⁺/K⁺ Pump หรือการดูดสารกลับที่ไต</p>
+
+        <h3>C. Bulk Transport (การลำเลียงสารขนาดใหญ่)</h3>
+        <ul>
+            <li><strong>Exocytosis:</strong> ส่งสารออกนอกเซลล์ (เช่น หลั่งเอนไซม์)</li>
+            <li><strong>Endocytosis:</strong> นำสารเข้า (Phagocytosis = กิน, Pinocytosis = ดื่ม, Receptor-mediated = ใช้ตัวรับ)</li>
+        </ul>
+    </div>
+
+    <div class="quiz-section">
+        <h2>คลังข้อสอบจริง (30 ข้อ)</h2>
+        <div id="quiz-container"></div>
+    </div>
+</div>
+
+<script>
+const quizQuestions = [
+    {
+        q: "ข้อใดกล่าวถึงโครงสร้างเยื่อหุ้มเซลล์แบบ Fluid Mosaic Model ได้ถูกต้องที่สุด?",
+        options: ["โปรตีนอยู่นิ่งฟอสโฟลิพิดเคลื่อนที่", "ฟอสโฟลิพิดและโปรตีนสามารถเคลื่อนที่ไปมาได้", "มีเฉพาะลิพิดเท่านั้นที่เป็นองค์ประกอบ", "โครงสร้างแข็งตัวไม่เปลี่ยนแปลงรูปร่าง"],
+        correct: 1,
+        exp: "โครงสร้างมีความลื่นไหล (Fluid) ทั้งฟอสโฟลิพิดและโปรตีนแทรกตัวและเคลื่อนที่ได้",
+        tip: "Mosaic คือความหลากหลาย Fluid คือความลื่นไหล"
+    },
+    {
+        q: "การลำเลียงสารในข้อใดจัดเป็น Simple Diffusion?",
+        options: ["การนำกลูโคสเข้าเซลล์ตับ", "การแพร่ของก๊าซออกซิเจนเข้าสู่เซลล์", "การทำงานของ Na+/K+ Pump", "การหลั่งฮอร์โมนอินซูลิน"],
+        correct: 1,
+        exp: "ก๊าซ O2 มีขนาดเล็กและไม่มีขั้ว จึงแพร่ผ่านชั้นไขมันได้โดยตรง",
+        tip: "ก๊าซส่วนใหญ่ใช้ Simple Diffusion"
+    },
+    {
+        q: "เมื่อนำเซลล์เม็ดเลือดแดงแช่ในน้ำกลั่น เซลล์จะแตก ปรากฏการณ์นี้เรียกว่าอะไร?",
+        options: ["Plasmolysis", "Hemolysis", "Crenation", "Active Transport"],
+        correct: 1,
+        exp: "น้ำกลั่นเป็น Hypotonic น้ำจะออสโมซิสเข้าเซลล์สัตว์จนเต่งและแตก เรียกว่า Hemolysis",
+        tip: "Hemo = เลือด, Lysis = การแตก"
+    },
+    {
+        q: "สารละลายชนิดใดทำให้เซลล์พืชเกิดสภาวะ 'เหี่ยว' (Plasmolysis)?",
+        options: ["Isotonic", "Hypotonic", "Hypertonic", "น้ำกลั่น"],
+        correct: 2,
+        exp: "Hypertonic เข้มข้นสูงกว่าในเซลล์ ทำให้น้ำไหลออกจากเซลล์พืชจนเยื่อหุ้มหดตัว",
+        tip: "Hyper = เกิน/สูง (น้ำไหลออกไปหาที่สูงกว่า)"
+    },
+    {
+        q: "การลำเลียงสารแบบใดที่ต้องอาศัยพลังงาน ATP?",
+        options: ["Osmosis", "Simple Diffusion", "Active Transport", "Facilitated Diffusion"],
+        correct: 2,
+        exp: "Active Transport คือการลำเลียงสารจากความเข้มข้นต่ำไปสูง ซึ่งต้องฝืนธรรมชาติจึงใช้พลังงาน",
+        tip: "Active = ต้องออกแรง (ใช้พลังงาน)"
+    },
+    {
+        q: "อะมีบากินอาหารด้วยวิธีใด?",
+        options: ["Pinocytosis", "Phagocytosis", "Exocytosis", "Facilitated Diffusion"],
+        correct: 1,
+        exp: "อะมีบายื่นเท้าเทียม (Pseudopodium) ไปโอบล้อมของแข็งเข้าเซลล์เรียกว่า Phagocytosis",
+        tip: "Phago = กิน (Solid)"
+    },
+    {
+        q: "การหลั่งเอนไซม์ย่อยอาหารจากเซลล์ตับอ่อน ใช้วิธีใด?",
+        options: ["Endocytosis", "Exocytosis", "Active Transport", "Osmosis"],
+        correct: 1,
+        exp: "เอนไซม์เป็นโปรตีนขนาดใหญ่ ถูกส่งออกนอกเซลล์โดยถุง Vesicle เรียกว่า Exocytosis",
+        tip: "Exo = Exit (ออก)"
+    },
+    {
+        q: "ข้อใดคือลักษณะเด่นของ Facilitated Diffusion?",
+        options: ["ใช้พลังงาน ATP", "เคลื่อนที่จากความเข้มข้นต่ำไปสูง", "ต้องผ่านโปรตีนตัวพา", "ลำเลียงเฉพาะน้ำเท่านั้น"],
+        correct: 2,
+        exp: "เป็นการแพร่ที่อาศัยโปรตีน (ตัวพา/ช่อง) ช่วยให้สารผ่านเยื่อหุ้มได้ง่ายขึ้น",
+        tip: "Facilitate = อำนวยความสะดวก"
+    },
+    {
+        q: "Aquaporin คือช่องโปรตีนสำหรับลำเลียงสารใด?",
+        options: ["น้ำตาล", "โซเดียมไอออน", "น้ำ", "ก๊าซออกซิเจน"],
+        correct: 2,
+        exp: "Aquaporin คือช่องโปรตีนจำเพาะที่ช่วยให้น้ำผ่านเยื่อหุ้มเซลล์ได้เร็วขึ้น",
+        tip: "Aqua = น้ำ"
+    },
+    {
+        q: "การนำสารเข้าเซลล์โดยใช้ตัวรับ (Receptor) มีความสำคัญอย่างไร?",
+        options: ["ทำให้ได้รับสารปริมาณมาก", "มีความจำเพาะเจาะจงสูง", "ไม่ต้องใช้พลังงาน", "ผ่านชั้นไขมันได้โดยตรง"],
+        correct: 1,
+        exp: "วิธีนี้ต้องใช้ตัวรับจับกับสารที่จำเพาะเท่านั้นถึงจะนำเข้าได้",
+        tip: "Receptor = ตัวรับ (ต้องล็อกกันได้พอดี)"
+    },
+    // ... เพื่อความกระชับ ผมได้จัดเตรียมโครงสร้างข้อที่ 11-30 ในลักษณะเดียวกันให้ครบถ้วนในไฟล์ที่จะรันได้จริง ...
+    {
+        q: "11. การลำเลียงสารจากบริเวณเข้มข้นน้อยไปมากจัดเป็น?",
+        options: ["Simple Diffusion", "Active Transport", "Osmosis", "Facilitated Diffusion"],
+        correct: 1,
+        exp: "การเคลื่อนที่ทวน Gradient ต้องใช้ Active Transport",
+        tip: "น้อยไปมาก = ฝืนธรรมชาติ"
+    },
+    {
+        q: "12. Cholesterol ในเยื่อหุ้มเซลล์ทำหน้าที่อะไร?",
+        options: ["สร้างพลังงาน", "ควบคุมการไหลเวียนของเยื่อหุ้ม", "เป็นตัวรับสัญญาณ", "ใช้ส่งก๊าซ"],
+        correct: 1,
+        exp: "ช่วยรักษาความเสถียรและความลื่นไหลของเยื่อหุ้มเซลล์",
+        tip: "Cholesterol = Regulator"
+    },
+    {
+        q: "13. การแช่ผักเหี่ยวในน้ำแล้วกลับมาเต่งใหม่คือปรากฏการณ์ใด?",
+        options: ["Osmosis", "Diffusion", "Active Transport", "Phagocytosis"],
+        correct: 0,
+        exp: "น้ำจากภายนอกออสโมซิสเข้าสู่เซลล์ผักที่มีความเข้มข้นสูงกว่า",
+        tip: "น้ำเข้า = เต่ง"
+    },
+    {
+        q: "14. ข้อใดไม่ใช่ Passive Transport?",
+        options: ["Osmosis", "Simple Diffusion", "Facilitated Diffusion", "Na+/K+ Pump"],
+        correct: 3,
+        exp: "Na+/K+ Pump เป็นการปั๊มไอออนที่ใช้ ATP จึงเป็น Active Transport",
+        tip: "Pump = Active"
+    },
+    {
+        q: "15. การที่เซลล์เม็ดเลือดแดงเหี่ยวเมื่ออยู่ในน้ำเกลือเข้มข้นเรียกว่า?",
+        options: ["Crenation", "Hemolysis", "Turgor pressure", "Plasmolysis"],
+        correct: 0,
+        exp: "ในเซลล์สัตว์ การเหี่ยวเรียกว่า Crenation",
+        tip: "Animal = Crenation, Plant = Plasmolysis"
+    },
+    {
+        q: "16. เยื่อหุ้มเซลล์มีสมบัติเป็นอะไร?",
+        options: ["Permeable", "Semi-permeable", "Impermeable", "Solid"],
+        correct: 1,
+        exp: "ยอมให้สารบางอย่างผ่านได้ แต่บางอย่างผ่านไม่ได้",
+        tip: "เลือกผ่าน"
+    },
+    {
+        q: "17. ส่วนหัวของ Phospholipid มีคุณสมบัติอย่างไร?",
+        options: ["Hydrophobic", "Hydrophilic", "Lipophilic", "Non-polar"],
+        correct: 1,
+        exp: "ส่วนหัวชอบน้ำ เรียกว่า Hydrophilic",
+        tip: "Philic = ชอบ, Philia = รัก"
+    },
+    {
+        q: "18. ส่วนหางของ Phospholipid ทำมาจากสารใด?",
+        options: ["โปรตีน", "กรดไขมัน", "น้ำตาล", "คอเลสเตอรอล"],
+        correct: 1,
+        exp: "เป็นสายของ Fatty Acid ที่ไม่ชอบน้ำ",
+        tip: "หาง = ไขมัน"
+    },
+    {
+        q: "19. Pinocytosis เรียกอีกอย่างว่าอะไร?",
+        options: ["Cell eating", "Cell drinking", "Cell moving", "Cell talking"],
+        correct: 1,
+        exp: "เป็นการนำของเหลวเข้าสู่เซลล์โดยการเว้าของเยื่อหุ้ม",
+        tip: "Pino = ดื่ม"
+    },
+    {
+        q: "20. ข้อใดคือตัวอย่างของ Active Transport ในพืช?",
+        options: ["การดูดน้ำของราก", "การสะสมแร่ธาตุในรากทวนเข้มข้น", "การคายน้ำทางใบ", "การแพร่ของก๊าซ"],
+        correct: 1,
+        exp: "พืชต้องใช้พลังงานดูดแร่ธาตุที่มีน้อยในดินเข้าสู่รากที่มีแร่ธาตุมากกว่า",
+        tip: "แร่ธาตุ = Active (บ่อยครั้ง)"
+    },
+    {
+        q: "21. สารละลาย Isotonic คือ?",
+        options: ["เข้มข้นเท่าเซลล์", "เข้มข้นกว่าเซลล์", "เจือจางกว่าเซลล์", "ไม่มีสารละลาย"],
+        correct: 0,
+        exp: "Iso แปลว่า เท่ากัน สารละลายเข้มข้นเท่ากับภายในเซลล์",
+        tip: "Iso = Equal"
+    },
+    {
+        q: "22. สารโมเลกุลใหญ่ถูกนำเข้าเซลล์ผ่านวิธีใด?",
+        options: ["Diffusion", "Carrier Protein", "Vesicle", "Channel Protein"],
+        correct: 2,
+        exp: "สารขนาดใหญ่ต้องถูกบรรจุในถุง Vesicle เท่านั้น",
+        tip: "ใหญ่ = ใช้ถุง"
+    },
+    {
+        q: "23. พลังงาน ATP สร้างมาจากออร์แกเนลล์ใด?",
+        options: ["Ribosome", "Mitochondria", "Golgi Body", "Nucleus"],
+        correct: 1,
+        exp: "ไมโทคอนเดรียคือแหล่งผลิตพลังงานหลักที่ใช้ในการลำเลียงสารแบบ Active",
+        tip: "Powerhouse"
+    },
+    {
+        q: "24. การแพร่แบบใดมีจุดอิ่มตัว (Saturation)?",
+        options: ["Simple Diffusion", "Facilitated Diffusion", "Osmosis", "ไม่มีข้อถูก"],
+        correct: 1,
+        exp: "เมื่อโปรตีนตัวพาถูกใช้งานจนเต็ม อัตราการแพร่จะไม่เพิ่มขึ้นอีก",
+        tip: "ตัวพาเต็ม = อิ่มตัว"
+    },
+    {
+        q: "25. ข้อใดกล่าวผิดเกี่ยวกับ Active Transport?",
+        options: ["ใช้โปรตีน", "ใช้ ATP", "น้อยไปมาก", "มากไปน้อย"],
+        correct: 3,
+        exp: "Active Transport เคลื่อนที่จากน้อยไปมากเสมอ",
+        tip: "อ่านโจทย์ดีๆ 'ข้อใดผิด'"
+    },
+    {
+        q: "26. กระบวนการใดที่เม็ดเลือดขาวใช้กำจัดแบคทีเรีย?",
+        options: ["Osmosis", "Diffusion", "Phagocytosis", "Exocytosis"],
+        correct: 2,
+        exp: "การกินเชื้อโรคเข้าสู่เซลล์คือ Phagocytosis",
+        tip: "กินเชื้อโรค"
+    },
+    {
+        q: "27. เยื่อเลือกผ่านยอมให้สารประเภทใดผ่านได้ยากที่สุด?",
+        options: ["ก๊าซ", "สารมีประจุ (Ion)", "ไขมัน", "น้ำ"],
+        correct: 1,
+        exp: "ไอออนมีประจุสูงและไม่ละลายในไขมัน จึงผ่านชั้นฟอสโฟลิพิดไม่ได้",
+        tip: "ประจุ = ติดด่าน"
+    },
+    {
+        q: "28. Turgor Pressure เกิดขึ้นในสภาวะใด?",
+        options: ["Hypotonic", "Hypertonic", "Isotonic", "ไม่มีข้อถูก"],
+        correct: 0,
+        exp: "เมื่อน้ำเข้าเซลล์พืชจะเกิดแรงดันเต่งกดผนังเซลล์ไว้",
+        tip: "เต่ง = Turgor"
+    },
+    {
+        q: "29. การลำเลียงแบบใดมีความจำเพาะต่อสารสูงที่สุด?",
+        options: ["Simple Diffusion", "Facilitated Diffusion", "Phagocytosis", "Osmosis"],
+        correct: 1,
+        exp: "Facilitated ใช้โปรตีนตัวพาซึ่งออกแบบมาเพื่อจับกับรูปร่างสารบางชนิดเท่านั้น",
+        tip: "โปรตีน = จำเพาะ"
+    },
+    {
+        q: "30. ปัจจัยใดไม่มีผลต่ออัตราการแพร่?",
+        options: ["อุณหภูมิ", "ความต่างเข้มข้น", "ขนาดโมเลกุล", "สีของสาร"],
+        correct: 3,
+        exp: "สีของสารไม่มีผลต่อการเคลื่อนที่ของโมเลกุลผ่านเยื่อหุ้ม",
+        tip: "กายภาพมีผล สีไม่มีผล"
+    }
+];
+
+function initQuiz() {
+    const container = document.getElementById('quiz-container');
+    quizQuestions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.className = 'question-block';
+        div.innerHTML = `
+            <p><strong>ข้อที่ ${index + 1}:</strong> ${q.q}</p>
+            <div class="options-list">
+                ${q.options.map((opt, i) => `
+                    <div class="option" onclick="checkAnswer(this, ${index}, ${i})">${opt}</div>
+                `).join('')}
+            </div>
+            <div id="exp-${index}" class="explanation">
+                <strong>เฉลย:</strong> ${q.options[q.correct]}<br>
+                <strong>เหตุผล:</strong> ${q.exp}<br>
+                <span class="tip-badge">วิธีคิด/จำ</span> ${q.tip}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function checkAnswer(element, qIndex, choiceIndex) {
+    const parent = element.parentElement;
+    const options = parent.querySelectorAll('.option');
+    const correctIdx = quizQuestions[qIndex].correct;
+    
+    // Disable further clicks
+    options.forEach(opt => opt.style.pointerEvents = 'none');
+    
+    if (choiceIndex === correctIdx) {
+        element.classList.add('correct');
+    } else {
+        element.classList.add('wrong');
+        options[correctIdx].classList.add('correct');
+    }
+    
+    document.getElementById(`exp-${qIndex}`).style.display = 'block';
+}
+
+window.onload = initQuiz;
+</script>
+
+</body>
+</html>
