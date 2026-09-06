@@ -3,91 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบทดสอบ Present Simple Tense</title>
+    <title>แบบทดสอบ Present Simple Tense - พระจอมเกล้าติวเตอร์</title>
     <style>
-        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f9; }
-        .quiz-container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #333; }
-        .question { margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 6px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
-        input[type="text"] { width: calc(100% - 20px); padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
-        button { display: block; width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin-bottom: 10px; }
-        button:hover { background-color: #218838; }
-        .show-answer-btn { background-color: #17a2b8; }
-        .show-answer-btn:hover { background-color: #138496; }
-        .result { margin-top: 15px; padding: 10px; border-radius: 4px; display: none; }
-        .correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .incorrect { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .answer-key { margin-top: 10px; padding: 10px; background-color: #e2e3e5; color: #383d41; border-radius: 4px; display: none; }
-        .copy-box { background: #eee; padding: 15px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 20px; }
-        .copy-btn { background-color: #007bff; }
-        .copy-btn:hover { background-color: #0056b3; }
+        body { font-family: 'Sarabun', Tahoma, sans-serif; margin: 20px; background-color: #f0f2f5; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1, h2, h3 { color: #1a365d; }
+        .summary-box { background: #e6fffa; border-left: 5px solid #319795; padding: 20px; margin-bottom: 30px; border-radius: 6px; }
+        .question-card { background: #fff; border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 20px; border-radius: 8px; border-left: 4px solid #3182ce; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; font-weight: bold; margin-bottom: 4px; color: #4a5568; font-size: 14px; }
+        input[type="text"] { width: 100%; padding: 8px 12px; border: 1px solid #cbd5e0; border-radius: 4px; box-sizing: border-box; font-size: 15px; }
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        button.check-btn { background-color: #3182ce; color: white; border: none; padding: 8px 18px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+        button.check-btn:hover { background-color: #2b6cb0; }
+        button.reveal-btn { background-color: #718096; color: white; border: none; padding: 8px 18px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+        button.reveal-btn:hover { background-color: #4a5568; }
+        .feedback { margin-top: 12px; padding: 12px; border-radius: 6px; display: none; font-size: 14px; }
+        .feedback.correct { background-color: #c6f6d5; color: #22543d; border: 1px solid #9ae6b4; }
+        .feedback.incorrect { background-color: #fed7d7; color: #742a2a; border: 1px solid #feb2b2; }
+        .feedback.revealed { background-color: #edf2f7; color: #2d3748; border: 1px solid #cbd5e0; }
+        .explanation { margin-top: 6px; font-size: 13px; color: #2d3748; line-height: 1.5; }
+        #summary-panel { margin-top: 30px; padding: 20px; background: #fffaf0; border: 1px solid #feebc8; border-radius: 8px; }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <h1>ระบบข้อสอบ Present Simple Tense</h1>
-    <div class="copy-box">
-        <label>โค้ดสำหรับนำไปใช้งาน:</label>
-        <button class="copy-btn" onclick="copyCode()">คัดลอกโค้ดทั้งหมด</button>
+<div class="container">
+    <h1>ระบบแบบทดสอบวิชาภาษาอังกฤษ: พระจอมเกล้าติวเตอร์</h1>
+
+    <div class="summary-box">
+        <h2>สรุปเนื้อหาและเทคนิคการจำ: Present Simple Tense</h2>
+        <p>
+            <strong>Present Simple Tense</strong> ใช้บอกเล่าข้อเท็จจริงทั่วไป กฎธรรมชาติ และกิจวัตรประจำวัน โดยมีหัวใจสำคัญอยู่ที่ "ประธานของประโยค"
+        </p>
+        <p>
+            <strong>1. ประโยคบอกเล่า:</strong><br>
+            - ประธานเอกพจน์ (He, She, It, คนเดียว): <code>Subject + V.1 (s/es)</code><br>
+            - ประธานพหูพจน์ (I, You, We, They, หลายคน): <code>Subject + V.1 (รูปเดิม)</code>
+        </p>
+        <p>
+            <strong>2. ประโยคปฏิเสธ:</strong> ใช้กริยาช่วย <code>do / does + not</code> เข้ามาช่วยเสมอ<br>
+            - เอกพจน์: <code>Subject + does not (doesn't) + V.infinitive (ตัด s/es ทิ้ง)</code><br>
+            - พหูพจน์: <code>Subject + do not (don't) + V.infinitive</code>
+        </p>
+        <p>
+            <strong>3. ประโยคคำถาม (Yes/No Question):</strong> สลับกริยาช่วยมาไว้หน้าสุด<br>
+            - เอกพจน์: <code>Does + Subject + V.infinitive...?</code><br>
+            - พหูพจน์: <code>Do + Subject + V.infinitive...?</code>
+        </p>
+        <p>
+            <strong>เทคนิคและข้อควรระวัง:</strong><br>
+            - <strong>กฎริบ s:</strong> เมื่อมี <code>do</code> หรือ <code>does</code> เข้ามาในประโยคแล้ว กริยาแท้ต้องถูกริบ <em>s/es</em> คืน ให้กลับเป็นรูปกริยาเดิมทันที<br>
+            - <strong>เช็คลิสต์ห้ามลืม:</strong> ตรวจสอบทุกครั้งว่ามี <u>ประธาน (Subject)</u> อยู่หลัง Do/Does หรือไม่ และประโยคคำถามต้องลงท้ายด้วยเครื่องหมาย <code>?</code> เสมอ
+        </p>
     </div>
 
-    <div class="question">
-        <p><strong>โจทย์ประโยคบอกเล่า:</strong> He walks to school every day.</p>
-        <label for="q1-structure">1. โครงสร้างประโยค (Subject + Verb.s/es):</label>
-        <input type="text" id="q1-structure" placeholder="ใส่โครงสร้างประโยค">
-        <label for="q1-negative">2. ประโยคปฏิเสธ:</label>
-        <input type="text" id="q1-negative" placeholder="แต่งประโยคปฏิเสธ">
-        <label for="q1-question">3. ประโยคคำถาม (Yes/No Question):</label>
-        <input type="text" id="q1-question" placeholder="แต่งประโยคคำถาม">
-        
-        <button onclick="checkAnswer(1)">ตรวจคำตอบ</button>
-        <button class="show-answer-btn" onclick="showAnswer(1)">ดูเฉลย</button>
-        
-        <div id="q1-result" class="result"></div>
-        <div id="q1-answer" class="answer-key"></div>
+    <h2>แบบฝึกหัดเขียนแปลงประโยค (20 ข้อ - ตรวจรายข้อ)</h2>
+    <div id="quiz-list"></div>
+
+    <div id="summary-panel">
+        <h3>สรุปผลภาพรวม</h3>
+        <p id="total-score-display">คะแนนปัจจุบัน: 0 / 20 ข้อ</p>
+        <div id="overall-feedback">ทำแบบฝึกหัดและกดปุ่ม "ตรวจคำตอบ" ในแต่ละข้อเพื่อดูผลและคำอธิบาย</div>
     </div>
 </div>
 
 <script>
-    function copyCode() {
-        const fullCode = document.documentElement.outerHTML;
-        navigator.clipboard.writeText(fullCode).then(() => {
-            alert("คัดลอกโค้ดทั้งหมดเรียบร้อยแล้ว!");
-        }).catch(err => {
-            console.error("ไม่สามารถคัดลอกได้: ", err);
-        });
+const quizData = [
+    { id: 1, base: "He walks to school every day.", type: "singular", neg: "He does not walk to school every day.", q: "Does he walk to school every day?", exp: "ประธาน He (เอกพจน์) ต้องใช้ does not ในรูปปฏิเสธ และขึ้นต้นด้วย Does ในรูปคำถาม พร้อมตัด s ออกจากกริยา walk" },
+    { id: 2, base: "They play football in the park.", type: "plural", neg: "They do not play football in the park.", q: "Do they play football in the park?", exp: "ประธาน They (พหูพจน์) ใช้ do not / Do กริยา play คงรูปเดิม" },
+    { id: 3, base: "She reads a book every night.", type: "singular", neg: "She does not read a book every night.", q: "Does she read a book every night?", exp: "ประธาน She (เอกพจน์) ใช้ does not / Does และเปลี่ยนกริยา reads กลับเป็นรูปเดิมคือ read" },
+    { id: 4, base: "We live in a big house.", type: "plural", neg: "We do not live in a big house.", q: "Do we live in a big house?", exp: "ประธาน We ใช้ do not / Do กริยา live คงรูปเดิม" },
+    { id: 5, base: "The train arrives at ten.", type: "singular", neg: "The train does not arrive at ten.", q: "Does the train arrive at ten?", exp: "The train เป็นเอกพจน์ ใช้ does not / Does และตัด s ที่กริยา arrives ออก" },
+    { id: 6, base: "You speak English very well.", type: "plural", neg: "You do not speak English very well.", q: "Do you speak English very well?", exp: "ประธาน You จัดอยู่ในกลุ่มพหูพจน์ ใช้ do not / Do กริยา speak คงรูปเดิม" },
+    { id: 7, base: "The cat sleeps on the sofa.", type: "singular", neg: "The cat does not sleep on the sofa.", q: "Does the cat sleep on the sofa?", exp: "The cat ตัวเดียว เป็นเอกพจน์ ใช้ does not / Does กริยา sleeps ตัด s เป็น sleep" },
+    { id: 8, base: "John drives to work.", type: "singular", neg: "John does not drive to work.", q: "Does John drive to work?", exp: "John เอกพจน์ ใช้ does not / Does กริยา drives ตัด s ออก" },
+    { id: 9, base: "Students study hard for exams.", type: "plural", neg: "Students do not study hard for exams.", q: "Do students study hard for exams?", exp: "Students เติม s เป็นพหูพจน์ ใช้ do not / Do" },
+    { id: 10, base: "My mother cooks delicious food.", type: "singular", neg: "My mother does not cook delicious food.", q: "Does my mother cook delicious food?", exp: "My mother คนเดียว ใช้ does not / Does กริยา cooks ตัด s ออก" },
+    { id: 11, base: "Birds fly in the sky.", type: "plural", neg: "Birds do not fly in the sky.", q: "Do birds fly in the sky?", exp: "Birds พหูพจน์ ใช้ do not / Do กริยาคงรูปเดิม" },
+    { id: 12, base: "He washes his car on Sunday.", type: "singular", neg: "He does not wash his car on Sunday.", q: "Does he wash his car on Sunday?", exp: "He เอกพจน์ ใช้ does not / Does กริยา washes ตัด es ออกเหลือ wash" },
+    { id: 13, base: "I drink coffee in the morning.", type: "plural", neg: "I do not drink coffee in the morning.", q: "Do you drink coffee in the morning?", altQ: "Do I drink coffee in the morning?", exp: "ประธาน I ใช้ do not ในรูปปฏิเสธ และ Do you... หรือ Do I... ในรูปคำถาม" },
+    { id: 14, base: "She works in a bank.", type: "singular", neg: "She does not work in a bank.", q: "Does she work in a bank?", exp: "She เอกพจน์ ใช้ does not / Does กริยา works ตัด s ออก" },
+    { id: 15, base: "The sun rises in the east.", type: "singular", neg: "The sun does not rise in the east.", q: "Does the sun rise in the east?", exp: "The sun เอกพจน์ ใช้ does not / Does กริยา rises ตัด s ออก" },
+    { id: 16, base: "They watch movies on weekends.", type: "plural", neg: "They do not watch movies on weekends.", q: "Do they watch movies on weekends?", exp: "They พหูพจน์ ใช้ do not / Do" },
+    { id: 17, base: "Peter teaches English.", type: "singular", neg: "Peter does not teach English.", q: "Does Peter teach English?", exp: "Peter เอกพจน์ ใช้ does not / Does กริยา teaches ตัด es ออกเป็น teach" },
+    { id: 18, base: "We eat breakfast at seven.", type: "plural", neg: "We do not eat breakfast at seven.", q: "Do we eat breakfast at seven?", exp: "We พหูพจน์ ใช้ do not / Do" },
+    { id: 19, base: "The baby cries at night.", type: "singular", neg: "The baby does not cry at night.", q: "Does the baby cry at night?", exp: "The baby เอกพจน์ ใช้ does not / Does และเปลี่ยนรูป cries กลับมาเป็น cry" },
+    { id: 20, base: "You write poems.", type: "plural", neg: "You do not write poems.", q: "Do you write poems?", exp: "You ใช้ do not / Do กริยา write คงรูปเดิม" }
+];
+
+const resultsState = {};
+
+const quizContainer = document.getElementById('quiz-list');
+quizData.forEach((item, index) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question-card';
+    qDiv.innerHTML = `
+        <p><strong>ข้อที่ ${index + 1}:</strong> ประโยคบอกเล่าคือ: <em>"${item.base}"</em></p>
+        <div class="form-group">
+            <label>ประโยคปฏิเสธ (Negative):</label>
+            <input type="text" id="neg-${item.id}" placeholder="พิมพ์ประโยคปฏิเสธ...">
+        </div>
+        <div class="form-group">
+            <label>ประโยคคำถาม (Question):</label>
+            <input type="text" id="q-${item.id}" placeholder="พิมพ์ประโยคคำถาม...">
+        </div>
+        <div class="btn-group">
+            <button class="check-btn" onclick="checkSingleAnswer(${item.id})">ตรวจคำตอบข้อนี้</button>
+            <button class="reveal-btn" onclick="revealSingleAnswer(${item.id})">ดูเฉลยข้อนี้</button>
+        </div>
+        <div id="feedback-${item.id}" class="feedback"></div>
+    `;
+    quizContainer.appendChild(qDiv);
+});
+
+function cleanStr(str) {
+    return str.replace(/\s+/g, ' ').replace(/[.]$/, '').trim().toLowerCase();
+}
+
+function checkSingleAnswer(id) {
+    const item = quizData.find(q => q.id === id);
+    const userNeg = document.getElementById(`neg-${id}`).value.trim();
+    const userQ = document.getElementById(`q-${id}`).value.trim();
+    const feedbackDiv = document.getElementById(`feedback-${id}`);
+
+    const cleanUserNeg = cleanStr(userNeg).replace("doesn't", "does not").replace("don't", "do not");
+    const cleanTargetNeg = cleanStr(item.neg);
+
+    const cleanUserQ = cleanStr(userQ.replace('?', ''));
+    const cleanTargetQ = cleanStr(item.q.replace('?', ''));
+    const cleanAltQ = item.altQ ? cleanStr(item.altQ.replace('?', '')) : null;
+
+    const isNegCorrect = (cleanUserNeg === cleanTargetNeg);
+    const isQCorrect = (cleanUserQ === cleanTargetQ || (cleanAltQ && cleanUserQ === cleanAltQ));
+
+    feedbackDiv.style.display = 'block';
+
+    if (isNegCorrect && isQCorrect) {
+        feedbackDiv.className = 'feedback correct';
+        feedbackDiv.innerHTML = `
+            <strong>ถูกต้องยอดเยี่ยม!</strong>
+            <div class="explanation"><strong>คำอธิบาย:</strong> ${item.exp}</div>
+        `;
+        resultsState[id] = true;
+    } else {
+        feedbackDiv.className = 'feedback incorrect';
+        let detail = '';
+        if (!isNegCorrect) detail += `<br>- ประโยคปฏิเสธที่พิมพ์ยังไม่ถูกต้อง (เฉลย: ${item.neg})`;
+        if (!isQCorrect) detail += `<br>- ประโยคคำถามที่พิมพ์ยังไม่ถูกต้อง (เฉลย: ${item.q})`;
+        
+        feedbackDiv.innerHTML = `
+            <strong>ยังมีจุดผิดพลาด:</strong> ${detail}
+            <div class="explanation"><strong>คำอธิบาย:</strong> ${item.exp}</div>
+        `;
+        resultsState[id] = false;
     }
 
-    function checkAnswer(questionNumber) {
-        let resultDiv = document.getElementById(`q${questionNumber}-result`);
-        let isCorrect = false;
-        if (questionNumber === 1) {
-            let struct = document.getElementById('q1-structure').value.trim();
-            let neg = document.getElementById('q1-negative').value.trim();
-            let ques = document.getElementById('q1-question').value.trim();
-            if (struct === "Subject + Verb.s/es" && neg === "He does not walk to school every day." && ques === "Does he walk to school every day?") {
-                isCorrect = true;
-            }
-        }
-        resultDiv.style.display = "block";
-        if (isCorrect) {
-            resultDiv.className = "result correct";
-            resultDiv.innerHTML = "ถูกต้องครับ!";
-        } else {
-            resultDiv.className = "result incorrect";
-            resultDiv.innerHTML = "ยังไม่ถูกต้องครับ ลองตรวจสอบใหม่อีกครั้ง";
-        }
-    }
+    updateTotalScore();
+}
 
-    function showAnswer(questionNumber) {
-        let answerDiv = document.getElementById(`q${questionNumber}-answer`);
-        if (questionNumber === 1) {
-            answerDiv.innerHTML = "<strong>เฉลย:</strong><br>1. Subject + Verb.s/es<br>2. He does not walk to school every day.<br>3. Does he walk to school every day?";
-        }
-        answerDiv.style.display = "block";
-    }
+function revealSingleAnswer(id) {
+    const item = quizData.find(q => q.id === id);
+    const feedbackDiv = document.getElementById(`feedback-${id}`);
+    feedbackDiv.style.display = 'block';
+    feedbackDiv.className = 'feedback revealed';
+    feedbackDiv.innerHTML = `
+        <strong>เฉลยข้อที่ ${id}:</strong><br>
+        - ปฏิเสธ: ${item.neg}<br>
+        - คำถาม: ${item.q}<br>
+        <div class="explanation"><strong>คำอธิบาย:</strong> ${item.exp}</div>
+    `;
+}
+
+function updateTotalScore() {
+    const score = Object.values(resultsState).filter(Boolean).length;
+    document.getElementById('total-score-display').innerText = `คะแนนปัจจุบัน: ${score} / 20 ข้อ`;
+}
 </script>
 
 </body>
