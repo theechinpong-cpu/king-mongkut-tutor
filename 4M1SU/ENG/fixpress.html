@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบทดสอบ Present Simple Tense</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f9; }
+        .quiz-container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        .question { margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 6px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        input[type="text"] { width: calc(100% - 20px); padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+        button { display: block; width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin-bottom: 10px; }
+        button:hover { background-color: #218838; }
+        .show-answer-btn { background-color: #17a2b8; }
+        .show-answer-btn:hover { background-color: #138496; }
+        .result { margin-top: 15px; padding: 10px; border-radius: 4px; display: none; }
+        .correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .incorrect { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .answer-key { margin-top: 10px; padding: 10px; background-color: #e2e3e5; color: #383d41; border-radius: 4px; display: none; }
+        .copy-box { background: #eee; padding: 15px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 20px; }
+        .copy-btn { background-color: #007bff; }
+        .copy-btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>ระบบข้อสอบ Present Simple Tense</h1>
+    <div class="copy-box">
+        <label>โค้ดสำหรับนำไปใช้งาน:</label>
+        <button class="copy-btn" onclick="copyCode()">คัดลอกโค้ดทั้งหมด</button>
+    </div>
+
+    <div class="question">
+        <p><strong>โจทย์ประโยคบอกเล่า:</strong> He walks to school every day.</p>
+        <label for="q1-structure">1. โครงสร้างประโยค (Subject + Verb.s/es):</label>
+        <input type="text" id="q1-structure" placeholder="ใส่โครงสร้างประโยค">
+        <label for="q1-negative">2. ประโยคปฏิเสธ:</label>
+        <input type="text" id="q1-negative" placeholder="แต่งประโยคปฏิเสธ">
+        <label for="q1-question">3. ประโยคคำถาม (Yes/No Question):</label>
+        <input type="text" id="q1-question" placeholder="แต่งประโยคคำถาม">
+        
+        <button onclick="checkAnswer(1)">ตรวจคำตอบ</button>
+        <button class="show-answer-btn" onclick="showAnswer(1)">ดูเฉลย</button>
+        
+        <div id="q1-result" class="result"></div>
+        <div id="q1-answer" class="answer-key"></div>
+    </div>
+</div>
+
+<script>
+    function copyCode() {
+        const fullCode = document.documentElement.outerHTML;
+        navigator.clipboard.writeText(fullCode).then(() => {
+            alert("คัดลอกโค้ดทั้งหมดเรียบร้อยแล้ว!");
+        }).catch(err => {
+            console.error("ไม่สามารถคัดลอกได้: ", err);
+        });
+    }
+
+    function checkAnswer(questionNumber) {
+        let resultDiv = document.getElementById(`q${questionNumber}-result`);
+        let isCorrect = false;
+        if (questionNumber === 1) {
+            let struct = document.getElementById('q1-structure').value.trim();
+            let neg = document.getElementById('q1-negative').value.trim();
+            let ques = document.getElementById('q1-question').value.trim();
+            if (struct === "Subject + Verb.s/es" && neg === "He does not walk to school every day." && ques === "Does he walk to school every day?") {
+                isCorrect = true;
+            }
+        }
+        resultDiv.style.display = "block";
+        if (isCorrect) {
+            resultDiv.className = "result correct";
+            resultDiv.innerHTML = "ถูกต้องครับ!";
+        } else {
+            resultDiv.className = "result incorrect";
+            resultDiv.innerHTML = "ยังไม่ถูกต้องครับ ลองตรวจสอบใหม่อีกครั้ง";
+        }
+    }
+
+    function showAnswer(questionNumber) {
+        let answerDiv = document.getElementById(`q${questionNumber}-answer`);
+        if (questionNumber === 1) {
+            answerDiv.innerHTML = "<strong>เฉลย:</strong><br>1. Subject + Verb.s/es<br>2. He does not walk to school every day.<br>3. Does he walk to school every day?";
+        }
+        answerDiv.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
