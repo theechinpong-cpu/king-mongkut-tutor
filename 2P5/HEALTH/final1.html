@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ข้อสอบสุขศึกษา ป.5 ภาคเรียนที่ 1 - พระจอมเกล้าติวเตอร์</title>
+<style>
+  :root {
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --accent: #f59e0b;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  body { background-color: var(--bg); color: var(--text); line-height: 1.6; padding: 12px; }
+  .container { max-width: 1400px; margin: 0 auto; }
+  
+  /* Header & Summary Section */
+  header { background: linear-gradient(135deg, var(--primary), #1e40af); color: #fff; padding: 24px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  header h1 { font-size: 1.6rem; margin-bottom: 8px; font-weight: 700; }
+  header p { font-size: 0.95rem; opacity: 0.9; }
+  .lang-switch-btn { background: #fff; color: var(--primary); border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; float: right; transition: all 0.2s; }
+  .lang-switch-btn:hover { background: var(--accent); color: #fff; }
+
+  .summary-box { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .summary-box h2 { color: var(--primary); font-size: 1.3rem; margin-bottom: 16px; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
+  .summary-content { font-size: 0.95rem; color: #334155; }
+  .summary-content p { margin-bottom: 12px; text-align: justify; }
+  .highlight-card { background: #eff6ff; border-left: 5px solid var(--primary-light); padding: 14px 18px; border-radius: 0 12px 12px 0; margin: 16px 0; font-size: 0.9rem; }
+  .highlight-card strong { color: var(--primary); }
+
+  /* Main Workspace (2 Frames) */
+  .workspace { display: flex; flex-direction: column; gap: 20px; }
+  @media (min-width: 1024px) {
+    .workspace { display: grid; grid-template-columns: 7fr 3fr; align-items: start; }
+  }
+
+  /* Quiz Area (70%) */
+  .quiz-frame { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .quiz-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 10px; }
+  .status-badge { background: #e0e7ff; color: var(--primary); padding: 6px 14px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; }
+  .btn-reset { background: #fee2e2; color: var(--danger); border: 1px solid #fca5a5; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+  .btn-reset:hover { background: var(--danger); color: #fff; }
+
+  .question-item { border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; transition: border 0.2s; background: #fff; }
+  .question-item.answered-correct { border-color: var(--success); background: #f0fdf4; }
+  .question-item.answered-incorrect { border-color: var(--danger); background: #fef2f2; }
+  .q-title { font-weight: 600; font-size: 1rem; margin-bottom: 10px; color: var(--text); }
+  .q-clue { font-size: 0.8rem; color: #d97706; background: #fffbeb; padding: 4px 8px; border-radius: 6px; display: inline-block; margin-bottom: 12px; }
+  
+  .options-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px; }
+  .option-btn { text-align: left; background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; outline: none; }
+  .option-btn:hover:not(:disabled) { background: #e2e8f0; }
+  .option-btn.selected-correct { background: #dcfce7 !important; border-color: var(--success) !important; color: #166534; font-weight: 600; }
+  .option-btn.selected-wrong { background: #fee2e2 !important; border-color: var(--danger) !important; color: #991b1b; font-weight: 600; }
+  .option-btn:disabled { cursor: default; }
+
+  .feedback-box { font-size: 0.88rem; padding: 12px; border-radius: 8px; margin-top: 10px; display: none; }
+  .feedback-box.correct { background: #dcfce7; border: 1px solid #86efac; color: #14532d; display: block; }
+  .feedback-box.incorrect { background: #fee2e2; border: 1px solid #fca5a5; color: #7f1d1d; display: block; }
+  .tutor-tip { margin-top: 6px; font-size: 0.82rem; color: var(--primary); font-weight: 600; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 4px; }
+
+  /* Whiteboard Area (30%) */
+  .whiteboard-frame { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); position: sticky; top: 12px; }
+  .wb-title { font-weight: 700; font-size: 1rem; color: var(--primary); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .wb-toolbar { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+  .wb-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; }
+  .wb-btn.active { background: var(--primary-light); color: #fff; border-color: var(--primary-light); }
+  .color-dot { width: 18px; height: 18px; border-radius: 50%; display: inline-block; cursor: pointer; border: 2px solid transparent; }
+  .color-dot.selected { border-color: #000; }
+  #wb-canvas { border: 1px solid var(--border); border-radius: 8px; background: #ffffff; touch-action: none; cursor: crosshair; width: 100%; height: 380px; }
+
+  /* Results Analysis Modal / Section */
+  .results-card { background: var(--card); border: 2px solid var(--primary); border-radius: 16px; padding: 24px; margin-top: 24px; display: none; }
+  .score-header { text-align: center; margin-bottom: 20px; }
+  .score-header h3 { font-size: 1.5rem; color: var(--primary); }
+  .score-circle { font-size: 2.5rem; font-weight: 800; color: var(--accent); margin: 10px 0; }
+  .analysis-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media(min-width: 768px) { .analysis-grid { grid-template-columns: 1fr 1fr; } }
+  .ana-box { padding: 16px; border-radius: 12px; }
+  .ana-strengths { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .ana-strengths h4 { color: #15803d; margin-bottom: 8px; }
+  .ana-weakness { background: #fef2f2; border: 1px solid #fecaca; }
+  .ana-weakness h4 { color: #b91c1c; margin-bottom: 8px; }
+  .ana-list { font-size: 0.88rem; padding-left: 18px; }
+  .ana-list li { margin-bottom: 6px; }
+  .mock-sync { text-align: center; margin-top: 16px; font-size: 0.8rem; color: var(--text-muted); }
+
+  footer { text-align: center; margin-top: 40px; padding: 16px; font-size: 0.95rem; color: var(--text-muted); border-top: 1px solid var(--border); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <header>
+    <button class="lang-switch-btn" id="btn-lang" onclick="toggleLanguage()">Language: TH / EN</button>
+    <h1 id="ui-title">ข้อสอบสุขศึกษา ป.5 ปลายภาคเรียนที่ 1 (ระดับยาก / วิเคราะห์)</h1>
+    <p id="ui-subtitle">ตามหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน (สพฐ.) • 30 ข้อถ้วน พร้อมระบบวิเคราะห์จุดเด่น-จุดด้อย</p>
+  </header>
+
+  <!-- Summary Section (500+ Words Content Summary) -->
+  <section class="summary-box">
+    <h2 id="ui-sum-head">สรุปแก่นเนื้อหาสาระสำคัญ สุขศึกษา ป.5 (ภาคเรียนที่ 1)</h2>
+    <div class="summary-content" id="ui-sum-body">
+      <p>
+        <strong>1. ระบบย่อยอาหารและการดูดซึมสารอาหาร (Digestive System):</strong> ระบบย่อยอาหารทำหน้าที่แปรรูปโมเลกุลสารอาหารขนาดใหญ่ให้กลายเป็นโมเลกุลขนาดเล็กที่เซลล์สามารถดูดซึมและนำไปใช้ผลิตพลังงานและซ่อมแซมส่วนที่สึกหรอ โดยกระบวนการย่อยเริ่มต้นที่ <em>ช่องปาก</em> ซึ่งฟันทำหน้าที่บดเคี้ยวเชิงกล และต่อมน้ำลายหลั่งเอนไซม์ไทยาลิน (อะไมเลส) ย่อยแป้งสุกให้เป็นน้ำตาลมอลโทส จากนั้นอาหารจะถูกบีบรูดผ่านหลอดอาหารด้วยการเคลื่อนไหวแบบเพอริสตัลซิส (Peristalsis) สู่กระเพาะอาหาร ซึ่งหลั่งกรดไฮโดรคลอริกและเอนไซม์เพปซินเพื่อย่อยโปรตีน จากนั้นเข้าสู่ <em>ลำไส้เล็ก</em> ซึ่งเป็นจุดศูนย์กลางสำคัญที่สุดในการย่อยอาหารทุกประเภท (คาร์โบไฮเดรต โปรตีน และไขมัน) โดยอาศัยน้ำดีที่ผลิตจากตับและสะสมในถุงน้ำดีช่วยให้ไขมันแตกตัวเป็นอนุภาคเล็ก และเอนไซม์จากตับอ่อนกับลำไส้เล็กเอง บริเวณผนังลำไส้เล็กมีวิลไล (Villi) หนาแน่นเพื่อเพิ่มพื้นที่ผิวในการดูดซึม ส่วนกากอาหารที่เหลือจะเคลื่อนผ่านเข้าสู่ลำไส้ใหญ่ ซึ่งทำหน้าที่ดูดซึมน้ำ วิตามิน และแร่ธาตุกลับคืนสู่ร่างกาย ก่อนจะถูกขับออกมาเป็นอุจจาระผ่านทวารหนัก
+      </p>
+      <p>
+        <strong>2. ระบบขับถ่ายปัสสาวะและการรักษาสมดุลของร่างกาย (Excretory System):</strong> อวัยวะสำคัญคือ <em>ไต (Kidneys)</em> ทั้งสองข้าง ทำหน้าที่กรองของเสียที่มีไนโตรเจนเป็นองค์ประกอบ เช่น ยูเรีย กรดยูริก และครีอะทินิน ออกจากกระแสเลือด พร้อมทั้งควบคุมสมดุลน้ำ กรด-ด่าง และแร่ธาตุในร่างกาย เลือดที่ผ่านการกรองจะไหลกลับเข้าสู่ระบบหมุนเวียนเลือด ส่วนของเสียและน้ำส่วนเกินจะกลายเป็นปัสสาวะ ไหลผ่านท่อไต (Ureters) ลงไปสะสมในกระเพาะปัสสาวะ (Urinary Bladder) เมื่อมีปริมาณสะสม 200–400 มิลลิลิตร ผนังกล้ามเนื้อกระเพาะปัสสาวะจะบีบตัวส่งสัญญาณประสาทให้ขับปัสสาวะออกทางท่อปัสสาวะ (Urethra) พฤติกรรมที่ทำลายไตอย่างร้ายแรง ได้แก่ การรับประทานอาหารรสเค็มจัด การดื่มน้ำน้อย และการกลั้นปัสสาวะเป็นเวลานาน ซึ่งอาจก่อให้เกิดโรคนิ่วหรือกระเพาะปัสสาวะอักเสบได้
+      </p>
+      <p>
+        <strong>3. การเปลี่ยนแปลงทางเพศ สุขอนามัย และการปฏิบัติตน (Puberty & Sexual Health):</strong> ในวัยเรียนตอนปลาย (อายุ 10–12 ปี) ฮอร์โมนเพศเริ่มกระตุ้นการเจริญเติบโตอย่างรวดเร็ว (Growth Spurt) เพศชายเริ่มผลิตฮอร์โมนเทสโทสเตอโรน ทำให้เสียงแตกห้าว หัวไหล่กว้าง มีกลิ่นตัว และเกิดการฝันเปียก (Wet Dream) ส่วนเพศหญิงฮอร์โมนเอสโตรเจนและโพรเจสเทอโรนกระตุ้นให้มีเต้านมขยาย สะโพกผาย และมีประจำเดือน (Menstruation) ซึ่งเป็นผลจากการหลุดลอกของเยื่อบุมดลูกเมื่อไข่ไม่ได้รับการปฏิสนธิ การดูแลสุขอนามัยจึงต้องเคร่งครัด เช่น การเปลี่ยนผ้าอนามัยทุก 3–4 ชั่วโมง การทำความสะอาดอวัยวะเพศภายนอกอย่างถูกวิธีและซับให้แห้งเพื่อป้องกันเชื้อราและแบคทีเรีย
+      </p>
+      <p>
+        <strong>4. สัมพันธภาพในครอบครัว กลุ่มเพื่อน และทักษะการปฏิเสธ (Family, Friends & Assertiveness):</strong> ครอบครัวเป็นรากฐานของการพัฒนาบุคลิกภาพ ครอบครัวที่มีคุณภาพไม่ได้ขึ้นอยู่กับโครงสร้างรูปแบบเดียว (ครอบครัวเดี่ยว ครอบครัวขยาย หรือครอบครัวพ่อแม่เดี่ยว) แต่ขึ้นอยู่กับการให้ความอบอุ่น ความเข้าใจ และการเคารพซึ่งกันและกัน ในด้านกลุ่มเพื่อน วัยนี้ให้ความสำคัญกับการยอมรับจากกลุ่มเพื่อนสูง จึงต้องมี <em>ทักษะการปฏิเสธ (Assertive Communication)</em> เมื่อถูกชักชวนไปในทางที่เสี่ยงอันตราย โดยใช้หลักการ 3 ขั้นตอน: ปฏิเสธด้วยน้ำเสียงและท่าทางที่มั่นคงจริงจัง, บอกเหตุผลประกอบสั้นๆ และเสนอทางเลือกอื่นหรือผละออกจากสถานการณ์ทันที
+      </p>
+
+      <div class="highlight-card">
+        <strong>💡 กระบวนการคิด & เคล็ดลับการจำจากติวเตอร์ (Mnemonic Tricks):</strong>
+        <br>• <em>ระบบย่อย:</em> "ปากแป้ง - ท้องโปรตีน - ลำไส้เล็กคลีนทุกตัว - ตับผลิตน้ำดีช่วยแฟต (Fat) แตกกระจาย"
+        <br>• <em>ระบบขับถ่าย:</em> "ไตกรองของเสีย - ท่อไตลำเลียง - กระเพาะพักน้ำ - ท่อปัสสาวะส่งออก" จำง่ายๆ รสเค็มทำลายไต ดื่มน้ำใสไตแข็งแรง
+        <br>• <em>ทักษะการปฏิเสธ:</em> "ปฏิเสธชัดเจน - แสดงเหตุผล - เบนไปเรื่องอื่นหรือเดินหนี" หลีกเลี่ยงคำพูดด่าทอหรือลังเล
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Exam Workspace -->
+  <div class="workspace">
+    <!-- Left Frame: Quiz (70%) -->
+    <main class="quiz-frame">
+      <div class="quiz-controls">
+        <div class="status-badge" id="stat-progress">ความคืบหน้า: 0 / 30 ข้อ (0%)</div>
+        <div class="status-badge" id="stat-score" style="background:#fef3c7; color:#b45309;">คะแนน: 0 / 30</div>
+        <button class="btn-reset" onclick="resetQuiz()">🔄 เริ่มทำใหม่ (Reset)</button>
+      </div>
+
+      <div id="quiz-list">
+        <!-- Render questions via JavaScript -->
+      </div>
+
+      <!-- Results & Analysis Panel -->
+      <section class="results-card" id="results-panel">
+        <div class="score-header">
+          <h3 id="ui-res-title">สรุปผลการทดสอบสุขศึกษา ป.5</h3>
+          <div class="score-circle" id="final-score-text">0 / 30</div>
+          <p id="score-assessment" style="font-weight: 600;"></p>
+        </div>
+
+        <div class="analysis-grid">
+          <div class="ana-box ana-strengths">
+            <h4 id="ui-ana-str-title">🌟 จุดเด่นที่ทำได้ดีเยี่ยม (Strengths)</h4>
+            <ul class="ana-list" id="strengths-list"></ul>
+          </div>
+          <div class="ana-box ana-weakness">
+            <h4 id="ui-ana-weak-title">⚠️ จุดที่ต้องทบทวนเพิ่มเติม (Areas for Improvement)</h4>
+            <ul class="ana-list" id="weakness-list"></ul>
+          </div>
+        </div>
+
+        <div class="mock-sync" id="sync-msg">
+          ✓ ซิงค์สถานะการทำข้อสอบลง LocalStorage สำเร็จแล้ว
+        </div>
+      </section>
+    </main>
+
+    <!-- Right Frame: Whiteboard (30%) -->
+    <aside class="whiteboard-frame">
+      <div class="wb-title">
+        <span id="ui-wb-head">📝 กระดานทดความคิด</span>
+        <span style="font-size:0.75rem; color:var(--text-muted);">Whiteboard</span>
+      </div>
+      <div class="wb-toolbar">
+        <button class="wb-btn active" id="tool-pen" onclick="setWbTool('pen')">ปากกา</button>
+        <button class="wb-btn" id="tool-eraser" onclick="setWbTool('eraser')">ยางลบ</button>
+        <button class="wb-btn" onclick="clearWhiteboard()">ล้างกระดาน</button>
+        <div style="display:flex; align-items:center; gap:4px; margin-left:auto;">
+          <span class="color-dot selected" style="background:#000000;" onclick="setWbColor('#000000', this)"></span>
+          <span class="color-dot" style="background:#2563eb;" onclick="setWbColor('#2563eb', this)"></span>
+          <span class="color-dot" style="background:#dc2626;" onclick="setWbColor('#dc2626', this)"></span>
+        </div>
+      </div>
+      <canvas id="wb-canvas"></canvas>
+    </aside>
+  </div>
+
+  <footer>
+    เขียนโดย พระจอมเกล้าติวเตอร์
+  </footer>
+</div>
+
+<script>
+/* Question Bank: 30 Difficult & Analytical Items (Health Education Grade 5, Semester 1) */
+const rawQuestions = [
+  {
+    id: 1,
+    topic: "digestive",
+    q_th: "หากเด็กชายกล้าเคี้ยวข้าวสวยเปล่าๆ ไว้นานเกิน 2 นาที จะเริ่มรู้สึกว่ามีรสหวานจางๆ เกิดขึ้น ปรากฏการณ์นี้อธิบายด้วยหลักการทำงานของอวัยวะและสารชีวโมเลกุลใดได้อย่างแม่นยำที่สุด?",
+    q_en: "If a boy chews plain steamed rice for over 2 minutes, he starts tasting sweetness. Which organ and enzyme best explain this biological mechanism?",
+    clue_th: "คำใบ้: การย่อยแป้งเริ่มต้นตั้งแต่ก้าวแรกในปาก",
+    clue_en: "Clue: Starch digestion begins directly in the mouth.",
+    options_th: [
+      "ต่อมน้ำลายหลั่งเอนไซม์อะไมเลสมาย่อยแป้งสุกให้กลายเป็นน้ำตาลมอลโทส",
+      "กรดในน้ำลายทำปฏิกิริยาละลายกลูโคสอิสระที่มีอยู่ในเมล็ดข้าวทันที",
+      "ตับอ่อนส่งน้ำย่อยมาตามหลอดอาหารเพื่อสลายแป้งในช่องปาก",
+      "ฟันบดเคี้ยวจนพันธะเคมีของเส้นใยเซลลูโลสแตกออกเป็นน้ำตาลฟรักโทส"
+    ],
+    options_en: [
+      "Salivary glands secrete amylase to digest cooked starch into maltose sugar.",
+      "Salivary acid rapidly dissolves free glucose already present in rice grains.",
+      "The pancreas sends pancreatic juice up the esophagus to break down oral starch.",
+      "Mechanical chewing directly breaks cellulose bonds into fructose sugar molecules."
+    ],
+    correct: 0,
+    exp_th: "ในน้ำลายมีเอนไซม์ไทยาลินหรืออะไมเลส (Amylase) ซึ่งทำหน้าที่ย่อยคาร์โบไฮเดรตสายยาว (แป้งสุก) ให้กลายเป็นไดแซ็กคาไรด์โมเลกุลคู่ คือ น้ำตาลมอลโทส จึงทำให้รู้สึกหวาน",
+    exp_en: "Saliva contains salivary amylase (ptyalin), which breaks down cooked starches into the disaccharide maltose, producing a subtly sweet taste.",
+    tip: "จำไว้: ปากย่อย 'แป้ง' กลายเป็นน้ำตาลโมเลกุลคู่ ไม่ได้ย่อยโปรตีนหรือไขมัน!"
+  },
+  {
+    id: 2,
+    topic: "digestive",
+    q_th: "ผู้ป่วยที่ได้รับการผ่าตัดถุงน้ำดีออกไปเนื่องจากภาวะนิ่วอุดตัน แพทย์มักจะแนะนำให้ปรับเปลี่ยนพฤติกรรมการรับประทานอาหารอย่างไรจึงจะเหมาะสมที่สุด?",
+    q_en: "A patient whose gallbladder was surgically removed due to gallstones should follow which primary dietary recommendation?",
+    clue_th: "คำใบ้: ถุงน้ำดีเป็นเพียงอวัยวะกักเก็บน้ำดีที่สร้างมาจากตับ",
+    clue_en: "Clue: The gallbladder merely stores bile synthesized by the liver.",
+    options_th: [
+      "งดรับประทานอาหารประเภทโปรตีนจากเนื้อสัตว์ทุกชนิดโดยเด็ดขาด",
+      "ลดปริมาณอาหารที่มีไขมันสูงและแบ่งรับประทานไขมันมื้อละน้อยๆ",
+      "งดรับประทานแป้งและข้าวเพื่อป้องกันภาวะน้ำตาลในเลือดพุ่งสูง",
+      "ต้องรับประทานเฉพาะอาหารรสเค็มจัดเพื่อช่วยกระตุ้นการหลั่งน้ำดี"
+    ],
+    options_en: [
+      "Completely eliminate all animal dietary proteins from every meal.",
+      "Significantly reduce dietary fat and consume healthy fats only in small, divided portions.",
+      "Avoid all carbohydrates and grains to prevent glucose spikes in the blood.",
+      "Consume only highly salted foods to chemically trigger liver bile production."
+    ],
+    correct: 1,
+    exp_th: "ถุงน้ำดีทำหน้าที่เก็บและทำให้น้ำดีเข้มข้น เมื่อตัดทิ้ง ตับยังสร้างน้ำดีได้แต่ไม่มีที่พักคอยปล่อยปริมาณมากเมื่อกินของมัน ทำให้ย่อยไขมันได้ช้าและท้องอืด จึงต้องลดของมันและกินทีละน้อย",
+    exp_en: "The liver still synthesizes bile, but without a storage reservoir, large amounts of fat cannot be emulsified quickly. Thus, fat intake must be restricted and distributed.",
+    tip: "จำไว้: น้ำดี 'ไม่ได้สร้าง' ที่ถุงน้ำดี แต่ 'สร้างที่ตับ' เก็บที่ถุงน้ำดี ทำหน้าที่ emulsify ไขมัน"
+  },
+  {
+    id: 3,
+    topic: "digestive",
+    q_th: "บริเวณลำไส้เล็กมีโครงสร้างคล้ายนิ้วมือยื่นออกมาจำนวนมหาศาล เรียกว่า 'วิลไล' (Villi) โครงสร้างนี้ให้ประโยชน์ทางสรีรวิทยาต่อร่างกายอย่างไรมากที่สุด?",
+    q_en: "The interior lining of the small intestine possesses millions of finger-like projections called 'villi'. What is their primary physiological advantage?",
+    clue_th: "คำใบ้: เปรียบเหมือนผ้าขนหนูที่มีเส้นใยนูนขึ้นมาเพื่อซับน้ำได้ดีขึ้น",
+    clue_en: "Clue: Think of a terrycloth towel designed to maximize water absorption.",
+    options_th: [
+      "ช่วยเพิ่มพื้นที่ผิวสัมผัสในการดูดซึมสารอาหารเข้าสู่กระแสเลือดอย่างมีประสิทธิภาพสูงสุด",
+      "ทำหน้าที่สร้างกรดเข้มข้นเพื่อฆ่าเชื้อแบคทีเรียทั้งหมดที่เล็ดลอดมาจากกระเพาะ",
+      "เป็นตัวดักจับกากอาหารขนาดใหญ่ไม่ให้เคลื่อนตัวไปยังลำไส้ใหญ่เร็วเกินไป",
+      "ทำหน้าที่เป็นต่อมผลิตน้ำดีสำรองเมื่อตับทำงานหนักเกินพิกัด"
+    ],
+    options_en: [
+      "Extensively multiplying the surface area for highly efficient nutrient absorption into the blood.",
+      "Generating concentrated hydrochloric acid to eliminate bacteria escaping the stomach.",
+      "Acting as physical barriers to delay the bulk movement of feces into the large intestine.",
+      "Serving as an auxiliary gland to secrete emergency bile during liver overload."
+    ],
+    correct: 0,
+    exp_th: "วิลไล (Villi) และไมโครวิลไล ทำหน้าที่เพิ่มพื้นที่ผิวในการดูดซึมสารอาหารของผนังลำไส้เล็กขึ้นหลายร้อยเท่า ทำให้ร่างกายดูดซึมสารอาหารเข้าสู่หลอดเลือดและท่อน้ำเหลืองได้อย่างรวดเร็ว",
+    exp_en: "Villi and microvilli tremendously expand the luminal absorptive surface area, facilitating rapid nutrient diffusion into capillary and lymphatic networks.",
+    tip: "จำไว้: วิลไล = ขยายพื้นที่ดูดซึม ยิ่งพื้นที่มาก ยิ่งดูดซึมสารอาหารได้ไว"
+  },
+  {
+    id: 4,
+    topic: "digestive",
+    q_th: "พฤติกรรมในข้อใดส่งผลกระทบโดยตรงที่ทำให้เยื่อบุกระเพาะอาหารเกิดการอักเสบหรือเป็นแผลได้ง่ายที่สุด?",
+    q_en: "Which habit directly induces gastric mucosal irritation, predisposing an individual to peptic ulcers?",
+    clue_th: "คำใบ้: กรดหลั่งตามเวลา เมื่อไม่มีอาหารรองรับ กรดจะกัดกระเพาะตัวเอง",
+    clue_en: "Clue: Stomach acid secretes on schedule; without food, it attacks the mucosa.",
+    options_th: [
+      "การรับประทานอาหารไม่ตรงเวลาเป็นประจำ ร่วมกับภาวะความเครียดสะสม",
+      "การดื่มน้ำเปล่าสะอาดอุณหภูมิห้องวันละ 8 แก้วเป็นประจำทุกวัน",
+      "การเคี้ยวอาหารละเอียดช้าๆ ก่อนกลืนลงสู่หลอดอาหาร",
+      "การงดรับประทานขนมหวานที่มีน้ำตาลโมเลกุลเดี่ยวสูงในมื้อดึก"
+    ],
+    options_en: [
+      "Regularly skipping scheduled meal times coupled with chronic psychological stress.",
+      "Consistently drinking eight glasses of room-temperature clean water daily.",
+      "Chewing food slowly and thoroughly prior to swallowing into the esophagus.",
+      "Refraining from consuming high-sugar pastries late at night."
+    ],
+    correct: 0,
+    exp_th: "การรับประทานอาหารไม่ตรงเวลาทำให้กรดไฮโดรคลอริกและเพปซินที่หลั่งออกมากัดทำลายเยื่อบุผนังกระเพาะอาหารโดยไม่มีอาหารรองรับ ความเครียดยิ่งกระตุ้นให้ร่างกายหลั่งกรดเพิ่มขึ้นจนเกิดแผล",
+    exp_en: "Irregular meal timing exposes empty gastric lining to corrosive gastric acid and pepsin. Stress further stimulates excessive hyperchlorhydria, accelerating ulceration.",
+    tip: "จำไว้: ไม่ตรงเวลา + เครียด = กรดล้นกัดผนังกระเพาะ!"
+  },
+  {
+    id: 5,
+    topic: "digestive",
+    q_th: "เหตุใดผู้ที่รับประทานอาหารที่มีกากใย (Fiber) น้อย จึงมีความเสี่ยงสูงที่จะเกิดอาการท้องผูกและเป็นโรคริดสีดวงทวาร?",
+    q_en: "Why does a low-fiber diet drastically increase the incidence of constipation and hemorrhoids?",
+    clue_th: "คำใบ้: เส้นใยอาหารอุ้มน้ำและกระตุ้นการบีบตัวของลำไส้ใหญ่",
+    clue_en: "Clue: Dietary fiber holds water and stimulates colonic peristalsis.",
+    options_th: [
+      "กากอาหารจะแข็งตัว ขาดมวลอุ้มน้ำ ทำให้ลำไส้ใหญ่บีบรูดยากและต้องออกแรงเบ่งมาก",
+      "เส้นใยอาหารมีเอนไซม์ย่อยไขมัน เมื่อขาดไปทำให้ไขมันเกาะตัวกันแน่นที่ลำไส้ตรง",
+      "การขาดกากใยทำให้ตับหยุดผลิตน้ำดี ส่งผลให้ลำไส้ใหญ่ไม่ทำงานโดยสิ้นเชิง",
+      "ร่างกายจะดูดซึมโปรตีนไม่ได้ ทำให้กล้ามเนื้อหูรูดทวารหนักฝ่อตัวลงทันที"
+    ],
+    options_en: [
+      "Feces become compact and dry due to lack of water retention, necessitating excessive straining during peristalsis.",
+      "Fiber contains lipase; its absence allows undigested fats to solidify along the rectum.",
+      "Lack of fiber shuts down hepatic bile synthesis, causing complete colonic paralysis.",
+      "Inability to assimilate dietary protein directly causes sphincter muscular atrophy."
+    ],
+    correct: 0,
+    exp_th: "ใยอาหารช่วยอุ้มน้ำ เพิ่มปริมาตรของอุจจาระให้อ่อนนุ่ม และกระตุ้นการบีบตัวของลำไส้ใหญ่ เมื่อขาดใยอาหาร อุจจาระจะแห้ง แข็ง ขับถ่ายยาก ต้องออกแรงเบ่งจนหลอดเลือดดำที่ทวารหนักโป่งพองเป็นริดสีดวง",
+    exp_en: "Dietary fiber retains water to add bulk and soften stool, triggering healthy peristalsis. Without it, hard stools require high pressure to expel, leading to hemorrhoidal venous engorgement.",
+    tip: "จำไว้: ไฟเบอร์อุ้มน้ำ เพิ่มมวลอึ นุ่มลื่นขับถ่ายง่าย ไม่ต้องเบ่งแรง"
+  },
+  {
+    id: 6,
+    topic: "excretory",
+    q_th: "หน่วยไต (Nephron) ทำหน้าที่สำคัญทางสรีรวิทยาข้อใดต่อระบบหมุนเวียนเลือดและร่างกาย?",
+    q_en: "What is the critical physiological role executed by nephrons regarding blood circulation and systemic homeostasis?",
+    clue_th: "คำใบ้: เปรียบเสมือนเครื่องกรองน้ำประสิทธิภาพสูงในร่างกาย",
+    clue_en: "Clue: Think of the body's high-precision microscopic filtration apparatus.",
+    options_th: [
+      "กรองของเสียที่มีไนโตรเจนและปรับสมดุลน้ำ-แร่ธาตุในกระแสเลือด",
+      "ทำลายเม็ดเลือดแดงที่หมดอายุและสร้างน้ำดีส่งไปเก็บที่ถุงน้ำดี",
+      "สร้างฮอร์โมนอินซูลินเพื่อควบคุมระดับน้ำตาลกลูโคสในหลอดเลือดดำ",
+      "ย่อยสลายกรดไขมันให้กลายเป็นวิตามินเคเพื่อช่วยในการแข็งตัวของเลือด"
+    ],
+    options_en: [
+      "Filtering nitrogenous wastes and maintaining fluid-electrolyte homeostasis in systemic blood.",
+      "Destroying senescent red blood cells and synthesizing bile for gallbladder storage.",
+      "Producing insulin hormones to regulate circulating vascular glucose concentrations.",
+      "Catabolizing fatty acids into vitamin K to assist blood coagulation cascades."
+    ],
+    correct: 0,
+    exp_th: "หน่วยไต (Nephron) เป็นหน่วยทำงานพื้นฐานของไต ทำหน้าที่กรองของเสีย เช่น ยูเรีย กรดยูริก สารพิษ และดูดซึมสารที่มีประโยชน์ (น้ำ กลูโคส แร่ธาตุ) กลับคืน พร้อมควบคุมสมดุลน้ำและเกลือแร่",
+    exp_en: "Nephrons filter blood plasma, clearing nitrogenous metabolic byproducts (urea, uric acid) while reabsorbing essential solutes to regulate blood pressure, osmolarity, and pH.",
+    tip: "จำไว้: หน่วยไต = กรองยูเรีย + ปรับสมดุลน้ำเกลือแร่"
+  },
+  {
+    id: 7,
+    topic: "excretory",
+    q_th: "บุคคลที่มีพฤติกรรมชอบ 'กลั้นปัสสาวะ' เป็นเวลานานและดื่มน้ำน้อย มีความเสี่ยงต่อการเกิดโรคใดมากที่สุด?",
+    q_en: "A person who habitually delays urination and consumes inadequate fluid is most vulnerable to which condition?",
+    clue_th: "คำใบ้: แบคทีเรียย้อนกลับขึ้นไปแบ่งตัวในกระเพาะพักน้ำปัสสาวะ",
+    clue_en: "Clue: Bacteria migrate retrogradely and multiply inside the reservoir bladder.",
+    options_th: [
+      "โรคกระเพาะปัสสาวะอักเสบและการตกตะกอนของผลึกนิ่ว",
+      "โรคแผลในลำไส้เล็กส่วนต้นและกรดไหลย้อนเรื้อรัง",
+      "ภาวะหลอดลมอักเสบเฉียบพลันจากสารยูเรียตกค้าง",
+      "โรคตับแข็งเนื่องจากน้ำดีไหลย้อนเข้าไปในกระเพาะอาหาร"
+    ],
+    options_en: [
+      "Cystitis (urinary bladder infection) and development of urolithiasis (kidney/bladder stones).",
+      "Duodenal ulcer disease accompanied by severe chronic gastroesophageal reflux.",
+      "Acute bronchitis induced by high systemic blood urea nitrogen toxicity.",
+      "Hepatic cirrhosis caused by retrograde bile leakage into the gastric chamber."
+    ],
+    correct: 0,
+    exp_th: "การกลั้นปัสสาวะทำให้เชื้อแบคทีเรียในท่อปัสสาวะย้อนกลับไปเจริญเติบโตในกระเพาะปัสสาวะจนอักเสบ (Cystitis) และการดื่มน้ำน้อยทำให้สารแคลเซียม/ออกซาเลตตกตะกอนกลายเป็นก้อนนิ่วได้ง่าย",
+    exp_en: "Urinary retention allows bacterial colonization in the bladder epithelium, causing cystitis. Concentrated urine also accelerates crystallization of mineral salts into stones.",
+    tip: "จำไว้: กลั้นฉี่ = เชื้อโรคสะสมอักเสบ + ตกตะกอนเป็นนิ่ว"
+  },
+  {
+    id: 8,
+    topic: "excretory",
+    q_th: "หากสังเกตพบว่าปัสสาวะมีสีเหลืองเข้มจัดและมีกลิ่นฉุนรุนแรงในวันที่อากาศร้อนจัด สภาพนี้บ่งบอกถึงสิ่งใดและควรแก้ไขอย่างไร?",
+    q_en: "If urine appears dark amber with a pungent smell on a very hot day, what does this signify and what is the corrective measure?",
+    clue_th: "คำใบ้: ร่างกายเสียเหงื่อมาก ไตจึงต้องดูดน้ำกลับเพื่อสงวนน้ำไว้",
+    clue_en: "Clue: Heavy sweating causes the kidneys to aggressively reabsorb water.",
+    options_th: [
+      "ร่างกายอยู่ในภาวะขาดน้ำ (Dehydration) ไตจึงดูดน้ำกลับ ควรดื่มน้ำสะอาดเพิ่มขึ้นทันที",
+      "ไตหยุดทำงานโดยสิ้นเชิง ควรรับประทานยาปฏิชีวนะขับปัสสาวะปริมาณสูง",
+      "ร่างกายได้รับโปรตีนน้อยเกินไป ควรดื่มน้ำอัดลมและเครื่องดื่มเกลือแร่เข้มข้น",
+      "เป็นสัญญาณของโรคเบาหวานระยะรุนแรง ควรงดดื่มน้ำเปล่าทุกชนิดชั่วคราว"
+    ],
+    options_en: [
+      "Systemic dehydration where kidneys conserve water; one should immediately rehydrate with clean water.",
+      "End-stage renal failure requiring high-dose diuretic antibiotics immediately.",
+      "Extreme protein deficiency; the patient should consume high-sugar carbonated sodas.",
+      "A telltale marker of advanced diabetes requiring complete restriction of fluid intake."
+    ],
+    correct: 0,
+    exp_th: "เมื่อร่างกายสูญเสียน้ำทางเหงื่อ ไตจะตอบสนองด้วยการดูดน้ำกลับเข้าสู่กระแสเลือด ทำให้ปัสสาวะมีความเข้มข้นสูง สีจึงเข้มและมีกลิ่นยูเรียฉุน แก้ไขได้โดยการจิบน้ำสะอาดเพิ่มขึ้น",
+    exp_en: "Heat and sweating induce dehydration. The posterior pituitary releases ADH, triggering renal water reabsorption, concentrating urinary pigments and urea.",
+    tip: "จำไว้: ฉี่เหลืองเข้มจัด = น้ำในตัวเหลือน้อย รีบเติมน้ำสะอาดด่วน!"
+  },
+  {
+    id: 9,
+    topic: "excretory",
+    q_th: "การบริโภคบะหมี่กึ่งสำเร็จรูป อาหารแปรรูป และขนมกรุบกรอบรสเค็มจัดเป็นประจำ ส่งผลเสียระยะยาวต่ออวัยวะใดในระบบขับถ่ายมากที่สุด?",
+    q_en: "Frequent consumption of instant noodles, processed foods, and heavily salted snacks creates severe long-term strain on which excretory organ?",
+    clue_th: "คำใบ้: โซเดียมสูงทำให้ความดันเลือดพุ่งและหน่วยกรองทำงานหนักเกิน",
+    clue_en: "Clue: Excessive sodium elevates vascular hydrostatic pressure across the renal filter.",
+    options_th: [
+      "ไต เนื่องจากต้องรับภาระขับโซเดียมส่วนเกินและความดันในหลอดเลือดฝอยไตสูงขึ้น",
+      "กระเพาะปัสสาวะ เนื่องจากเกลือโซเดียมจะกัดกร่อนกล้ามเนื้อหูรูดจนฉีกขาด",
+      "ท่อไต เนื่องจากโซเดียมจะดูดซึมกลูโคสจนท่อไตตีบตันอย่างถาวร",
+      "ปอด เนื่องจากเกลือโซเดียมจะไประเหยเป็นไออุดกั้นถุงลมปอด"
+    ],
+    options_en: [
+      "The kidneys, as glomeruli face elevated filtration pressures to excrete excessive sodium.",
+      "The urinary bladder, because sodium chloride chemically dissolves the detrusor sphincter.",
+      "The ureters, because sodium reabsorbs sugars leading to irreversible ureteral lumen stenosis.",
+      "The lungs, because sodium ions evaporate directly into alveoli causing obstructive failure."
+    ],
+    correct: 0,
+    exp_th: "โซเดียมปริมาณสูงทำให้ร่างกายต้องดึงน้ำไว้ในหลอดเลือด นำไปสู่ความดันโลหิตสูง ซึ่งจะทำลายกลุ่มหลอดเลือดฝอยโกลเมอรูลัสในไต ทำให้หน่วยไตเสื่อมสภาพจนกลายเป็นโรคไตวายเรื้อรัง",
+    exp_en: "High sodium intake elevates intravascular fluid volume and blood pressure, causing hyperfiltration damage and glomerulosclerosis, culminating in chronic kidney disease (CKD).",
+    tip: "จำไว้: เค็มจัด = โซเดียมล้น ความดันพุ่ง ไตพังก่อนวัยอันควร"
+  },
+  {
+    id: 10,
+    topic: "excretory",
+    q_th: "เส้นทางการไหลของน้ำปัสสาวะตั้งแต่จุดเริ่มต้นของการสร้างจนถึงการขับออกจากร่างกาย เรียงลำดับได้อย่างถูกต้องตามข้อใด?",
+    q_en: "Which sequence correctly illustrates the anatomical flow of urine from synthesis to final excretion?",
+    clue_th: "คำใบ้: เริ่มจากโรงงานกรองเลือด -> ท่อลำเลียง -> อ่างเก็บน้ำ -> ประตูปล่อยออก",
+    clue_en: "Clue: Filter organ -> transit tube -> storage reservoir -> terminal exit duct.",
+    options_th: [
+      "ไต -> ท่อไต -> กระเพาะปัสสาวะ -> ท่อปัสสาวะ",
+      "ไต -> กระเพาะปัสสาวะ -> ท่อไต -> ท่อปัสสาวะ",
+      "กระเพาะปัสสาวะ -> ไต -> ท่อปัสสาวะ -> ท่อไต",
+      "ท่อปัสสาวะ -> ท่อไต -> กระเพาะปัสสาวะ -> ไต"
+    ],
+    options_en: [
+      "Kidneys -> Ureters -> Urinary Bladder -> Urethra",
+      "Kidneys -> Urinary Bladder -> Ureters -> Urethra",
+      "Urinary Bladder -> Kidneys -> Urethra -> Ureters",
+      "Urethra -> Ureters -> Urinary Bladder -> Kidneys"
+    ],
+    correct: 0,
+    exp_th: "ปัสสาวะถูกสร้างที่ 'ไต' (Kidneys) ไหลลงมาตาม 'ท่อไต' (Ureters) ทั้งสองข้าง ไปสะสมใน 'กระเพาะปัสสาวะ' (Urinary Bladder) แล้วขับออกทาง 'ท่อปัสสาวะ' (Urethra)",
+    exp_en: "Urine originates in nephrons within the kidneys, flows via ureters into the urinary bladder for storage, and is eliminated externally through the urethra.",
+    tip: "จำสูตรลัด: ไตสร้าง -> ท่อไตส่ง -> กระเพาะเก็บ -> ท่อปัสสาวะปล่อย (Ureter มาก่อน Urethra)"
+  },
+  {
+    id: 11,
+    topic: "puberty",
+    q_th: "การเกิด 'ฝันเปียก' (Nocturnal Emission) ในเด็กชายวัยรุ่นชั้น ป.5–ป.6 ทางสุขศึกษามีคำอธิบายที่ถูกต้องตามธรรมชาติอย่างไร?",
+    q_en: "What is the accurate physiological explanation for 'wet dreams' (nocturnal emissions) in adolescent boys?",
+    clue_th: "คำใบ้: ระบบสืบพันธุ์เริ่มผลิตอสุจิ เมื่อสะสมมากเกินจึงต้องระบายออกตามธรรมชาติ",
+    clue_en: "Clue: The reproductive system produces sperm; surplus volume is naturally released.",
+    options_th: [
+      "เป็นกลไกตามธรรมชาติของร่างกายในการขับอสุจิส่วนเกินที่ผลิตขึ้นเมื่อเข้าสู่วัยเจริญพันธุ์",
+      "เป็นอาการผิดปกติของการติดเชื้อแบคทีเรียรุนแรงในท่อทางเดินปัสสาวะ",
+      "เกิดจากการขาดสารอาหารประเภทโปรตีนและแคลเซียมอย่างเฉียบพลันในเวลานอน",
+      "เป็นความผิดปกติทางจิตเวชที่ต้องได้รับการรักษาด้วยฮอร์โมนสังเคราะห์ทันที"
+    ],
+    options_en: [
+      "A normal biological mechanism discharging excess semen synthesized upon reaching puberty.",
+      "An acute pathological bacterial infection residing within the male urethral canal.",
+      "An acute deficiency of dietary protein and calcium occurring during sleep cycles.",
+      "A psychological disorder requiring urgent intervention with synthetic hormone therapy."
+    ],
+    correct: 0,
+    exp_th: "ฝันเปียกเป็นปรากฏการณ์ทางสรีรวิทยาปกติของเพศชายเมื่อเข้าสู่วัยเจริญพันธุ์ ฮอร์โมนเทสโทสเตอโรนกระตุ้นให้อัณฑะสร้างอสุจิ เมื่อน้ำอสุจิสะสมเต็มที่ ร่างกายจะหลั่งออกมาระหว่างหลับ",
+    exp_en: "Nocturnal emission is a completely natural physiological phenomenon in males during puberty, releasing accumulated semen as testosterone stimulates continuous spermatogenesis.",
+    tip: "จำไว้: ฝันเปียก = ธรรมชาติของวัยเจริญพันธุ์ ไม่ใช่โรค ไม่ใช่ความผิดบาป"
+  },
+  {
+    id: 12,
+    topic: "puberty",
+    q_th: "ข้อใดอธิบายสาเหตุของการเกิด 'ประจำเดือน' (Menstruation) ในเพศหญิงได้อย่างถูกต้องตามหลักสรีรวิทยา?",
+    q_en: "Which statement accurately describes the physiological etiology of menstruation in adolescent females?",
+    clue_th: "คำใบ้: ผนังมดลูกเตรียมพร้อมรอรับการฝังตัว แต่เมื่อไข่ไม่ถูกปฏิสนธิจึงหลุดลอก",
+    clue_en: "Clue: The uterine wall prepares for implantation; if unfertilized, the lining sheds.",
+    options_th: [
+      "เยื่อบุโพรงมดลูกที่หนาตัวเพื่อรอการฝังตัวของไข่เกิดการฝ่อสลายและหลุดลอกออกมาเมื่อไม่มีการปฏิสนธิ",
+      "เลือดเสียและสารพิษในตับถูกขับออกผ่านทางช่องคลอดทุกๆ รอบ 28 วัน",
+      "การฉีกขาดของรังไข่เนื่องจากไข่ตกมีขนาดใหญ่เกินกว่าท่อนำไข่จะรับได้",
+      "การบีบตัวของกระเพาะปัสสาวะเพื่อขับของเสียที่มีไนโตรเจนออกมาทางช่องคลอด"
+    ],
+    options_en: [
+      "The thickened endometrial lining of the uterus breaks down and sheds when the ovum is not fertilized.",
+      "Hepatic metabolic toxins and venous wastes are cyclically cleared through the vagina every 28 days.",
+      "Ovarian wall rupture resulting from an abnormally large oocyte getting jammed in fallopian tubes.",
+      "Detrusor muscular contraction flushing nitrogenous wastes directly into the vaginal vault."
+    ],
+    correct: 0,
+    exp_th: "ในแต่ละรอบเดือน เยื่อบุโพรงมดลูก (Endometrium) จะหนาตัวขึ้นเพื่อเตรียมรับการฝังตัวของตัวอ่อน หากไข่ไม่ได้รับการผสมกับอสุจิ ระดับฮอร์โมนจะลดลง ทำให้เยื่อบุนี้หลุดลอกพร้อมเลือดกลายเป็นประจำเดือน",
+    exp_en: "During each cycle, the endometrium vascularizes and thickens for pregnancy. If fertilization does not occur, hormone levels drop, causing endometrial necrosis and shedding as menses.",
+    tip: "จำไว้: ไข่ไม่เจออสุจิ -> รังรอมดลูกสลาย -> กลายเป็นประจำเดือน"
+  },
+  {
+    id: 13,
+    topic: "puberty",
+    q_th: "การดูแลสุขอนามัยของเด็กหญิงขณะมีประจำเดือน ข้อใดถือเป็นแนวทางปฏิบัติที่ถูกต้องและปลอดภัยที่สุดในการป้องกันการติดเชื้อ?",
+    q_en: "Which menstrual hygiene practice is safest and most effective in preventing reproductive tract infections in females?",
+    clue_th: "คำใบ้: ความชื้นสะสมเป็นแหล่งเพาะพันธุ์เชื้อโรค ต้องเปลี่ยนเป็นประจำ",
+    clue_en: "Clue: Stagnant moisture breeds microbes; frequent replacement is imperative.",
+    options_th: [
+      "เปลี่ยนผ้าอนามัยทุกๆ 3-4 ชั่วโมง หรือเมื่อรู้สึกชุ่ม และรักษาจุดซ่อนเร้นให้แห้งสะอาด",
+      "ใส่ผ้าอนามัยผืนเดิมตลอดทั้งวันเพื่อประหยัด และงดอาบน้ำสระผมจนกว่าประจำเดือนจะหมด",
+      "ใช้น้ำยาฆ่าเชื้อเข้มข้นสวนล้างลึกเข้าไปในช่องคลอดวันละหลายๆ ครั้ง",
+      "ออกกำลังกายแบบหักโหมเพื่อให้เลือดประจำเดือนไหลออกมาหมดภายในวันเดียว"
+    ],
+    options_en: [
+      "Changing sanitary pads every 3-4 hours or when saturated, keeping the vulva clean and completely dry.",
+      "Wearing a single pad all day to be economical, avoiding showering and shampooing until menses end.",
+      "Performing aggressive deep vaginal douching with chemical disinfectants several times daily.",
+      "Engaging in exhausting strenuous workouts to force all menstrual flow out within one single day."
+    ],
+    correct: 0,
+    exp_th: "การเปลี่ยนผ้าอนามัยทุก 3–4 ชั่วโมงช่วยป้องกันการสะสมและเจริญเติบโตของแบคทีเรียและเชื้อรา และห้ามสวนล้างช่องคลอดเพราะจะทำลายสมดุลจุลินทรีย์ประจำถิ่น (Normal Flora) ที่คอยปกป้องช่องคลอด",
+    exp_en: "Changing sanitary pads every 3-4 hours prevents bacterial proliferation in warm, moist blood. Douching must be avoided as it disrupts protective resident microflora (Lactobacillus).",
+    tip: "จำไว้: เปลี่ยนผ้าอนามัยทุก 3-4 ชม. ซับให้แห้ง ห้ามสวนล้างช่องคลอดเด็ดขาด!"
+  },
+  {
+    id: 14,
+    topic: "puberty",
+    q_th: "เมื่อเข้าสู่วัยรุ่น การเปลี่ยนแปลงทางอารมณ์และจิตใจมักแปรปรวนง่าย เกิดจากปัจจัยใดเป็นตัวกระตุ้นทางชีววิทยาหลัก?",
+    q_en: "During early adolescence, emotional instability and rapid mood swings are primarily driven by which biological trigger?",
+    clue_th: "คำใบ้: สารเคมีจากต่อมไร้ท่อที่หลั่งออกมามากในวัยเจริญพันธุ์",
+    clue_en: "Clue: Endocrine chemical messengers surging during sexual maturation.",
+    options_th: [
+      "การเปลี่ยนแปลงอย่างรวดเร็วของระดับฮอร์โมนเพศในร่างกายและพัฒนาการของสมอง",
+      "การลดลงของปริมาณเม็ดเลือดขาวในระบบหมุนเวียนโลหิต",
+      "การสูญเสียแร่ธาตุไอโอดีนในต่อมไทรอยด์อย่างถาวร",
+      "การหดตัวของเซลล์ประสาทในไขสันหลังส่วนเอว"
+    ],
+    options_en: [
+      "Rapid surges and fluctuations in sex hormone concentrations combined with neurodevelopmental changes.",
+      "An acute depletion of white blood cell counts in circulating systemic blood.",
+      "The irreversible exhaustion of elemental iodine stores within the thyroid gland.",
+      "Structural atrophy of motor neurons located within the lumbar spinal cord."
+    ],
+    correct: 0,
+    exp_th: "การเปลี่ยนแปลงทางอารมณ์ในวัยแรกรุ่นเกิดจากการหลั่งของฮอร์โมนเพศ (เช่น เทสโทสเตอโรน เอสโตรเจน) ร่วมกับสมองส่วนอารมณ์ (Limbic system) พัฒนาเร็วกว่าสมองส่วนคิดวิเคราะห์ (Prefrontal cortex)",
+    exp_en: "Pubertal emotional volatility stems from surges in gonadal steroid hormones combined with the rapid maturation of the limbic system outstripping the prefrontal cortex.",
+    tip: "จำไว้: ฮอร์โมนเพศพุ่ง + สมองอารมณ์โตไว = อารมณ์เหวี่ยงง่าย ต้องฝึกสติรู้ทันตนเอง"
+  },
+  {
+    id: 15,
+    topic: "puberty",
+    q_th: "เด็กชายวินเริ่มมีกลิ่นตัวแรงและมีสิวขึ้นบนใบหน้าเมื่อขึ้นชั้น ป.5 วิธีการปฏิบัติตนเพื่อสุขอนามัยข้อใดถูกต้องตามหลักการแพทย์?",
+    q_en: "A 5th-grade boy develops strong body odor and facial acne. Which hygienic measure is medically appropriate?",
+    clue_th: "คำใบ้: ต่อมเหงื่อและต่อมไขมันทำงานเพิ่มขึ้น ต้องเน้นความสะอาดแต่ไม่รุนแรงจนระคายเคือง",
+    clue_en: "Clue: Sweat and sebaceous glands are hyperactive; maintain hygiene without harsh abrasion.",
+    options_th: [
+      "อาบน้ำทำความสะอาดร่างกายอย่างน้อยวันละ 2 ครั้ง ล้างหน้าด้วยสบู่อ่อน และไม่บีบแกะสิว",
+      "ใช้แอลกอฮอล์เข้มข้น 95% เช็ดถูใบหน้าแรงๆ ทุกชั่วโมงเพื่อฆ่าเชื้อ",
+      "งดรับประทานอาหารทุกมื้อที่มีโปรตีนและไขมัน แล้วดื่มแต่น้ำหวานทดแทน",
+      "ใช้เข็มเย็บผ้าเจาะหัวสิวทุกเม็ดออกทันทีที่เริ่มบวมแดง"
+    ],
+    options_en: [
+      "Bathe thoroughly at least twice daily, cleanse face with mild soap, and never squeeze or pick acne.",
+      "Vigorously scrub the facial skin with 95% concentrated ethanol every hour to sterilize pores.",
+      "Fast from all protein and fat sources while drinking only concentrated sugary syrups.",
+      "Puncture inflamed acne papules with sewing needles immediately upon appearance."
+    ],
+    correct: 0,
+    exp_th: "ฮอร์โมนแอนโดรเจนกระตุ้นให้ต่อมไขมันและต่อมเหงื่อทำงานมากขึ้น จึงต้องรักษาความสะอาด อาบน้ำฟอกสบู่ให้สะอาด ล้างหน้าด้วยสารทำความสะอาดที่อ่อนโยน และห้ามบีบสิวเพราะจะทำให้อักเสบติดเชื้อลุกลาม",
+    exp_en: "Androgenic hormones stimulate sebaceous and apocrine sweat glands. Routine bathing, gentle facial washing, and avoiding acne excoriation prevent bacterial superinfections.",
+    tip: "จำไว้: รักษาความสะอาด + สบู่อ่อนโยน + ห้ามบีบสิว (บีบ = ติดเชื้อแถมเป็นแผลเป็น)"
+  },
+  {
+    id: 16,
+    topic: "puberty",
+    q_th: "ลักษณะการเปลี่ยนแปลงทางเพศขั้นทุติยภูมิ (Secondary Sex Characteristics) ในเพศหญิงที่สังเกตได้ชัดเจนที่สุดในช่วงอายุ 10-12 ปี คือข้อใด?",
+    q_en: "Which secondary sexual characteristic is most prominently noticeable in females aged 10-12 years?",
+    clue_th: "คำใบ้: สรีระภายนอกขยายเพื่อเตรียมพร้อมตามธรรมชาติของเพศหญิง",
+    clue_en: "Clue: External physical silhouette widening according to female sexual dimorphism.",
+    options_th: [
+      "เต้านมเริ่มขยายขนาด สะโพกผายออก และมีขนบริเวณหัวเหน่า",
+      "เสียงทุ้มต่ำแตกพร่าและลูกกระเดือกแหลมยื่นออกมาอย่างเด่นชัด",
+      "กล้ามเนื้อหัวไหล่ขยายกว้างและมีหนวดเคราหนาดกดำ",
+      "ความสูงหยุดการเจริญเติบโตทันทีและฟันน้ำนมหลุดหมดพร้อมกัน"
+    ],
+    options_en: [
+      "The enlargement of breast buds, widening of pelvic hips, and growth of pubic hair.",
+      "Deepening vocal pitch resonance with a prominent jutting thyroid cartilage (Adam's apple).",
+      "Broadening of muscular shoulder girdles accompanied by dense facial whiskers.",
+      "Complete immediate arrest of linear growth with sudden total deciduous dentition shedding."
+    ],
+    correct: 0,
+    exp_th: "ลักษณะเพศขั้นทุติยภูมิของหญิงเมื่อเข้าสู่วัยรุ่น ได้แก่ เต้านมขยาย สะโพกผาย เอวคอด มีขนบริเวณรักแร้และอวัยวะเพศ ส่วนเสียงทุ้มและลูกกระเดือกเด่นชัดเป็นลักษณะของเพศชาย",
+    exp_en: "Female secondary sexual traits induced by estrogens include thelarche (breast development), pelvic widening, and pubarche. Vocal deepening and prominent laryngeal prominence characterize males.",
+    tip: "จำไว้: หญิง = นมโต สะโพกผาย มีประจำเดือน / ชาย = ไหล่กว้าง เสียงแตก ลูกกระเดือก ฝันเปียก"
+  },
+  {
+    id: 17,
+    topic: "family_friends",
+    q_th: "ครอบครัวที่มีความสุขและสร้างเสริมสุขภาพจิตที่ดีให้แก่สมาชิก มีลักษณะสำคัญสอดคล้องกับข้อใดมากที่สุด?",
+    q_en: "Which descriptor best characterizes a healthy, supportive family environment that fosters optimal mental wellbeing?",
+    clue_th: "คำใบ้: ไม่ได้ขึ้นอยู่กับความร่ำรวย แต่อยู่ที่ความเข้าใจและการให้เกียรติกัน",
+    clue_en: "Clue: It is not measured by material wealth, but by mutual respect and empathic communication.",
+    options_th: [
+      "สมาชิกในครอบครัวมีความรัก ความอบอุ่น รับฟังความคิดเห็น และให้เกียรติซึ่งกันและกัน",
+      "พ่อแม่บังคับให้ลูกทุกคนเลือกเรียนและประกอบอาชีพตามความฝันของพ่อแม่เท่านั้น",
+      "ทุกคนในครอบครัวต่างคนต่างอยู่ ไม่เคยก้าวก่ายหรือพูดคุยปรึกษาปัญหากัน",
+      "เน้นการสะสมฐานะทางการเงินโดยไม่จำเป็นต้องใช้เวลาร่วมกันในครอบครัว"
+    ],
+    options_en: [
+      "Family members provide warmth, mutual emotional support, empathic listening, and reciprocal respect.",
+      "Parents enforce strict adherence to their own unfulfilled professional dreams upon offspring.",
+      "Members live completely detached lives, completely avoiding discussion of personal issues.",
+      "Solely prioritizing wealth accumulation while completely disregarding shared family quality time."
+    ],
+    correct: 0,
+    exp_th: "ครอบครัวที่อบอุ่นและมีสุขภาพจิตดีเกิดจากการสื่อสารเชิงบวก การแสดงความรัก ความห่วงใย การรับฟังและให้เกียรติซึ่งกันและกัน ไม่ได้ขึ้นอยู่กับฐานะเงินทองหรือโครงสร้างครอบครัวแบบใดแบบหนึ่ง",
+    exp_en: "A healthy family functioning model relies on positive emotional bonding, open empathic dialogue, mutual validation, and active support across developmental crises.",
+    tip: "จำไว้: ครอบครัวอบอุ่น = ฟังด้วยใจ + ให้เกียรติ + ร่วมมือแก้ปัญหา"
+  },
+  {
+    id: 18,
+    topic: "family_friends",
+    q_th: "หากเพื่อนสนิทในกลุ่มชักชวนให้ทดลองสูบบุหรี่ไฟฟ้าหลังเลิกเรียน ทักษะการปฏิเสธ (Refusal Skills) ในข้อใดถูกต้องและมีประสิทธิภาพสูงสุด?",
+    q_en: "If a close peer pressures you to vape e-cigarettes after school, which refusal skill is most effective?",
+    clue_th: "คำใบ้: ปฏิเสธหนักแน่น + ให้เหตุผลสั้นๆ + เสนอทางเลือกหรือเดินหนี",
+    clue_en: "Clue: Firm refusal + succinct factual reason + alternate activity or physical exit.",
+    options_th: [
+      "ปฏิเสธด้วยน้ำเสียงจริงจังหนักแน่นว่า 'ไม่สูบ เพราะทำลายปอดและผิดกฎหมาย' แล้วชวนไปเล่นกีฬาแทน",
+      "ตอบตกลงสูบทันทีเพื่อไม่ให้เสียน้ำใจเพื่อนและจะได้ไม่ถูกขับออกจากกลุ่ม",
+      "ยืนด่าทอเพื่อนด้วยถ้อยคำรุนแรงหยาบคายเพื่อแสดงความเหนือกว่า",
+      "แสดงท่าทีลังเลแล้วบอกเพื่อนว่า 'ขอลองแค่ครั้งเดียวถ้าไม่ติดจะไม่สูบอีก'"
+    ],
+    options_en: [
+      "Firmly and politely decline: 'No, it damages lungs and is illegal,' then suggest playing sports instead.",
+      "Immediately accept the vape to preserve group affiliation and prevent peer ostracization.",
+      "Verbally assault the peer with aggressive vulgarities to assert personal moral superiority.",
+      "Hesitate visibly and bargain: 'I will try it once, but I won't do it again if I don't like it.'"
+    ],
+    correct: 0,
+    exp_th: "การปฏิเสธที่มีประสิทธิภาพต้อง: 1. พูดคำว่า 'ไม่' ชัดเจน หนักแน่น สุภาพ 2. ให้เหตุผลประกอบสั้นๆ 3. เสนอกิจกรรมอื่นทดแทนหรือผละออกจากสถานการณ์ทันที ไม่ด่าทอและไม่ลังเล",
+    exp_en: "Effective refusal assertiveness involves a decisive, unambiguous 'No', a concise factual boundary, proposing a healthy alternative, and physically exiting if pressured.",
+    tip: "จำสูตร 3 ป: ปฏิเสธหนักแน่น - ประกอบเหตุผล - เปลี่ยนเรื่องหรือปลีกตัวออก"
+  },
+  {
+    id: 19,
+    topic: "family_friends",
+    q_th: "การคบเพื่อนที่ดีในวัยเรียน ส่งผลต่อพัฒนาการและอนาคตของนักเรียนอย่างไรมากที่สุด?",
+    q_en: "How does choosing prosocial, positive peer affiliations most significantly impact an adolescent's trajectory?",
+    clue_th: "คำใบ้: เพื่อนที่ดีจะชักชวนและสนับสนุนกันไปในทางสร้างสรรค์",
+    clue_en: "Clue: Good peers motivate and scaffold each other toward constructive goals.",
+    options_th: [
+      "ช่วยส่งเสริม สนับสนุนการเรียน ชวนกันทำกิจกรรมสร้างสรรค์ และตักเตือนเมื่อทำผิด",
+      "คอยช่วยเหลือในการทุจริตการสอบเพื่อไม่ให้เพื่อนในกลุ่มมีใครสอบตก",
+      "คอยปกป้องเพื่อนเมื่อไปมีเรื่องทะเลาะวิวาทหรือทำลายทรัพย์สินของผู้อื่น",
+      "ช่วยกันปกปิดความผิดเมื่อมีเพื่อนในกลุ่มไปข้องเกี่ยวกับสิ่งเสพติด"
+    ],
+    options_en: [
+      "Encouraging academic engagement, participating in creative activities, and offering honest corrective advice.",
+      "Collaborating in examination cheating to prevent any peer in the cohort from failing.",
+      "Providing physical backup during violent school brawls or malicious property destruction.",
+      "Concealing criminal misconduct whenever an in-group peer experiments with illicit narcotics."
+    ],
+    correct: 0,
+    exp_th: "เพื่อนแท้หรือกัลยาณมิตรจะชักชวนกันไปในทางที่เจริญ ส่งเสริมการเรียน ร่วมทำกิจกรรมที่เป็นประโยชน์ และกล้าที่จะกล่าวตักเตือนด้วยความหวังดีเมื่อเห็นเพื่อนเดินทางผิด",
+    exp_en: "Positive peer groups foster mutual academic resilience, prosocial recreational habits, and constructive behavioral correction, buffering against delinquent risk behaviors.",
+    tip: "จำไว้: เพื่อนแท้ = พาเรียน พาดี กล้าเตือนสติ / เพื่อนเทียม = พากันปกปิดความผิด"
+  },
+  {
+    id: 20,
+    topic: "family_friends",
+    q_th: "เมื่อเกิดความขัดแย้งและความเห็นไม่ตรงกันในกลุ่มทำงาน วิธีการแก้ปัญหาข้อใดแสดงถึง 'วุฒิภาวะทางอารมณ์' ที่ดีที่สุด?",
+    q_en: "When interpersonal conflict erupts within a student project team, which resolution strategy demonstrates the highest emotional maturity?",
+    clue_th: "คำใบ้: ใช้เหตุผล รับฟังความคิดเห็น ไม่ใช้อารมณ์ตัดสิน",
+    clue_en: "Clue: Relying on objective reasoning and empathic listening rather than affective reactivity.",
+    options_th: [
+      "เปิดใจรับฟังความคิดเห็นของทุกฝ่าย ใช้เหตุผลในการอภิปราย และหาข้อตกลงร่วมกัน",
+      "ถอนตัวออกจากกลุ่มทันทีพร้อมนำความลับของเพื่อนในกลุ่มไปประจาน",
+      "ใช้กำลังตัดสินหรือใช้วาจาประชดประชันเพื่อให้ฝ่ายตรงข้ามยอมจำนน",
+      "ปล่อยให้ปัญหาค้างคาไว้โดยไม่พูดคุยกันจนกระทั่งงานไม่เสร็จตามกำหนด"
+    ],
+    options_en: [
+      "Actively listening to differing viewpoints, debating with objective reasoning, and finding a consensus.",
+      "Instantly abandoning the project team while publicly leaking personal confidences of team members.",
+      "Using physical intimidation or sarcastic vitriol until opponents are coerced into submission.",
+      "Letting hostility fester in total silence until the mandatory deadline fails completely."
+    ],
+    correct: 0,
+    exp_th: "การแก้ปัญหาความขัดแย้งอย่างสร้างสรรค์ต้องอาศัยการสื่อสารอย่างเปิดใจ การรับฟังอย่างตั้งใจ (Active Listening) การใช้เหตุผล และการแสวงหาจุดร่วมที่ทุกฝ่ายยอมรับได้",
+    exp_en: "Constructive conflict resolution entails emotional self-regulation, active listening, perspective-taking, and collaborative consensus-building without personal hostility.",
+    tip: "จำไว้: ขัดแย้งได้ แต่ต้องคุยด้วยเหตุผล เปิดใจฟัง หาทางออกร่วมกัน"
+  },
+  {
+    id: 21,
+    topic: "digestive",
+    q_th: "หากอวัยวะ 'ตับ' ของมนุษย์เกิดความเสียหายอย่างรุนแรง จะส่งผลกระทบต่อกระบวนการย่อยอาหารในส่วนใดมากที่สุด?",
+    q_en: "If the human liver undergoes severe structural dysfunction, which digestive process is most drastically impaired?",
+    clue_th: "คำใบ้: ตับสร้างน้ำดีเพื่อช่วยให้ไขมันแตกตัวเป็นหยดเล็กๆ",
+    clue_en: "Clue: The liver generates bile essential for emulsifying dietary lipid globules.",
+    options_th: [
+      "การแตกตัวของไขมันเป็นอนุภาคเล็ก (Emulsification) ทำให้ย่อยไขมันได้ยากขึ้น",
+      "การย่อยโปรตีนในกระเพาะอาหารจะหยุดชะงักลงโดยสิ้นเชิงทันที",
+      "การย่อยแป้งในช่องปากจะไม่สามารถทำงานได้เนื่องจากขาดเอนไซม์",
+      "ลำไส้ใหญ่จะไม่สามารถดูดซึมน้ำกลับเข้าสู่ร่างกายได้เลย"
+    ],
+    options_en: [
+      "Emulsification of dietary lipids into micellar droplets, severely inhibiting lipolysis.",
+      "Gastric pepsin hydrolysis of peptide bonds immediately halting altogether.",
+      "Salivary breakdown of oral amylase ceasing due to enzyme deficiency.",
+      "The large intestine becoming totally incapable of passive water reabsorption."
+    ],
+    correct: 0,
+    exp_th: "ตับมีหน้าที่สร้างน้ำดี (Bile) ซึ่งประกอบด้วยเกลือน้ำดี ทำหน้าที่ทำให้ไขมันแตกตัวเป็นหยดเล็กๆ (Emulsify) เพื่อให้เอนไซม์ไลเปสจากตับอ่อนย่อยต่อได้ หากตับเสีย การย่อยไขมันจะล้มเหลว",
+    exp_en: "Bile salts synthesized by hepatocytes are critical for lipid emulsification, maximizing lipid surface area for lipase action. Liver damage severely compromises fat digestion.",
+    tip: "จำไว้: ตับสร้างน้ำดี -> น้ำดีทำให้ไขมันแตกตัว ไม่ใช่เอนไซม์ย่อย แต่เป็นตัวช่วยกระจายตัว!"
+  },
+  {
+    id: 22,
+    topic: "digestive",
+    q_th: "อาหารมื้อใดต่อไปนี้ที่กระเพาะอาหารต้องใช้ระยะเวลาในการย่อยและส่งต่อไปยังลำไส้เล็กนานที่สุด?",
+    q_en: "Which meal requires the longest gastric retention and emptying time prior to duodenal transit?",
+    clue_th: "คำใบ้: สารอาหารที่มีไขมันและโปรตีนสูง ใช้เวลาย่อยนานกว่าคาร์โบไฮเดรต",
+    clue_en: "Clue: Dense lipid and protein substrates delay gastric emptying much longer than carbohydrates.",
+    options_th: [
+      "ข้าวเหนียวหมูสามชั้นทอดกระเทียมและไก่ทอดกรอบ",
+      "ข้าวต้มปลาใส่ผักกาดขาวเนื้อละเอียด",
+      "ผลไม้รวมจานใหญ่และน้ำผลไม้ปั่นสด",
+      "ขนมปังปิ้งทาแยมสตรอว์เบอร์รีและนมถั่วเหลืองจืด"
+    ],
+    options_en: [
+      "Sticky rice served with crispy deep-fried pork belly and battered chicken.",
+      "Soft boiled rice porridge with lean minced fish and napa cabbage.",
+      "A large platter of mixed fresh tropical fruits and fresh fruit juice.",
+      "Toasted white bread lightly spread with strawberry jam and soy milk."
+    ],
+    correct: 0,
+    exp_th: "อาหารที่มีไขมันและโปรตีนสูง (เช่น หมูสามชั้นทอด, ไก่ทอด) จะกระตุ้นการหลั่งฮอร์โมนชะลอการบีบตัวของกระเพาะอาหาร ทำให้ต้องใช้เวลาในการย่อยนานถึง 4–6 ชั่วโมง ต่างจากแป้งหรือผลไม้ที่ผ่านไปเร็ว",
+    exp_en: "High-fat, protein-dense meals trigger cholecystokinin (CCK) and enterogastric reflexes, markedly delaying gastric peristalsis and emptying compared to simple carbohydrates.",
+    tip: "จำไว้: มันจัด ทอดกรอบ เนื้อแน่น = ย่อยช้าสุด อยู่ในท้องนานสุด อิ่มนานแต่อืดง่าย"
+  },
+  {
+    id: 23,
+    topic: "excretory",
+    q_th: "สิ่งใดต่อไปนี้ตรวจ 'ไม่พบ' ในปัสสาวะของคนที่มีสุขภาพร่างกายและระบบไตทำงานสมบูรณ์เป็นปกติ?",
+    q_en: "Which constituent is normally ABSENT from the urine of an individual with healthy, intact renal function?",
+    clue_th: "คำใบ้: สารโมเลกุลใหญ่และสารอาหารสำคัญ ไตจะกรองไม่ผ่านหรือดูดกลับหมด",
+    clue_en: "Clue: Macromolecules and valuable nutrients cannot pass the barrier or are 100% reabsorbed.",
+    options_th: [
+      "โปรตีนอัลบูมิน เม็ดเลือดแดง และน้ำตาลกลูโคส",
+      "สารประกอบยูเรียและกรดยูริกส่วนเกิน",
+      "น้ำส่วนเกินและเกลือแร่โซเดียมคลอไรด์",
+      "รงควัตถุยูโรบิลินที่ทำให้ปัสสาวะมีสีเหลืองอ่อน"
+    ],
+    options_en: [
+      "Serum albumin proteins, intact erythrocytes (RBCs), and glucose molecules.",
+      "Surplus urea nitrogen metabolites and uric acid crystals.",
+      "Excess systemic water and dissolved sodium chloride ions.",
+      "Urobilin pigments that impart the characteristic pale straw hue to urine."
+    ],
+    correct: 0,
+    exp_th: "เยื่อกรองที่โกลเมอรูลัสของไตมีขนาดเล็กและมีประจุลบ กั้นไม่ให้โปรตีนและเม็ดเลือดแดงหลุดออกมา และท่อหน่วยไตจะดูดกลับกลูโคสทั้งหมด 100% หากพบในปัสสาวะแสดงว่าไตชำรุดหรือเป็นเบาหวาน",
+    exp_en: "The glomerular filtration barrier prevents plasma proteins and erythrocytes from entering the filtrate. Glucose is completely reabsorbed in proximal tubules. Their presence indicates pathology.",
+    tip: "จำไว้: ฉี่ปกติ = มียูเรีย น้ำ เกลือแร่ / ฉี่ผิดปกติ = มีไข่ขาว(โปรตีน), เลือด, น้ำตาล"
+  },
+  {
+    id: 24,
+    topic: "excretory",
+    q_th: "เหตุใดในฤดูหนาวหรือเมื่ออยู่ในห้องปรับอากาศเย็นจัด เราจึงรู้สึกปวดปัสสาวะบ่อยครั้งกว่าปกติ?",
+    q_en: "Why do humans experience increased urinary frequency when exposed to cold winter climates or air-conditioned rooms?",
+    clue_th: "คำใบ้: เส้นเลือดที่ผิวหนังหดตัว ไม่ค่อยเสียเหงื่อ ร่างกายจึงต้องระบายน้ำออกทางไต",
+    clue_en: "Clue: Peripheral vasoconstriction minimizes perspiration; excess volume shunts to renal output.",
+    options_th: [
+      "หลอดเลือดส่วนปลายหดตัว เหงื่อระเหยน้อย ร่างกายจึงขับน้ำส่วนเกินออกทางไตเพิ่มขึ้น",
+      "ความเย็นทำลายเนื้อเยื่อกระเพาะปัสสาวะทำให้สูญเสียความสามารถในการกักเก็บน้ำ",
+      "อากาศเย็นทำให้ไตหยุดกรองสารยูเรีย จึงต้องปล่อยน้ำทิ้งออกมาอย่างต่อเนื่อง",
+      "ต่อมเหงื่อเปลี่ยนหน้าที่ไปสร้างปัสสาวะแทนไตทั้งหมด"
+    ],
+    options_en: [
+      "Peripheral vasoconstriction reduces cutaneous perspiration; kidneys compensate by excreting excess plasma volume.",
+      "Low temperatures physically damage bladder smooth muscle, destroying storage elastance.",
+      "Cold atmospheric air paralyzes urea filtration, forcing the kidneys to leak fluid uncontrollably.",
+      "Dermal sweat glands alter their phenotype to take over renal urine production."
+    ],
+    correct: 0,
+    exp_th: "ภาวะ Cold Diuresis เมื่ออากาศเย็น หลอดเลือดที่ผิวหนังหดตัวเพื่อรักษาความร้อน ทำให้ความดันเลือดแกนกลางสูงขึ้น และร่างกายไม่เสียน้ำทางเหงื่อ ไตจึงต้องขับน้ำส่วนเกินออกทางปัสสาวะมากขึ้น",
+    exp_en: "Cold-induced diuresis occurs when peripheral vasoconstriction shunts blood inward, increasing central venous pressure. Arterial baroreceptors signal the kidneys to clear excess fluid volume.",
+    tip: "จำไว้: หนาว = เหงื่อไม่ออก หลอดเลือดหดตัว ไตต้องรับภาระขับน้ำทิ้งแทน จึงฉี่บ่อย"
+  },
+  {
+    id: 25,
+    topic: "puberty",
+    q_th: "การมีสุขอนามัยที่ดีของเด็กชายในการทำความสะอาดอวัยวะเพศภายนอก ข้อใดเป็นคำแนะนำที่ถูกต้องที่สุด?",
+    q_en: "Which instruction represents the medically sound standard for male external genital hygiene?",
+    clue_th: "คำใบ้: รูดเปิดหนังหุ้มปลายล้างคราบไคล (ขี้เปียก) แล้วรูดกลับที่เดิม",
+    clue_en: "Clue: Retract foreskin gently to clear smegma accumulations, then reduce it back.",
+    options_th: [
+      "รูดเปิดหนังหุ้มปลายอวัยวะเพศเบาๆ เพื่อล้างคราบเหงื่อไคลด้วยน้ำสะอาด แล้วรูดกลับเข้าที่เดิม",
+      "ใช้แปรงสีฟันขนแข็งขัดถูอย่างรุนแรงเพื่อกำจัดเชื้อแบคทีเรียทั้งหมด",
+      "ใช้น้ำยาฟอกขาวทาเคลือบทิ้งไว้ข้ามคืนเพื่อป้องกันการเกิดกลิ่นอับ",
+      "หลีกเลี่ยงการโดนน้ำหรือทำความสะอาดบริเวณอวัยวะเพศอย่างเด็ดขาดเพื่อรักษาแบคทีเรีย"
+    ],
+    options_en: [
+      "Gently retract the prepuce to cleanse accumulated smegma with clean water, then return it forward.",
+      "Scrub vigorously using a stiff-bristled toothbrush to eradicate all microorganisms.",
+      "Apply chemical bleaching solutions overnight to eradicate potential musky odors.",
+      "Strictly avoid water immersion or soap cleansing to preserve natural bacterial biofilms."
+    ],
+    correct: 0,
+    exp_th: "การทำความสะอาดอวัยวะเพศชายต้องรูดหนังหุ้มปลายเบาๆ เพื่อล้างคราบเหงื่อไคลและสารคัดหลั่ง (Smegma หรือขี้เปียก) ที่สะสมอยู่ ป้องกันการหมักหมมและการอักเสบติดเชื้อ แล้วรูดกลับเข้าที่เดิมเสมอ",
+    exp_en: "Retracting the prepuce allows washing away desquamated epithelial debris and sebaceous secretions (smegma). Always reposition the foreskin afterward to prevent paraphimosis.",
+    tip: "จำไว้: รูดเบาๆ ล้างคราบขี้เปียกให้เกลี้ยง ซับให้แห้ง และรูดกลับ ป้องกันการอักเสบ"
+  },
+  {
+    id: 26,
+    topic: "family_friends",
+    q_th: "ข้อใดเป็นตัวอย่างของการใช้ 'I-Message' (การสื่อสารที่เน้นความรู้สึกของตนเอง) ในการระงับข้อพิพาทกับเพื่อนได้อย่างสร้างสรรค์ที่สุด?",
+    q_en: "Which statement exemplifies constructive 'I-Message' communication to de-escalate interpersonal conflict with a peer?",
+    clue_th: "คำใบ้: บอกความรู้สึก + พฤติกรรมที่เกิดขึ้น + ผลกระทบ โดยไม่ด่าว่ากล่าวโทษอีกฝ่าย",
+    clue_en: "Clue: Expressing subjective feeling + observed event + consequence without attacking.",
+    options_th: [
+      "'เรารู้สึกกังวลใจมาก เมื่องานกลุ่มยังไม่เสร็จ เพราะใกล้ถึงกำหนดส่งแล้ว เรามาช่วยกันแบ่งทำไหม'",
+      "'เธอเป็นคนที่ขี้เกียจและเห็นแก่ตัวที่สุด ไม่เคยคิดจะช่วยใครทำงานเลย'",
+      "'ถ้าเธอไม่ทำตามที่ฉันสั่ง ฉันจะฟ้องครูให้ตัดคะแนนเธอให้หมด'",
+      "'คนอย่างเธอไม่มีวันประสบความสำเร็จในชีวิตหรอก ไปไกลๆ เลย'"
+    ],
+    options_en: [
+      "'I feel anxious because our team assignment remains unfinished with the deadline near; can we divide tasks?'",
+      "'You are the laziest, most selfish person alive and you never care to help anybody.'",
+      "'If you do not obey my exact orders, I will report you to the teacher to fail you.'",
+      "'A person like you will never achieve anything in life; get out of my sight.'"
+    ],
+    correct: 0,
+    exp_th: "I-Message คือการสื่อสารโดยขึ้นต้นด้วยความรู้สึกของตนเอง (ฉันรู้สึก...) ตามด้วยสถานการณ์ที่เป็นจริง โดยไม่ใช้คำกล่าวโทษหรือดูถูกคู่สนทนา (You-Message) ช่วยลดการตั้งแง่และร่วมมือแก้ปัญหา",
+    exp_en: "An 'I-Message' focuses on the speaker's affective experience and objective events rather than projecting blame or character insults (You-Message), thereby preventing defensive aggression.",
+    tip: "จำไว้: I-Message = บอกความรู้สึกเรา + เหตุการณ์จริง ไม่ใช่ด่าว่าเขา (ลดทะเลาะ ได้ผลงาน)"
+  },
+  {
+    id: 27,
+    topic: "family_friends",
+    q_th: "ครอบครัวที่มีความหลากหลายในสังคมปัจจุบัน เช่น 'ครอบครัวข้ามรุ่น' (Skip-Generation Family) มีลักษณะตรงกับข้อใด?",
+    q_en: "What defines a 'skip-generation family' increasingly observed in contemporary society?",
+    clue_th: "คำใบ้: ข้ามรุ่นพ่อแม่ไปเลย เป็นการอยู่ร่วมกันระหว่างรุ่นปู่ย่าตายายกับหลาน",
+    clue_en: "Clue: The parental middle cohort is missing; grandparents raise the grandchildren directly.",
+    options_th: [
+      "ครอบครัวที่ประกอบด้วยปู่ย่าหรือตายายอาศัยอยู่ร่วมกับและเลี้ยงดูหลาน โดยไม่มีพ่อแม่อยู่ด้วย",
+      "ครอบครัวที่มีพ่อและแม่อาศัยอยู่กับลูกเพียงลำพังในบ้านจัดสรร",
+      "ครอบครัวที่มีสมาชิกเป็นเด็กวัยรุ่นอาศัยอยู่ร่วมกันในหอพักโดยไม่มีผู้ใหญ่ดูแล",
+      "ครอบครัวที่พ่อแม่ส่งลูกไปเรียนโรงเรียนประจำต่างประเทศตั้งแต่อนุบาล"
+    ],
+    options_en: [
+      "Households where grandparents cohabitate with and raise grandchildren in the absence of biological parents.",
+      "Nuclear families consisting strictly of a father, mother, and biological children in single residences.",
+      "Cohort households consisting exclusively of adolescent peers living in autonomous dormitories.",
+      "Households where parents dispatch infant toddlers permanently to overseas boarding institutes."
+    ],
+    correct: 0,
+    exp_th: "ครอบครัวข้ามรุ่น (Skip-Generation Family) คือครอบครัวที่ปู่ย่าตายายต้องทำหน้าที่เลี้ยงดูหลานโดยตรง เนื่องจากพ่อแม่ต้องไปทำงานต่างถิ่น หย่าร้าง หรือเสียชีวิต ถือเป็นหนึ่งในรูปแบบครอบครัวปัจจุบัน",
+    exp_en: "A skip-generation family occurs when grandparents assume primary custodial parenting of grandchildren because the middle adult generation is absent due to labor migration or mortality.",
+    tip: "จำไว้: ข้ามรุ่น = ปู่ย่าตายาย + หลาน (พ่อแม่ไม่อยู่) ทุกครอบครัวอบอุ่นได้ถ้ามีความรักความเข้าใจ"
+  },
+  {
+    id: 28,
+    topic: "digestive",
+    q_th: "การรับประทานยาปฏิชีวนะ (Antibiotics) พร่ำเพรื่อติดต่อกันเป็นเวลานานโดยไม่จำเป็น อาจส่งผลเสียต่อระบบย่อยอาหารอย่างไร?",
+    q_en: "How does indiscriminate, prolonged abuse of broad-spectrum antibiotics directly jeopardize the digestive tract?",
+    clue_th: "คำใบ้: ยาปฏิชีวนะไม่ได้ฆ่าแค่เชื้อก่อโรค แต่ฆ่าแบคทีเรียที่เป็นมิตรในลำไส้ด้วย",
+    clue_en: "Clue: Antibiotics eradicate protective symbiotic gut flora alongside pathogens.",
+    options_th: [
+      "ทำลายจุลินทรีย์ชนิดดีในลำไส้ ทำให้เกิดภาวะเสียสมดุล มีอาการท้องเสียเรื้อรังและการสังเคราะห์วิตามินเคบกพร่อง",
+      "ทำให้น้ำย่อยในกระเพาะอาหารกลายสภาพเป็นด่างเข้มข้นจนไม่สามารถละลายอาหารได้",
+      "ทำให้กล้ามเนื้อหลอดอาหารบวมจนปิดกั้นไม่ให้อากาศและอาหารผ่านได้ตลอดไป",
+      "ทำให้ฟันทุกซี่กร่อนสลายตัวกลายเป็นของเหลวภายในไม่กี่สัปดาห์"
+    ],
+    options_en: [
+      "Eradicating beneficial gut microbiota, inducing dysbiosis, chronic diarrhea, and impaired vitamin K synthesis.",
+      "Neutralizing gastric juices into strong alkaline solutions that cannot dissolve food.",
+      "Causing acute esophageal hypertrophy that permanently seals the lumen against food and air.",
+      "Inducing rapid chemical liquefaction of enamel across all permanent dentition."
+    ],
+    correct: 0,
+    exp_th: "ในลำไส้ใหญ่มีโพรไบโอติกส์ (Probiotics) ซึ่งเป็นแบคทีเรียประจำถิ่น ช่วยยับยั้งเชื้อก่อโรค ย่อยกากใย และสร้างวิตามินบี 12 กับวิตามินเค หากกินยาปฏิชีวนะพร่ำเพรื่อ เชื้อดีจะตายจนท้องเสียและขาดวิตามินได้",
+    exp_en: "Broad-spectrum antibiotics decimate symbiotic colonic microbiota (microbiome dysbiosis), precipitating opportunistic infections (C. difficile), diarrhea, and diminished vitamin K biosynthesis.",
+    tip: "จำไว้: ยาปฏิชีวนะ = ฆ่าแบคทีเรียทั้งดีและร้าย กินมั่ว ลำไส้พัง เสียสมดุลจุลินทรีย์"
+  },
+  {
+    id: 29,
+    topic: "family_friends",
+    q_th: "เมื่อตกอยู่ในสถานการณ์ที่เพื่อนชักชวนไปในสถานที่เปลี่ยวหรือเสี่ยงอันตราย เช่น ไปมั่วสุมในอาคารร้าง พฤติกรรมในข้อใดปลอดภัยที่สุด?",
+    q_en: "If coerced by acquaintances to hang out in an abandoned, hazardous building, which response ensures maximum safety?",
+    clue_th: "คำใบ้: ความปลอดภัยของชีวิตต้องมาก่อนการกลัวเสียหน้า",
+    clue_en: "Clue: Physical self-preservation must strictly supersede fear of interpersonal embarrassment.",
+    options_th: [
+      "ปฏิเสธอย่างหนักแน่น รีบแยกตัวไปยังที่ชุมชนที่มีผู้ใหญ่ และโทรแจ้งผู้ปกครองให้ทราบทันที",
+      "ตามเพื่อนเข้าไปก่อนเพราะกลัวเพื่อนล้อว่าขี้ขลาด แล้วค่อยหาทางหนีเอาตัวรอดทีหลัง",
+      "ท้าทายเพื่อนให้แข่งกันปีนขึ้นไปบนที่สูงที่ชำรุดเพื่อพิสูจน์ความกล้าหาญ",
+      "แอบเข้าไปหลบซ่อนตัวในอาคารคนเดียวโดยไม่บอกใครเพื่อให้เพื่อนตามหา"
+    ],
+    options_en: [
+      "Decisively decline, immediately evacuate toward public areas with trusted adults, and inform parents.",
+      "Accompany the cohort out of fear of ridicule, hoping to engineer an escape route later.",
+      "Provoke the peers into a competitive climb up damaged high-rise scaffolding to prove bravery.",
+      "Sneak alone into the ruinous building to hide without informing any adult."
+    ],
+    correct: 0,
+    exp_th: "หลักความปลอดภัยในชีวิต: เมื่อเผชิญสถานการณ์เสี่ยง ต้องปฏิเสธอย่างเด็ดขาด เอาตัวรอดออกมายังที่ปลอดภัยที่มีผู้คน และรีบขอความช่วยเหลือจากผู้ปกครองหรือครูทันที ห้ามเกรงใจจนพาตัวเองไปเสี่ยง",
+    exp_en: "Safety protocol prioritizes assertive evasion: definitively declining high-risk delinquency, retreating immediately to secure public zones with adult presence, and activating communication lifelines.",
+    tip: "จำไว้: ความปลอดภัยสำคัญอันดับหนึ่ง กล้าปฏิเสธ ถอยออกมาหาผู้ใหญ่ อย่าห่วงเรื่องเสียหน้า"
+  },
+  {
+    id: 30,
+    topic: "puberty",
+    q_th: "พฤติกรรมในข้อใดแสดงถึงการปฏิบัติตนตามบทบาททางเพศและให้เกียรติซึ่งกันและกันในสังคมยุคใหม่อย่างถูกต้องที่สุด?",
+    q_en: "Which behavior embodies respectful, equitable gender role conduct in contemporary society?",
+    clue_th: "คำใบ้: ความเสมอภาค การเคารพสิทธิในร่างกาย และการไม่ใช้ความรุนแรง",
+    clue_en: "Clue: Bodily autonomy, mutual respect, equity, and non-violence across all genders.",
+    options_th: [
+      "เคารพในสิทธิ ร่างกาย และความแตกต่างหลากหลายของผู้อื่น ไม่ล้อเลียน หรือคุกคามทางเพศ",
+      "ผู้ชายต้องแสดงความแข็งแกร่งด้วยการใช้กำลังข่มขู่เพื่อนที่อ่อนแอกว่าเสมอ",
+      "ล้อเลียนเพื่อนที่มีพฤติกรรมหรืออัตลักษณ์ทางเพศไม่ตรงกับเพศกำเนิดเพื่อความสนุกสนาน",
+      "สัมผัสร่างกายหรือหยอกล้อเรื่องสรีระของเพื่อนเพศตรงข้ามโดยไม่ได้รับความยินยอม"
+    ],
+    options_en: [
+      "Respecting bodily autonomy, dignity, and individual diversity, strictly avoiding bullying or harassment.",
+      "Believing males must continuously display muscular dominance by physically intimidating weaker peers.",
+      "Publicly mocking peers whose gender identity or expressions deviate from birth sex assignments.",
+      "Touching or joking about peers' anatomical bodies without explicit consent."
+    ],
+    correct: 0,
+    exp_th: "สุขศึกษาในศตวรรษที่ 21 เน้นย้ำความเสมอภาคทางเพศ การเคารพสิทธิในเนื้อตัวร่างกาย (Bodily Autonomy) การยินยอม (Consent) และการไม่รังแก ล้อเลียน หรือคุกคามทางเพศผู้อื่นในทุกรูปแบบ",
+    exp_en: "Contemporary sexual health education champions gender equality, universal respect for bodily autonomy, informed consent, and total eradication of gender-based bullying or harassment.",
+    tip: "จำไว้: ร่างกายใคร ใครก็รัก เคารพสิทธิ์ ให้เกียรติ ไม่ล้อเลียน ไม่แตะต้องโดยไม่ยินยอม"
+  }
+];
+
+/* State Variables */
+let currentLang = 'th';
+let examState = {
+  answers: {}, // { [qId]: selectedOptionIndex }
+  isSubmitted: false
+};
+
+const STORAGE_KEY = 'PJ_TUTOR_P5_EXAM_DATA_V1';
+
+// Fisher-Yates Shuffle
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
+  const arr = [...array];
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
+  }
+  return arr;
+}
+
+// Initialize Exam Data with Shuffled options per question
+let quizData = [];
+
+function initQuestions() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      examState = parsed.examState || { answers: {}, isSubmitted: false };
+      quizData = parsed.quizData || generateShuffledQuiz();
+      currentLang = parsed.currentLang || 'th';
+      return;
+    } catch(e) {
+      console.error(e);
+    }
+  }
+  quizData = generateShuffledQuiz();
+}
+
+function generateShuffledQuiz() {
+  return rawQuestions.map((q, idx) => {
+    // create indexed options
+    const combined = q.options_th.map((optTh, i) => ({
+      origIndex: i,
+      th: optTh,
+      en: q.options_en[i]
+    }));
+    const shuffledOpts = shuffle(combined);
+    return {
+      ...q,
+      displayNum: idx + 1,
+      options: shuffledOpts
+    };
+  });
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    examState,
+    quizData,
+    currentLang
+  }));
+}
+
+/* UI Rendering */
+function renderQuiz() {
+  const container = document.getElementById('quiz-list');
+  container.innerHTML = '';
+
+  let answeredCount = 0;
+  let correctCount = 0;
+
+  quizData.forEach((q) => {
+    const userAnswer = examState.answers[q.id];
+    const isAnswered = userAnswer !== undefined;
+    
+    let itemClass = 'question-item';
+    if (isAnswered) {
+      answeredCount++;
+      const isCorrect = q.options[userAnswer].origIndex === q.correct;
+      if (isCorrect) {
+        correctCount++;
+        itemClass += ' answered-correct';
+      } else {
+        itemClass += ' answered-incorrect';
+      }
+    }
+
+    const qEl = document.createElement('div');
+    qEl.className = itemClass;
+    qEl.id = `q-card-${q.id}`;
+
+    const titleText = currentLang === 'th' ? q.q_th : q.q_en;
+    const clueText = currentLang === 'th' ? q.clue_th : q.clue_en;
+
+    let html = `
+      <div class="q-title">${q.displayNum}. ${titleText}</div>
+      <div class="q-clue">${clueText}</div>
+      <div class="options-grid">
+    `;
+
+    q.options.forEach((opt, oIdx) => {
+      let btnClass = 'option-btn';
+      if (isAnswered) {
+        if (opt.origIndex === q.correct) {
+          btnClass += ' selected-correct';
+        } else if (oIdx === userAnswer) {
+          btnClass += ' selected-wrong';
+        }
+      }
+
+      const optText = currentLang === 'th' ? opt.th : opt.en;
+      html += `
+        <button 
+          class="${btnClass}" 
+          ${isAnswered ? 'disabled' : ''} 
+          onclick="handleSelectAnswer(${q.id}, ${oIdx})">
+          ${String.fromCharCode(65 + oIdx)}. ${optText}
+        </button>
+      `;
+    });
+
+    html += `</div>`;
+
+    // Feedback container
+    if (isAnswered) {
+      const isCorrect = q.options[userAnswer].origIndex === q.correct;
+      const expText = currentLang === 'th' ? q.exp_th : q.exp_en;
+      const statusTitle = isCorrect 
+        ? (currentLang === 'th' ? '✓ ถูกต้อง แม่นยำมาก!' : '✓ Correct! Excellent!')
+        : (currentLang === 'th' ? '✗ ยังไม่ถูกต้อง' : '✗ Incorrect');
+
+      html += `
+        <div class="feedback-box ${isCorrect ? 'correct' : 'incorrect'}">
+          <strong>${statusTitle}</strong>: ${expText}
+          <div class="tutor-tip">💡 ติวเตอร์ชี้แนะ: ${q.tip}</div>
+        </div>
+      `;
+    }
+
+    qEl.innerHTML = html;
+    container.appendChild(qEl);
+  });
+
+  // Update Status Badges
+  const pct = Math.round((answeredCount / quizData.length) * 100);
+  document.getElementById('stat-progress').innerText = currentLang === 'th' 
+    ? `ความคืบหน้า: ${answeredCount} / ${quizData.length} ข้อ (${pct}%)`
+    : `Progress: ${answeredCount} / ${quizData.length} (${pct}%)`;
+
+  document.getElementById('stat-score').innerText = currentLang === 'th'
+    ? `คะแนน: ${correctCount} / ${quizData.length}`
+    : `Score: ${correctCount} / ${quizData.length}`;
+
+  // If all completed, show analysis
+  if (answeredCount === quizData.length) {
+    showResultsAnalysis(correctCount);
+  } else {
+    document.getElementById('results-panel').style.display = 'none';
+  }
+}
+
+function handleSelectAnswer(questionId, optionIdx) {
+  if (examState.answers[questionId] !== undefined) return; // Prevent re-answer
+  examState.answers[questionId] = optionIdx;
+  saveToLocalStorage();
+  renderQuiz();
+}
+
+function resetQuiz() {
+  if (confirm(currentLang === 'th' ? 'ต้องการล้างผลสอบและเริ่มทำใหม่ทั้งหมดใช่หรือไม่?' : 'Reset all progress and start fresh?')) {
+    localStorage.removeItem(STORAGE_KEY);
+    examState = { answers: {}, isSubmitted: false };
+    quizData = generateShuffledQuiz();
+    saveToLocalStorage();
+    renderQuiz();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === 'th' ? 'en' : 'th';
+  updateUILanguage();
+  saveToLocalStorage();
+  renderQuiz();
+}
+
+function updateUILanguage() {
+  const btn = document.getElementById('btn-lang');
+  btn.innerText = currentLang === 'th' ? 'Language: TH / EN' : 'ภาษา: EN / TH';
+
+  if (currentLang === 'en') {
+    document.getElementById('ui-title').innerText = "Grade 5 Health Education Final Exam (Semester 1 - Advanced)";
+    document.getElementById('ui-subtitle').innerText = "OBEC Curriculum Standards • 30 Analytical Items with Whiteboard";
+    document.getElementById('ui-sum-head').innerText = "Core Subject Review: Grade 5 Health Education (Term 1)";
+    document.getElementById('ui-wb-head').innerText = "📝 Scratchpad";
+    document.getElementById('ui-res-title').innerText = "Comprehensive Diagnostic Performance Assessment";
+    document.getElementById('ui-ana-str-title').innerText = "🌟 Strengths & Mastery Areas";
+    document.getElementById('ui-ana-weak-title').innerText = "⚠️ Areas for Improvement & Targeted Review";
+  } else {
+    document.getElementById('ui-title').innerText = "ข้อสอบสุขศึกษา ป.5 ปลายภาคเรียนที่ 1 (ระดับยาก / วิเคราะห์)";
+    document.getElementById('ui-subtitle').innerText = "ตามหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน (สพฐ.) • 30 ข้อถ้วน พร้อมระบบวิเคราะห์จุดเด่น-จุดด้อย";
+    document.getElementById('ui-sum-head').innerText = "สรุปแก่นเนื้อหาสาระสำคัญ สุขศึกษา ป.5 (ภาคเรียนที่ 1)";
+    document.getElementById('ui-wb-head').innerText = "📝 กระดานทดความคิด";
+    document.getElementById('ui-res-title').innerText = "สรุปผลการทดสอบสุขศึกษา ป.5";
+    document.getElementById('ui-ana-str-title').innerText = "🌟 จุดเด่นที่ทำได้ดีเยี่ยม (Strengths)";
+    document.getElementById('ui-ana-weak-title').innerText = "⚠️ จุดที่ต้องทบทวนเพิ่มเติม (Areas for Improvement)";
+  }
+}
+
+/* Comprehensive Evaluation & Diagnostic Analysis */
+function showResultsAnalysis(score) {
+  const panel = document.getElementById('results-panel');
+  panel.style.display = 'block';
+
+  document.getElementById('final-score-text').innerText = `${score} / ${quizData.length}`;
+  const pct = (score / quizData.length) * 100;
+
+  const assessmentEl = document.getElementById('score-assessment');
+  if (pct >= 80) {
+    assessmentEl.innerText = currentLang === 'th' ? '🏆 ระดับผลการเรียน: ยอดเยี่ยม (เกียรตินิยม) - ความรู้ความเข้าใจลึกซึ้ง' : '🏆 Mastery Level: Excellent (Distinction)';
+    assessmentEl.style.color = '#15803d';
+  } else if (pct >= 60) {
+    assessmentEl.innerText = currentLang === 'th' ? '👍 ระดับผลการเรียน: ผ่านเกณฑ์มาตรฐานดี - ควรเก็บรายละเอียดจุดที่พลาด' : '👍 Mastery Level: Proficient - Review missed items.';
+    assessmentEl.style.color = '#b45309';
+  } else {
+    assessmentEl.innerText = currentLang === 'th' ? '📚 ระดับผลการเรียน: ควรได้รับการฟื้นฟูทบทวนเนื้อหาเพิ่มเติม' : '📚 Mastery Level: Needs Academic Reinforcement';
+    assessmentEl.style.color = '#b91c1c';
+  }
+
+  // Categorize by topics
+  const topics = {
+    digestive: { name_th: "ระบบย่อยอาหารและการดูแล", name_en: "Digestive System & Care", total: 0, correct: 0 },
+    excretory: { name_th: "ระบบขับถ่ายปัสสาวะและการรักษาสุขภาพไต", name_en: "Excretory System & Renal Care", total: 0, correct: 0 },
+    puberty: { name_th: "การเปลี่ยนแปลงทางเพศและสุขอนามัยวัยรุ่น", name_en: "Pubertal Changes & Sexual Hygiene", total: 0, correct: 0 },
+    family_friends: { name_th: "ความสัมพันธ์ในครอบครัว เพื่อน และทักษะการปฏิเสธ", name_en: "Family, Peer Dynamics & Refusal Skills", total: 0, correct: 0 }
+  };
+
+  quizData.forEach(q => {
+    const userAns = examState.answers[q.id];
+    if (topics[q.topic]) {
+      topics[q.topic].total++;
+      if (userAns !== undefined && q.options[userAns].origIndex === q.correct) {
+        topics[q.topic].correct++;
+      }
+    }
+  });
+
+  const strList = document.getElementById('strengths-list');
+  const weakList = document.getElementById('weakness-list');
+  strList.innerHTML = '';
+  weakList.innerHTML = '';
+
+  Object.keys(topics).forEach(key => {
+    const t = topics[key];
+    const rate = t.total > 0 ? (t.correct / t.total) : 0;
+    const name = currentLang === 'th' ? t.name_th : t.name_en;
+
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${name}</strong>: ทำได้ ${t.correct}/${t.total} (${Math.round(rate * 100)}%)`;
+
+    if (rate >= 0.7) {
+      li.innerHTML += currentLang === 'th' ? ' — <em>แม่นยำ เข้าใจกลไกได้ดีมาก</em>' : ' — <em>Solid conceptual mastery</em>';
+      strList.appendChild(li);
+    } else {
+      li.innerHTML += currentLang === 'th' ? ' — <em>ควรกลับไปอ่านทบทวนจุดสังเกตและข้อควรระวัง</em>' : ' — <em>Requires targeted revision</em>';
+      weakList.appendChild(li);
+    }
+  });
+
+  if (strList.children.length === 0) {
+    strList.innerHTML = `<li>${currentLang === 'th' ? 'ยังไม่มีหมวดที่ผ่านเกณฑ์เด่นชัด แนะนำให้อ่านสรุปเนื้อหาด้านบนและเริ่มฝึกฝนใหม่อีกครั้ง' : 'No prominent strength areas yet. Review the core summary above.'}</li>`;
+  }
+  if (weakList.children.length === 0) {
+    weakList.innerHTML = `<li>${currentLang === 'th' ? 'ไม่มีจุดด้อยที่มีนัยสำคัญ ยอดเยี่ยมมาก ทุกหมวดวิชาผ่านเกณฑ์ระดับสูง!' : 'Flawless performance across all topic categories!'}</li>`;
+  }
+}
+
+/* Whiteboard System (Professional Canvas) */
+const canvas = document.getElementById('wb-canvas');
+const ctx = canvas.getContext('2d');
+let isDrawing = false;
+let wbColor = '#000000';
+let wbTool = 'pen'; // 'pen' or 'eraser'
+
+function resizeCanvas() {
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+}
+
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  return {
+    x: clientX - rect.left,
+    y: clientY - rect.top
+  };
+}
+
+function startDrawing(e) {
+  isDrawing = true;
+  const pos = getPos(e);
+  ctx.beginPath();
+  ctx.moveTo(pos.x, pos.y);
+  if (e.cancelable && e.type.startsWith('touch')) e.preventDefault();
+}
+
+function draw(e) {
+  if (!isDrawing) return;
+  const pos = getPos(e);
+  if (wbTool === 'eraser') {
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 20;
+  } else {
+    ctx.strokeStyle = wbColor;
+    ctx.lineWidth = 3;
+  }
+  ctx.lineTo(pos.x, pos.y);
+  ctx.stroke();
+  if (e.cancelable && e.type.startsWith('touch')) e.preventDefault();
+}
+
+function stopDrawing() {
+  if (isDrawing) {
+    ctx.closePath();
+    isDrawing = false;
+  }
+}
+
+function setWbTool(tool) {
+  wbTool = tool;
+  document.getElementById('tool-pen').classList.toggle('active', tool === 'pen');
+  document.getElementById('tool-eraser').classList.toggle('active', tool === 'eraser');
+}
+
+function setWbColor(color, el) {
+  wbColor = color;
+  setWbTool('pen');
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function clearWhiteboard() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// Event Listeners for Whiteboard
+canvas.addEventListener('mousedown', startDrawing);
+canvas.addEventListener('mousemove', draw);
+window.addEventListener('mouseup', stopDrawing);
+
+canvas.addEventListener('touchstart', startDrawing, { passive: false });
+canvas.addEventListener('touchmove', draw, { passive: false });
+window.addEventListener('touchend', stopDrawing);
+
+// Window Resize & Startup
+window.addEventListener('resize', resizeCanvas);
+
+document.addEventListener('DOMContentLoaded', () => {
+  initQuestions();
+  updateUILanguage();
+  renderQuiz();
+  setTimeout(resizeCanvas, 200);
+});
+</script>
+</body>
+</html>
