@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แบบทดสอบเรขาคณิต ป.5 - พระจอมเกล้าติวเตอร์</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --secondary: #0d9488;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Sarabun", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .top-controls {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-lang, .btn-reset-all {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s;
+    }
+
+    .btn-lang:hover, .btn-reset-all:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .summary-container {
+      max-width: 1200px;
+      margin: -1.5rem auto 2rem;
+      padding: 0 1rem;
+    }
+
+    .summary-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
+    }
+
+    .summary-card h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .trick-box {
+      background: #eff6ff;
+      border-left: 5px solid var(--primary-light);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .trick-box h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .main-workspace {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .quiz-frame {
+      flex: 7;
+      min-width: 0;
+    }
+
+    .board-frame {
+      flex: 3;
+      position: sticky;
+      top: 1rem;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 15px -2px rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+    }
+
+    @media (max-width: 992px) {
+      .main-workspace {
+        flex-direction: column;
+      }
+      .quiz-frame, .board-frame {
+        width: 100%;
+        flex: auto;
+      }
+      .board-frame {
+        position: static;
+      }
+    }
+
+    .q-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .q-badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .q-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .clue-box {
+      background: #fdf4ff;
+      border: 1px dashed #d946ef;
+      color: #86198f;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .options-grid {
+      display: grid;
+      gap: 0.6rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 600px) {
+      .options-grid.two-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .opt-btn {
+      text-align: left;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      background: #e2e8f0;
+      border-color: #cbd5e1;
+    }
+
+    .opt-btn.correct {
+      background: #dcfce7 !important;
+      border-color: var(--success) !important;
+      color: #14532d;
+      font-weight: bold;
+    }
+
+    .opt-btn.wrong {
+      background: #fee2e2 !important;
+      border-color: var(--danger) !important;
+      color: #7f1d1d;
+    }
+
+    .explanation-box {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .exp-pass {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+    }
+
+    .exp-fail {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+
+    .tutor-tip {
+      margin-top: 0.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .canvas-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .canvas-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .canvas-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    #drawingCanvas {
+      width: 100%;
+      height: 380px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .analysis-panel {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-top: 2rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      display: none;
+    }
+
+    .analysis-panel h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .score-circle {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .box-strong {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      padding: 1.2rem;
+      border-radius: 8px;
+    }
+
+    .box-weak {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      padding: 1.2rem;
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="top-controls">
+      <button class="btn-lang" id="toggleLang" onclick="toggleLanguage()">Language: TH</button>
+      <button class="btn-reset-all" onclick="resetAll()">รีเซ็ตทั้งหมด (Reset)</button>
+    </div>
+    <div class="header-content">
+      <h1 id="ui-title">ข้อสอบเรขาคณิต ป.5 ตามหลักสูตร สสวท</h1>
+      <p id="ui-subtitle">เน้นความเข้าใจเชิงมโนทัศน์และการจดจำสูตรพื้นที่-ปริมาตรอย่างยั่งยืน</p>
+    </div>
+  </header>
+
+  <div class="summary-container">
+    <div class="summary-card">
+      <h2 id="sum-head">สรุปเนื้อหาหลักและสาระสำคัญ (Geometry Mastery Summary)</h2>
+      <p>
+        วิชาคณิตศาสตร์ ชั้นประถมศึกษาปีที่ 5 ตามมาตรฐาน สสวท บทเรียนเรื่องเรขาคณิตสองมิติและสามมิติ ครอบคลุมหัวใจสำคัญ 4 เรื่อง ได้แก่ 
+        <strong>รูปสี่เหลี่ยมด้านขนาน รูปสี่เหลี่ยมขนมเปียกปูน รูปสามเหลี่ยม และปริมาตรของปริซึมสี่เหลี่ยมมุมฉาก (ทรงสี่เหลี่ยมมุมฉาก)</strong>
+        การทำความเข้าใจสูตรเรขาคณิตไม่ใช่เพียงการท่องจำเป็นตัวอักษร แต่คือการมองเห็นที่มาทางเรขาคณิตเชิงประจักษ์ (Visual Geometric Deduction)
+      </p>
+      <br>
+      <p>
+        <strong>1. กลุ่มสี่เหลี่ยมด้านขนานและขนมเปียกปูน:</strong> ทั้งสองรูปมีคุณสมบัติด้านตรงข้ามขนานกันและยาวเท่ากัน หากตัดส่วนที่ยื่นออกแล้วนำมาต่ออีกข้างหนึ่ง จะได้รูปสี่เหลี่ยมผืนผ้าทันที ดังนั้น <em>พื้นที่รูปสี่เหลี่ยมด้านขนานและขนมเปียกปูน = ฐาน × สูง</em> โดยคำว่า "สูง" จะต้องลากจากด้านตรงข้ามลงมาตั้งฉากกับแนวของฐานเสมอ
+      </p>
+      <br>
+      <p>
+        <strong>2. กลุ่มรูปสามเหลี่ยม:</strong> รูปสามเหลี่ยมใดๆ เกิดจากการแบ่งครึ่งรูปสี่เหลี่ยมด้านขนานตามแนวเส้นทแยงมุม ส่งผลให้ <em>พื้นที่รูปสามเหลี่ยม = (1/2) × ฐาน × สูง</em> หัวใจคือการระบุส่วนสูงที่ตั้งฉากกับฐานให้ถูกต้อง ไม่นำความยาวด้านเอียงมาคำนวณเป็นความสูงเด็ดขาด
+      </p>
+      <br>
+      <p>
+        <strong>3. ความยาวรอบรูป:</strong> ไม่ว่าจะเป็นรูปหลายเหลี่ยมใดๆ ความยาวรอบรูปเกิดจาก "ผลรวมของความยาวทุกด้านรอบปิด" หากเป็นรูปสี่เหลี่ยมจัตุรัสหรือขนมเปียกปูนที่มี 4 ด้านยาวเท่ากัน จะคิดได้จาก <em>4 × ความยาวด้าน</em> ส่วนสี่เหลี่ยมผืนผ้าหรือสี่เหลี่ยมด้านขนานจะคิดจาก <em>2 × (กว้าง + ยาว)</em> หรือ <em>2 × (ด้านประชิด 1 + ด้านประชิด 2)</em>
+      </p>
+      <br>
+      <p>
+        <strong>4. ปริมาตรและความจุของทรงสี่เหลี่ยมมุมฉาก:</strong> เมื่อขยายพื้นที่หน้าตัดสองมิติขึ้นสู่อีกมิติหนึ่ง ปริมาตรจึงคำนวณจาก <em>พื้นที่ฐาน × สูง</em> ซึ่งสำหรับทรงสี่เหลี่ยมมุมฉากจะแตกรูปเป็น <em>กว้าง × ยาว × สูง</em> และหากเป็นลูกบาศก์ที่ทุกด้านยาวเท่ากัน จะได้เป็น <em>ความยาวด้าน × ความยาวด้าน × ความยาวด้าน (ด้าน³)</em> นอกจากนี้ยังต้องแม่นยำเรื่องการเปลี่ยนหน่วย เช่น 1 ลิตร = 1,000 ลูกบาศก์เซนติเมตร และ 1 ลูกบาศก์เมตร = 1,000,000 ลูกบาศก์เซนติเมตร
+      </p>
+
+      <div class="trick-box">
+        <h3 id="sum-trick-head">💡 เทคนิคการจำและกระบวนการคิด (Tutor Thinking Process)</h3>
+        <ul>
+          <li><strong>ระวังตัวลวงเรื่อง "ด้านเอียง":</strong> ความสูงแท้จริงต้อง "ตั้งฉากกับฐาน" เสมอ มีสัญลักษณ์มุมฉากเป็นจุดสังเกต หากโจทย์ให้ด้านเอียงมา มักนำมาหลอกเพื่อทดสอบความแม่นยำ</li>
+          <li><strong>คู่แฝดสามเหลี่ยม:</strong> นึกถึงแซนด์วิชที่ถูกตัดครึ่งตามแนวทแยงมุม พื้นที่จะเท่ากับ "ครึ่งหนึ่งของสี่เหลี่ยม" จึงมีตัวคูณ (1/2) เสมอ</li>
+          <li><strong>หน่วยบอกมิติ:</strong> 
+            ความยาวรอบรูป หน่วยเป็นมิติเดียว (ซม., ม.) | 
+            พื้นที่ หน่วยเป็นตาราง (ตร.ซม., ตร.ม.) | 
+            ปริมาตร หน่วยเป็นลูกบาศก์ (ลบ.ซม., ลบ.ม.)
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-workspace">
+    <!-- Frame 1: Quiz (70%) -->
+    <div class="quiz-frame" id="quizContainer">
+      <!-- Questions rendered via JS -->
+    </div>
+
+    <!-- Frame 2: Whiteboard (30%) -->
+    <div class="board-frame">
+      <h3 style="margin-bottom: 0.5rem; font-size: 1rem;" id="board-title">กระดานทดเลข (Scratchpad)</h3>
+      <div class="canvas-controls">
+        <button class="canvas-btn active" onclick="setPenColor('#000000', this)">ดำ</button>
+        <button class="canvas-btn" onclick="setPenColor('#2563eb', this)">น้ำเงิน</button>
+        <button class="canvas-btn" onclick="setPenColor('#dc2626', this)">แดง</button>
+        <button class="canvas-btn" onclick="clearCanvas()">ล้างกระดาน</button>
+      </div>
+      <canvas id="drawingCanvas"></canvas>
+      <small style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 4px;">ใช้เมาส์หรือนิ้วเขียนทดเลขได้โดยตรง</small>
+    </div>
+  </div>
+
+  <div class="summary-container">
+    <div class="analysis-panel" id="analysisPanel">
+      <h2>รายงานวิเคราะห์ผลการสอบรายบุคคล</h2>
+      <div class="score-circle" id="scoreDisplay">0 / 25</div>
+      <p id="scorePercent" style="font-weight: bold; margin-bottom: 1rem;"></p>
+      
+      <div class="analysis-grid">
+        <div class="box-strong">
+          <h4 style="color: #166534; margin-bottom: 0.5rem;">จุดเด่น (Strengths)</h4>
+          <ul id="strongList" style="padding-left: 1.2rem; font-size: 0.95rem;"></ul>
+        </div>
+        <div class="box-weak">
+          <h4 style="color: #991b1b; margin-bottom: 0.5rem;">เนื้อหาที่ต้องปรับปรุงเร่งด่วน (Weaknesses)</h4>
+          <ul id="weakList" style="padding-left: 1.2rem; font-size: 0.95rem;"></ul>
+        </div>
+      </div>
+      <div style="margin-top: 1.5rem; text-align: right;">
+        <button class="btn-reset-all" style="background: var(--primary);" onclick="resetAll()">ทำข้อสอบใหม่อีกครั้ง</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    เขียนโดย พระจอมเกล้าติวเตอร์
+  </footer>
+
+  <script>
+    const RAW_QUESTIONS = [
+      {
+        id: 1,
+        cat: "triangle",
+        th: {
+          q: "สูตรการหาพื้นที่ของรูปสามเหลี่ยมใดๆ คือข้อใด?",
+          clue: "คำใบ้: สามเหลี่ยมคือครึ่งหนึ่งของรูปสี่เหลี่ยมด้านขนาน",
+          opts: ["ความยาวฐาน × ความสูง", "(1/2) × ความยาวฐาน × ความสูง", "(1/2) × ผลบวกของด้านคู่ขนาน × สูง", "ด้าน × ด้าน"],
+          exp: "พื้นที่รูปสามเหลี่ยม = (1/2) × ความยาวฐาน × ความสูง เพราะสามเหลี่ยมเป็นครึ่งหนึ่งของสี่เหลี่ยมด้านขนานเสมอ",
+          tip: "จำง่ายๆ: แซนด์วิชผ่าครึ่ง = ครึ่งหนึ่งของฐานคูณสูง!"
+        },
+        en: {
+          q: "What is the formula for the area of any triangle?",
+          clue: "Clue: A triangle is half of a parallelogram.",
+          opts: ["Base × Height", "(1/2) × Base × Height", "(1/2) × Sum of parallel sides × Height", "Side × Side"],
+          exp: "Area of a triangle = (1/2) × Base × Height.",
+          tip: "Tip: Half of base times perpendicular height!"
+        },
+        ansIndex: 1
+      },
+      {
+        id: 2,
+        cat: "parallelogram",
+        th: {
+          q: "สูตรการหาพื้นที่ของรูปสี่เหลี่ยมด้านขนานคือข้อใด?",
+          clue: "คำใบ้: ตัดมุมสามเหลี่ยมด้านหนึ่งไปแปะอีกด้านจะได้สี่เหลี่ยมผืนผ้า",
+          opts: ["ความยาวฐาน × ความสูง", "(1/2) × ความยาวฐาน × ความสูง", "2 × (กว้าง + ยาว)", "ความยาวเส้นทแยงมุม × ความสูง"],
+          exp: "พื้นที่สี่เหลี่ยมด้านขนาน = ความยาวฐาน × ความสูง โดยเส้นความสูงต้องตั้งฉากกับฐาน",
+          tip: "อย่าเผลอใส่ 1/2 นะ สี่เหลี่ยมเต็มรูปไม่ต้องแบ่งครึ่ง!"
+        },
+        en: {
+          q: "What is the formula for the area of a parallelogram?",
+          clue: "Clue: Reposition the triangular corner to make a rectangle.",
+          opts: ["Base × Height", "(1/2) × Base × Height", "2 × (Width + Length)", "Diagonal × Height"],
+          exp: "Area of parallelogram = Base × Perpendicular Height.",
+          tip: "Do not add 1/2 for full parallelograms!"
+        },
+        ansIndex: 0
+      },
+      {
+        id: 3,
+        cat: "rhombus",
+        th: {
+          q: "รูปสี่เหลี่ยมขนมเปียกปูนมีความยาวฐาน 8 ซม. และมีความสูง 5 ซม. จะมีพื้นที่เท่าใด?",
+          clue: "คำใบ้: สี่เหลี่ยมขนมเปียกปูนใช้สูตรเดียวกับสี่เหลี่ยมด้านขนานได้",
+          opts: ["20 ตารางเซนติเมตร", "40 ตารางเซนติเมตร", "26 ตารางเซนติเมตร", "80 ตารางเซนติเมตร"],
+          exp: "พื้นที่รูปสี่เหลี่ยมขนมเปียกปูน = ฐาน × สูง = 8 × 5 = 40 ตารางเซนติเมตร",
+          tip: "เปียกปูนมี 4 ด้านเท่ากัน แต่คิดพื้นที่แบบฐาน × สูงได้เหมือนด้านขนานเลย!"
+        },
+        en: {
+          q: "A rhombus has a base of 8 cm and a height of 5 cm. What is its area?",
+          clue: "Clue: A rhombus can use the base × height formula.",
+          opts: ["20 sq cm", "40 sq cm", "26 sq cm", "80 sq cm"],
+          exp: "Area of rhombus = Base × Height = 8 × 5 = 40 sq cm.",
+          tip: "Direct product of base and perpendicular height!"
+        },
+        ansIndex: 1
+      },
+      {
+        id: 4,
+        cat: "volume",
+        th: {
+          q: "สูตรการหาปริมาตรของทรงสี่เหลี่ยมมุมฉากคือข้อใด?",
+          clue: "คำใบ้: วางซ้อนพื้นที่ฐานขึ้นมาตามแนวสูง",
+          opts: ["ความกว้าง × ความยาว", "ความกว้าง + ความยาว + ความสูง", "ความกว้าง × ความยาว × ความสูง", "2 × (กว้าง + ยาว) × สูง"],
+          exp: "ปริมาตรของทรงสี่เหลี่ยมมุมฉาก = พื้นที่ฐาน × ความสูง หรือ ความกว้าง × ความยาว × ความสูง",
+          tip: "ปริมาตรมี 3 มิติ จึงต้องคูณกัน 3 ค่า: กว้าง × ยาว × สูง"
+        },
+        en: {
+          q: "What is the formula for the volume of a rectangular prism?",
+          clue: "Clue: Base area extended along its height.",
+          opts: ["Width × Length", "Width + Length + Height", "Width × Length × Height", "2 × (Width + Length) × Height"],
+          exp: "Volume = Base area × Height = Width × Length × Height.",
+          tip: "3 dimensions mean multiplying 3 components together."
+        },
+        ansIndex: 2
+      },
+      {
+        id: 5,
+        cat: "perimeter",
+        th: {
+          q: "รูปสี่เหลี่ยมด้านขนานรูปหนึ่งมีด้านประชิดยาว 6 ซม. และ 10 ซม. ความยาวรอบรูปมีค่าเท่าใด?",
+          clue: "คำใบ้: ด้านตรงข้ามของสี่เหลี่ยมด้านขนานยาวเท่ากัน",
+          opts: ["16 เซนติเมตร", "32 เซนติเมตร", "60 เซนติเมตร", "26 เซนติเมตร"],
+          exp: "ความยาวรอบรูป = 2 × (ด้านที่ 1 + ด้านที่ 2) = 2 × (6 + 10) = 32 ซม.",
+          tip: "รอบรูปคือการเดินให้ครบ 4 ด้าน: 6 + 10 + 6 + 10 = 32 ซม."
+        },
+        en: {
+          q: "A parallelogram has adjacent sides measuring 6 cm and 10 cm. What is its perimeter?",
+          clue: "Clue: Opposite sides are equal.",
+          opts: ["16 cm", "32 cm", "60 cm", "26 cm"],
+          exp: "Perimeter = 2 × (Side 1 + Side 2) = 2 × (6 + 10) = 32 cm.",
+          tip: "Sum of all four borders!"
+        },
+        ansIndex: 1
+      },
+      {
+        id: 6,
+        cat: "triangle",
+        th: {
+          q: "สามเหลี่ยมมุมฉากที่มีด้านประกอบมุมฉากยาว 6 ซม. และ 8 ซม. มีพื้นที่กี่ตารางเซนติเมตร?",
+          clue: "คำใบ้: ในสามเหลี่ยมมุมฉาก ด้านประกอบมุมฉากด้านหนึ่งทำหน้าที่เป็นฐาน อีกด้านเป็นส่วนสูง",
+          opts: ["48 ตร.ซม.", "24 ตร.ซม.", "14 ตร.ซม.", "28 ตร.ซม."],
+          exp: "พื้นที่สามเหลี่ยม = (1/2) × 6 × 8 = 24 ตร.ซม.",
+          tip: "สามเหลี่ยมมุมฉากง่ายที่สุด! จับสองด้านที่ตั้งฉากกันคูณกันแล้วหาร 2 ทันที"
+        },
+        en: {
+          q: "A right triangle has legs of lengths 6 cm and 8 cm. What is its area?",
+          clue: "Clue: The legs act as base and perpendicular height.",
+          opts: ["48 sq cm", "24 sq cm", "14 sq cm", "28 sq cm"],
+          exp: "Area = (1/2) × 6 × 8 = 24 sq cm.",
+          tip: "Multiply the perpendicular sides and divide by 2!"
+        },
+        ansIndex: 1
+      },
+      {
+        id: 7,
+        cat: "volume",
+        th: {
+          q: "ลูกบาศก์ (Cube) มีความยาวด้านละ 4 เซนติเมตร จะมีปริมาตรเท่าใด?",
+          clue: "คำใบ้: ลูกบาศก์มีกว้าง ยาว และสูงเท่ากันทุกด้าน",
+          opts: ["16 ลูกบาศก์เซนติเมตร", "24 ลูกบาศก์เซนติเมตร", "48 ลูกบาศก์เซนติเมตร", "64 ลูกบาศก์เซนติเมตร"],
+          exp: "ปริมาตรลูกบาศก์ = ด้าน × ด้าน × ด้าน = 4 × 4 × 4 = 64 ลบ.ซม.",
+          tip: "ลูกบาศก์จำสูตรว่า 'ด้านยกกำลัง 3' (4 × 4 = 16, 16 × 4 = 64)"
+        },
+        en: {
+          q: "A cube has side lengths of 4 cm. What is its volume?",
+          clue: "Clue: All dimensions are equal.",
+          opts: ["16 cubic cm", "24 cubic cm", "48 cubic cm", "64 cubic cm"],
+          exp: "Volume = 4 × 4 × 4 = 64 cm³.",
+          tip: "Side cubed: 4 × 4 × 4 = 64."
+        },
+        ansIndex: 3
+      },
+      {
+        id: 8,
+        cat: "perimeter",
+        th: {
+          q: "รูปสี่เหลี่ยมขนมเปียกปูนมีความยาวรอบรูป 36 เซนติเมตร ด้านแต่ละด้านจะยาวเท่าใด?",
+          clue: "คำใบ้: สี่เหลี่ยมขนมเปียกปูนมีด้านทั้งสี่ยาวเท่ากันทั้งหมด",
+          opts: ["6 เซนติเมตร", "8 เซนติเมตร", "9 เซนติเมตร", "12 เซนติเมตร"],
+          exp: "เนื่องจาก 4 ด้านยาวเท่ากัน ความยาวด้าน = ความยาวรอบรูป ÷ 4 = 36 ÷ 4 = 9 เซนติเมตร",
+          tip: "เหมือนสี่เหลี่ยมจัตุรัสเลย! ถ้ารู้รอบรูป อยากได้ด้านเดียว ให้หารด้วย 4"
+        },
+        en: {
+          q: "A rhombus has a perimeter of 36 cm. What is the length of each side?",
+          clue: "Clue: All 4 sides of a rhombus are equal.",
+          opts: ["6 cm", "8 cm", "9 cm", "12 cm"],
+          exp: "Side length = Perimeter ÷ 4 = 36 ÷ 4 = 9 cm.",
+          tip: "Divide by 4 since all edges share identical lengths."
+        },
+        ansIndex: 2
+      },
+      {
+        id: 9,
+        cat: "parallelogram",
+        th: {
+          q: "รูปสี่เหลี่ยมด้านขนานมีพื้นที่ 72 ตร.ซม. และมีฐานยาว 9 ซม. จะมีความสูงกี่เซนติเมตร?",
+          clue: "คำใบ้: ย้ายข้างสมการจาก พื้นที่ = ฐาน × สูง",
+          opts: ["6 เซนติเมตร", "7 เซนติเมตร", "8 เซนติเมตร", "9 เซนติเมตร"],
+          exp: "ความสูง = พื้นที่ ÷ ฐาน = 72 ÷ 9 = 8 เซนติเมตร",
+          tip: "ถ้าโจทย์ให้พื้นที่มา ให้เอาฐานไปหารเพื่อหาความสูง!"
+        },
+        en: {
+          q: "A parallelogram has an area of 72 sq cm and a base of 9 cm. What is its height?",
+          clue: "Clue: Height = Area ÷ Base.",
+          opts: ["6 cm", "7 cm", "8 cm", "9 cm"],
+          exp: "Height = Area ÷ Base = 72 ÷ 9 = 8 cm.",
+          tip: "Reversing the formula gives Height = 72 / 9 = 8."
+        },
+        ansIndex: 2
+      },
+      {
+        id: 10,
+        cat: "triangle",
+        th: {
+          q: "รูปสามเหลี่ยมรูปหนึ่งมีพื้นที่ 30 ตร.ซม. มีความสูง 6 ซม. จะมีฐานยาวเท่าใด?",
+          clue: "คำใบ้: นำ 2 ไปคูณพื้นที่ก่อน แล้วค่อยหารด้วยความสูง",
+          opts: ["5 เซนติเมตร", "10 เซนติเมตร", "15 เซนติเมตร", "20 เซนติเมตร"],
+          exp: "ฐาน = (2 × พื้นที่) ÷ สูง = (2 × 30) ÷ 6 = 60 ÷ 6 = 10 เซนติเมตร",
+          tip: "ระวังกับดัก! สามเหลี่ยมมี 1/2 ดังนั้นต้องคูณ 2 กลับเข้าไปที่พื้นที่ก่อนเสมอ"
+        },
+        en: {
+          q: "A triangle has an area of 30 sq cm and a height of 6 cm. What is its base?",
+          clue: "Clue: Double the area before dividing by height.",
+          opts: ["5 cm", "10 cm", "15 cm", "20 cm"],
+          exp: "Base = (2 × Area) ÷ Height = (2 × 30) ÷ 6 = 10 cm.",
+          tip: "Always multiply the triangle's area by 2 first!"
+        },
+        ansIndex: 1
+      },
+      {
+        id: 11,
+        cat: "units",
+        th: {
+          q: "1 ลิตร มีค่าเท่ากับกี่ลูกบาศก์เซนติเมตร?",
+          clue: "คำใบ้: นึกถึงกล่องลูกบาศก์ขนาด 10 × 10 × 10 ซม.",
+          opts: ["100 ลบ.ซม.", "500 ลบ.ซม.", "1,000 ลบ.ซม.", "10,000 ลบ.ซม."],
+          exp: "1 ลิตร = 1,000 ลูกบาศก์เซนติเมตร (หรือเท่ากับ 1,000 มิลลิลิตร)",
+          tip: "1 ลิตร = นม 1 กล่องใหญ่ = 1,000 ลบ.ซม. พอดีเป๊ะ!"
+        },
+        en: {
+          q: "How many cubic centimeters are there in 1 liter?",
+          clue: "Clue: Think of a cube measuring 10 cm on each side.",
+          opts: ["100 cm³", "500 cm³", "1,000 cm³", "10,000 cm³"],
+          exp: "1 Liter = 1,000 cubic centimeters (cm³).",
+          tip: "1 Liter = 1,000 mL = 1,000 cm³."
+        },
+        ansIndex: 2
+      },
+      {
+        id: 12,
+        cat: "volume",
+        th: {
+          q: "แท็งก์น้ำทรงสี่เหลี่ยมมุมฉาก กว้าง 2 เมตร ยาว 3 เมตร ลึก (สูง) 1.5 เมตร มีความจุกี่ลูกบาศก์เมตร?",
+          clue: "คำใบ้: ใช้สูตร กว้าง × ยาว × สูง",
+          opts: ["6.5 ลูกบาศก์เมตร", "7.0 ลูกบาศก์เมตร", "9.0 ลูกบาศก์เมตร", "12.0 ลูกบาศก์เมตร"],
+          exp: "ปริมาตร = 2 × 3 × 1.5 = 6 × 1.5 = 9.0 ลูกบาศก์เมตร",
+          tip: "จับคู่คูณง่ายๆ: 2 × 1.5 = 3 จากนั้นเอา 3 × 3 = 9 ลบ.ม."
+        },
+        en: {
+          q: "A rectangular water tank is 2 m wide, 3 m long, and 1.5 m deep. What is its capacity in m³?",
+          clue: "Clue: Capacity = Width × Length × Depth.",
+          opts: ["6.5 m³", "7.0 m³", "9.0 m³", "12.0 m³"],
+          exp: "Volume = 2 × 3 × 1.5 = 9 m³.",
+          tip: "Multiply 2 × 1.5 first to get 3, then 3 × 3 = 9!"
+        },
+        ansIndex: 2
+      },
+      {
+        id: 13,
+        cat: "triangle",
+        th: {
+          q: "รูปสามเหลี่ยมด้านเท่าที่มีด้านยาวด้านละ 7 ซม. จะมีความยาวรอบรูปเท่าใด?",
+          clue: "คำใบ้: สามเหลี่ยมด้านเท่ามีด้านยาวเท่ากัน 3 ด้าน",
+          opts: ["14 เซนติเมตร", "21 เซนติเมตร", "28 เซนติเมตร", "49 เซนติเมตร"],
+          exp: "ความยาวรอบรูป = 3 × ด้าน = 3 × 7 = 21 เซนติเมตร",
+          tip: "ด้านเท่า 3 ด้าน ยาวด้านละ 7 เอา 3 × 7 ได้ทันทีไม่ต้องตั้งบวก"
+        },
+        en: {
+          q: "What is the perimeter of an equilateral triangle with sides of 7 cm?",
+          clue: "Clue: All three sides are equal.",
+          opts: ["14 cm", "21 cm", "28 cm", "49 cm"],
+          exp: "Perimeter = 3 × 7 = 21 cm.",
+          tip: "3 sides of equal length: 3 × 7 = 21."
+        },
+        ansIndex: 1
+      },
+      {
+        id: 14,
+        cat: "parallelogram",
+        th: {
+          q: "ส่วนของเส้นตรงที่ลากจากด้านหนึ่งไป 'ตั้งฉาก' กับแนวของอีกด้านหนึ่งที่เป็นฐาน เรียกว่าอะไร?",
+          clue: "คำใบ้: เป็นมิติสำคัญที่ใช้คำนวณพื้นที่ร่วมกับฐาน",
+          opts: ["เส้นทแยงมุม", "ส่วนสูง", "ด้านประกอบมุม", "รัศมี"],
+          exp: "ส่วนของเส้นตรงที่ตั้งฉากกับฐานเรียกว่า 'ส่วนสูง' (Height)",
+          tip: "คีย์เวิร์ดคือ 'ตั้งฉาก' ถ้าไม่ตั้งฉากจะไม่ใช่ส่วนสูง!"
+        },
+        en: {
+          q: "What do we call the line segment perpendicular from a side to its opposite base?",
+          clue: "Clue: Essential height component.",
+          opts: ["Diagonal", "Height (Altitude)", "Adjacent side", "Radius"],
+          exp: "The line segment drawn perpendicular to the base is called the height or altitude.",
+          tip: "Look for the right angle to identify the true height!"
+        },
+        ansIndex: 1
+      },
+      {
+        id: 15,
+        cat: "rhombus",
+        th: {
+          q: "ข้อใดกล่าวถึงคุณสมบัติของรูปสี่เหลี่ยมขนมเปียกปูนได้ถูกต้องที่สุด?",
+          clue: "คำใบ้: คล้ายรูปสี่เหลี่ยมจัตุรัสที่ถูกกดให้เอียง",
+          opts: ["ด้านทั้งสี่ยาวเท่ากัน แต่มุมทุกมุมไม่ใช่มุมฉาก", "มีด้านตรงข้ามยาวเท่ากันเพียงคู่เดียว", "มุมทุกมุมเป็นมุมฉากและมี 4 ด้านเท่ากัน", "ไม่มีด้านใดขนานกันเลย"],
+          exp: "สี่เหลี่ยมขนมเปียกปูน: ด้านทั้งสี่ยาวเท่ากัน ด้านตรงข้ามขนานกัน แต่มุมทุกมุมไม่เป็นมุมฉาก",
+          tip: "ถ้ามุมเป็นมุมฉากจะกลายเป็นจัตุรัสทันที ขนมเปียกปูนต้องมุมเอียง!"
+        },
+        en: {
+          q: "Which of the following correctly describes a rhombus?",
+          clue: "Clue: Like a tilted square.",
+          opts: ["All four sides equal, but interior angles are not right angles", "Only one pair of parallel sides", "All angles are right angles with four equal sides", "No parallel sides"],
+          exp: "A rhombus has 4 equal sides with opposite sides parallel, but no right angles.",
+          tip: "Equal sides without 90-degree corners!"
+        },
+        ansIndex: 0
+      },
+      {
+        id: 16,
+        cat: "volume",
+        th: {
+          q: "กล่องกระดาษมีพื้นที่ฐาน 45 ตร.ซม. และมีความสูง 8 ซม. จะมีปริมาตรกี่ลูกบาศก์เซนติเมตร?",
+          clue: "คำใบ้: ปริมาตร = พื้นที่ฐาน × สูง",
+          opts: ["320 ลบ.ซม.", "360 ลบ.ซม.", "400 ลบ.ซม.", "450 ลบ.ซม."],
+          exp: "ปริมาตร = พื้นที่ฐาน × สูง = 45 × 8 = 360 ลูกบาศก์เซนติเมตร",
+          tip: "โจทย์ให้พื้นที่ฐานมาแล้ว ไม่ต้องไปแตกเป็น กว้าง × ยาว อีกรอบ จับคูณความสูงได้เลย"
+        },
+        en: {
+          q: "A box has a base area of 45 sq cm and a height of 8 cm. What is its volume?",
+          clue: "Clue: Volume = Base Area × Height.",
+          opts: ["320 cm³", "360 cm³", "400 cm³", "450 cm³"],
+          exp: "Volume = Base Area × Height = 45 × 8 = 360 cm³.",
+          tip: "Base area is already provided; simply multiply by height!"
+        },
+        ansIndex: 1
+      },
+      {
+        id: 17,
+        cat: "units",
+        th: {
+          q: "1 ลูกบาศก์เมตร (m³) มีค่าเท่ากับกี่ลูกบาศก์เซนติเมตร (cm³)?",
+          clue: "คำใบ้: 1 ม. = 100 ซม. ดังนั้น 100 × 100 × 100",
+          opts: ["1,000 ลบ.ซม.", "10,000 ลบ.ซม.", "100,000 ลบ.ซม.", "1,000,000 ลบ.ซม."],
+          exp: "1 ม. = 100 ซม. ดังนั้น 1 ลบ.ม. = 100 × 100 × 100 = 1,000,000 ลูกบาศก์เซนติเมตร",
+          tip: "ลูกบาศก์ให้เติมศูนย์ 3 เท่า: 100 มี 0 สองตัว พอเป็น ลบ. จะมีศูนย์ 6 ตัว (หนึ่งล้าน)!"
+        },
+        en: {
+          q: "How many cubic centimeters are equal to 1 cubic meter?",
+          clue: "Clue: 1 m = 100 cm, so calculate 100 × 100 × 100.",
+          opts: ["1,000 cm³", "10,000 cm³", "100,000 cm³", "1,000,000 cm³"],
+          exp: "1 m³ = 100 cm × 100 cm × 100 cm = 1,000,000 cm³.",
+          tip: "Triple the two zeros of 100: gives 6 zeros (one million)!"
+        },
+        ansIndex: 3
+      },
+      {
+        id: 18,
+        cat: "triangle",
+        th: {
+          q: "รูปสามเหลี่ยมมุมป้าน มีฐานยาว 12 ซม. และมีความสูงลากจากยอดภายนอกมาตั้งฉากยาว 5 ซม. พื้นที่เท่ากับกี่ ตร.ซม.?",
+          clue: "คำใบ้: ส่วนสูงอาจอยู่นอกรูปได้ แต่ความยาวฐานให้นับเฉพาะส่วนของฐานเดิม",
+          opts: ["30 ตร.ซม.", "60 ตร.ซม.", "24 ตร.ซม.", "45 ตร.ซม."],
+          exp: "พื้นที่ = (1/2) × ฐาน × สูง = (1/2) × 12 × 5 = 30 ตารางเซนติเมตร",
+          tip: "ในสามเหลี่ยมมุมป้าน ความสูงจะอยู่นอกรูป แต่สูตรยังคงเป็น (1/2) × ฐาน × สูง เสมอ!"
+        },
+        en: {
+          q: "An obtuse triangle has a base of 12 cm and an external height of 5 cm. What is its area?",
+          clue: "Clue: Height can fall outside the triangle.",
+          opts: ["30 sq cm", "60 sq cm", "24 sq cm", "45 sq cm"],
+          exp: "Area = (1/2) × 12 × 5 = 30 sq cm.",
+          tip: "The formula remains (1/2) × base × height regardless of where the altitude falls!"
+        },
+        ansIndex: 0
+      },
+      {
+        id: 19,
+        cat: "perimeter",
+        th: {
+          q: "รูปสามเหลี่ยมหน้าจั่วมีฐานยาว 10 ซม. และด้านประกอบมุมยอดยาวด้านละ 8 ซม. ความยาวรอบรูปคือข้อใด?",
+          clue: "คำใบ้: หน้าจั่วมีด้านประกอบมุมยอดยาวเท่ากัน 2 ด้าน",
+          opts: ["18 เซนติเมตร", "26 เซนติเมตร", "28 เซนติเมตร", "36 เซนติเมตร"],
+          exp: "ความยาวรอบรูป = ฐาน + ด้านข้าง + ด้านข้าง = 10 + 8 + 8 = 26 เซนติเมตร",
+          tip: "สามเหลี่ยมหน้าจั่วมี 2 ขาเท่ากัน: 10 + (8 × 2) = 26"
+        },
+        en: {
+          q: "An isosceles triangle has a base of 10 cm and legs of 8 cm each. What is its perimeter?",
+          clue: "Clue: An isosceles triangle has two equal sides.",
+          opts: ["18 cm", "26 cm", "28 cm", "36 cm"],
+          exp: "Perimeter = 10 + 8 + 8 = 26 cm.",
+          tip: "Sum the base and both identical legs: 10 + 16 = 26."
+        },
+        ansIndex: 1
+      },
+      {
+        id: 20,
+        cat: "volume",
+        th: {
+          q: "กล่องทรงสี่เหลี่ยมมุมฉาก มีขนาดภายใน กว้าง 10 ซม. ยาว 20 ซม. สูง 15 ซม. จะมีความจุกี่ลิตร?",
+          clue: "คำใบ้: หา ลบ.ซม. ก่อน แล้วหารด้วย 1,000 เพื่อเปลี่ยนเป็นลิตร",
+          opts: ["3 ลิตร", "3.5 ลิตร", "30 ลิตร", "0.3 ลิตร"],
+          exp: "ปริมาตร = 10 × 20 × 15 = 3,000 ลบ.ซม. แปลงเป็นลิตร: 3,000 ÷ 1,000 = 3 ลิตร",
+          tip: "ได้ 3,000 ลบ.ซม. แล้วอย่าลืมตัดศูนย์ 3 ตัวทิ้งเพื่อแปลงเป็นลิตรนะ!"
+        },
+        en: {
+          q: "A rectangular box measures 10 cm by 20 cm by 15 cm inside. What is its capacity in liters?",
+          clue: "Clue: Calculate cubic cm, then divide by 1,000.",
+          opts: ["3 Liters", "3.5 Liters", "30 Liters", "0.3 Liters"],
+          exp: "Volume = 10 × 20 × 15 = 3,000 cm³ = 3 Liters.",
+          tip: "3,000 cm³ / 1,000 = 3 Liters."
+        },
+        ansIndex: 0
+      },
+      {
+        id: 21,
+        cat: "parallelogram",
+        th: {
+          q: "รูปสี่เหลี่ยมด้านขนานมีด้านหนึ่งยาว 14 ซม. และระยะห่างระหว่างด้านคู่ขนานคู่นี้คือ 7 ซม. มีพื้นที่กี่ ตร.ซม.?",
+          clue: "คำใบ้: 'ระยะห่างระหว่างเส้นคู่ขนาน' ก็คือความสูงนั่นเอง",
+          opts: ["49 ตร.ซม.", "98 ตร.ซม.", "28 ตร.ซม.", "196 ตร.ซม."],
+          exp: "ระยะห่างระหว่างเส้นคู่ขนาน = ส่วนสูง ดังนั้น พื้นที่ = 14 × 7 = 98 ตารางเซนติเมตร",
+          tip: "จำไว้เลย: ข้อสอบชอบใช้คำว่า 'ระยะห่างระหว่างด้านคู่ขนาน' แทนคำว่า 'ส่วนสูง'!"
+        },
+        en: {
+          q: "A parallelogram has a base of 14 cm, and the perpendicular distance between opposite sides is 7 cm. Find the area.",
+          clue: "Clue: 'Perpendicular distance' represents the height.",
+          opts: ["49 sq cm", "98 sq cm", "28 sq cm", "196 sq cm"],
+          exp: "Perpendicular distance = Height. Area = 14 × 7 = 98 sq cm.",
+          tip: "'Distance between parallel lines' always indicates the altitude."
+        },
+        ansIndex: 1
+      },
+      {
+        id: 22,
+        cat: "volume",
+        th: {
+          q: "ถ้าเพิ่มความยาวด้านทุกด้านของลูกบาศก์ขึ้นเป็น 2 เท่า ปริมาตรของลูกบาศก์ใหม่จะเพิ่มขึ้นเป็นกี่เท่าของลูกบาศก์เดิม?",
+          clue: "คำใบ้: ปริมาตรมี 3 มิติ ลองคำนวณ 2 × 2 × 2 ดูสิ",
+          opts: ["2 เท่า", "4 เท่า", "6 เท่า", "8 เท่า"],
+          exp: "เนื่องจากปริมาตร = ด้าน³, หากเพิ่มด้านเป็น 2 เท่า ปริมาตรจะเปลี่ยนเป็น 2 × 2 × 2 = 8 เท่า",
+          tip: "จำติดตัวไว้: ความยาวเพิ่ม 2 เท่า → พื้นที่เพิ่ม 4 เท่า (2²) → ปริมาตรเพิ่ม 8 เท่า (2³)!"
+        },
+        en: {
+          q: "If every side of a cube is doubled, how many times larger is the new volume compared to the original?",
+          clue: "Clue: Volume operates across 3 dimensions: 2 × 2 × 2.",
+          opts: ["2 times", "4 times", "6 times", "8 times"],
+          exp: "Since Volume = Side³, scaling side by 2 scales volume by 2 × 2 × 2 = 8 times.",
+          tip: "Length scale factor = 2, Volume scale factor = 2³ = 8!"
+        },
+        ansIndex: 3
+      },
+      {
+        id: 23,
+        cat: "units",
+        th: {
+          q: "น้ำ 4,500 มิลลิลิตร มีค่าเท่ากับกี่ลูกบาศก์เซนติเมตร?",
+          clue: "คำใบ้: 1 มิลลิลิตร (mL) มีค่าเท่ากับ 1 ลูกบาศก์เซนติเมตร (cm³) พอดี",
+          opts: ["4.5 ลบ.ซม.", "45 ลบ.ซม.", "4,500 ลบ.ซม.", "45,000 ลบ.ซม."],
+          exp: "1 มิลลิลิตร = 1 ลูกบาศก์เซนติเมตร ดังนั้น 4,500 มิลลิลิตร = 4,500 ลูกบาศก์เซนติเมตร",
+          tip: "mL กับ cm³ เป็นฝาแฝดที่มีค่าเท่ากันแบบ 1 ต่อ 1 จำได้ไม่ต้องทดเลย!"
+        },
+        en: {
+          q: "4,500 milliliters is equal to how many cubic centimeters?",
+          clue: "Clue: 1 mL is identical to 1 cm³.",
+          opts: ["4.5 cm³", "45 cm³", "4,500 cm³", "45,000 cm³"],
+          exp: "1 mL = 1 cm³. Therefore, 4,500 mL = 4,500 cm³.",
+          tip: "1 to 1 direct equivalence: 1 mL = 1 cm³."
+        },
+        ansIndex: 2
+      },
+      {
+        id: 24,
+        cat: "triangle",
+        th: {
+          q: "รูปสี่เหลี่ยมด้านขนานรูปหนึ่งมีพื้นที่ 80 ตร.ซม. หากลากเส้นทแยงมุม 1 เส้น จะแบ่งเป็นสามเหลี่ยม 2 รูป แต่ละรูปมีพื้นที่เท่าใด?",
+          clue: "คำใบ้: เส้นทแยงมุมของสี่เหลี่ยมด้านขนานแบ่งครึ่งพื้นที่ออกเป็น 2 ส่วนเท่ากันพอดี",
+          opts: ["20 ตร.ซม.", "40 ตร.ซม.", "60 ตร.ซม.", "80 ตร.ซม."],
+          exp: "เส้นทแยงมุมแบ่งสี่เหลี่ยมด้านขนานออกเป็นสามเหลี่ยมเท่ากันสองรูป พื้นที่จึงเท่ากับ 80 ÷ 2 = 40 ตร.ซม.",
+          tip: "นี่คือที่มาของสูตรสามเหลี่ยมที่มี (1/2) นั่นเอง แบ่งครึ่งสี่เหลี่ยมได้เสมอ!"
+        },
+        en: {
+          q: "A parallelogram has an area of 80 sq cm. A diagonal splits it into two triangles. What is the area of each triangle?",
+          clue: "Clue: The diagonal bisects the area into two equal parts.",
+          opts: ["20 sq cm", "40 sq cm", "60 sq cm", "80 sq cm"],
+          exp: "A diagonal splits a parallelogram into two identical triangles: 80 ÷ 2 = 40 sq cm.",
+          tip: "This is the exact geometric proof of why triangles have 1/2 in their area formula!"
+        },
+        ansIndex: 1
+      },
+      {
+        id: 25,
+        cat: "perimeter",
+        th: {
+          q: "ลวดเส้นหนึ่งยาว 48 ซม. นำมาดัดเป็นรูปสี่เหลี่ยมจัตุรัส จะได้รูปที่มีพื้นที่กี่ตารางเซนติเมตร?",
+          clue: "คำใบ้: หาความยาวด้านของจัตุรัสก่อน (รอบรูป ÷ 4) แล้วนำไปหาพื้นที่ (ด้าน × ด้าน)",
+          opts: ["12 ตร.ซม.", "96 ตร.ซม.", "144 ตร.ซม.", "196 ตร.ซม."],
+          exp: "ความยาวด้าน = 48 ÷ 4 = 12 ซม. พื้นที่จัตุรัส = ด้าน × ด้าน = 12 × 12 = 144 ตารางเซนติเมตร",
+          tip: "คิด 2 ขั้นตอน: หาด้านก่อน (48 ÷ 4 = 12) แล้วหาพื้นที่ (12 × 12 = 144) อย่าตอบ 12 นะ!"
+        },
+        en: {
+          q: "A wire of length 48 cm is bent into a square. What will be its area in sq cm?",
+          clue: "Clue: Find side length first (Perimeter ÷ 4), then calculate side × side.",
+          opts: ["12 sq cm", "96 sq cm", "144 sq cm", "196 sq cm"],
+          exp: "Side length = 48 ÷ 4 = 12 cm. Area = 12 × 12 = 144 sq cm.",
+          tip: "Two-step process: find side first, then square it (12 × 12 = 144)!"
+        },
+        ansIndex: 2
+      }
+    ];
+
+    let currentLang = 'th';
+    let userAnswers = {};
+    let shuffledQuestions = [];
+
+    // Fisher-Yates Shuffle Algorithm
+    function shuffleArray(arr) {
+      const array = [...arr];
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function initQuiz() {
+      // Check LocalStorage for saved randomized order or language
+      const savedLang = localStorage.getItem('geom_quiz_lang');
+      if (savedLang) currentLang = savedLang;
+
+      const savedState = localStorage.getItem('geom_quiz_answers');
+      if (savedState) {
+        userAnswers = JSON.parse(savedState);
+      }
+
+      const savedOrder = localStorage.getItem('geom_quiz_order');
+      if (savedOrder) {
+        const orderIds = JSON.parse(savedOrder);
+        shuffledQuestions = orderIds.map(id => RAW_QUESTIONS.find(q => q.id === id));
+      } else {
+        // Shuffle questions
+        shuffledQuestions = shuffleArray(RAW_QUESTIONS);
+        const orderIds = shuffledQuestions.map(q => q.id);
+        localStorage.setItem('geom_quiz_order', JSON.stringify(orderIds));
+      }
+
+      updateLangUI();
+      renderQuestions();
+      checkCompletion();
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = '';
+
+      shuffledQuestions.forEach((item, index) => {
+        const qNum = index + 1;
+        const qData = item[currentLang];
+        const isAnswered = userAnswers.hasOwnProperty(item.id);
+        const chosen = userAnswers[item.id];
+
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        card.id = `q-card-${item.id}`;
+
+        let optionsHtml = '';
+        qData.opts.forEach((opt, optIndex) => {
+          let extraClass = '';
+          if (isAnswered) {
+            if (optIndex === item.ansIndex) {
+              extraClass = 'correct';
+            } else if (chosen === optIndex) {
+              extraClass = 'wrong';
+            }
+          }
+
+          optionsHtml += `
+            <button 
+              class="opt-btn ${extraClass}" 
+              ${isAnswered ? 'disabled' : ''} 
+              onclick="selectAnswer(${item.id}, ${optIndex})">
+              <strong>${String.fromCharCode(65 + optIndex)}.</strong> ${opt}
+            </button>
+          `;
+        });
+
+        let expStyle = isAnswered ? 'display: block;' : 'display: none;';
+        let expClass = (chosen === item.ansIndex) ? 'exp-pass' : 'exp-fail';
+        let statusText = (chosen === item.ansIndex) 
+          ? (currentLang === 'th' ? '✓ ตอบถูกต้อง!' : '✓ Correct!') 
+          : (currentLang === 'th' ? '✗ ยังไม่ถูกต้อง' : '✗ Incorrect');
+
+        card.innerHTML = `
+          <div class="q-header">
+            <span class="q-badge">${currentLang === 'th' ? 'ข้อที่' : 'Question'} ${qNum} / 25</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">${item.cat.toUpperCase()}</span>
+          </div>
+          <div class="q-title">${qData.q}</div>
+          <div class="clue-box">${qData.clue}</div>
+          <div class="options-grid ${qData.opts.length <= 4 ? 'two-col' : ''}">
+            ${optionsHtml}
+          </div>
+          <div class="explanation-box ${expClass}" style="${expStyle}">
+            <strong>${statusText}</strong><br>
+            <span>${qData.exp}</span>
+            <div class="tutor-tip">💡 ติวเตอร์แนะ: ${qData.tip}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function selectAnswer(qId, optIndex) {
+      if (userAnswers.hasOwnProperty(qId)) return;
+      userAnswers[qId] = optIndex;
+      localStorage.setItem('geom_quiz_answers', JSON.stringify(userAnswers));
+      renderQuestions();
+      checkCompletion();
+    }
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'th' ? 'en' : 'th';
+      localStorage.setItem('geom_quiz_lang', currentLang);
+      updateLangUI();
+      renderQuestions();
+      checkCompletion();
+    }
+
+    function updateLangUI() {
+      document.getElementById('toggleLang').innerText = currentLang === 'th' ? 'Language: TH' : 'Language: EN';
+      if (currentLang === 'th') {
+        document.getElementById('ui-title').innerText = 'ข้อสอบเรขาคณิต ป.5 ตามหลักสูตร สสวท';
+        document.getElementById('ui-subtitle').innerText = 'เน้นความเข้าใจเชิงมโนทัศน์และการจดจำสูตรพื้นที่-ปริมาตรอย่างยั่งยืน';
+        document.getElementById('board-title').innerText = 'กระดานทดเลข (Scratchpad)';
+      } else {
+        document.getElementById('ui-title').innerText = 'Grade 5 Geometry Assessment (IPST Standard)';
+        document.getElementById('ui-subtitle').innerText = 'Conceptual understanding & permanent geometric formula mastery';
+        document.getElementById('board-title').innerText = 'Scratchpad (Whiteboard)';
+      }
+    }
+
+    function resetAll() {
+      if (confirm('คุณต้องการรีเซ็ตคำตอบทั้งหมดและสุ่มลำดับข้อสอบใหม่ใช่หรือไม่?')) {
+        localStorage.removeItem('geom_quiz_answers');
+        localStorage.removeItem('geom_quiz_order');
+        userAnswers = {};
+        shuffledQuestions = shuffleArray(RAW_QUESTIONS);
+        const orderIds = shuffledQuestions.map(q => q.id);
+        localStorage.setItem('geom_quiz_order', JSON.stringify(orderIds));
+        document.getElementById('analysisPanel').style.display = 'none';
+        renderQuestions();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function checkCompletion() {
+      const total = RAW_QUESTIONS.length;
+      const answeredCount = Object.keys(userAnswers).length;
+
+      if (answeredCount === total) {
+        showAnalysis();
+      }
+    }
+
+    function showAnalysis() {
+      const panel = document.getElementById('analysisPanel');
+      panel.style.display = 'block';
+
+      let score = 0;
+      let catStats = {
+        triangle: { correct: 0, total: 0, label: 'รูปสามเหลี่ยมและการคิดพื้นที่/ความสูง (Triangles)' },
+        parallelogram: { correct: 0, total: 0, label: 'รูปสี่เหลี่ยมด้านขนานและการระบุส่วนสูง (Parallelograms)' },
+        rhombus: { correct: 0, total: 0, label: 'รูปสี่เหลี่ยมขนมเปียกปูนและคุณสมบัติด้าน (Rhombus)' },
+        volume: { correct: 0, total: 0, label: 'ปริมาตรและความจุทรงสี่เหลี่ยมมุมฉาก/ลูกบาศก์ (Volume)' },
+        perimeter: { correct: 0, total: 0, label: 'ความยาวรอบรูปและการคำนวณด้าน (Perimeter)' },
+        units: { correct: 0, total: 0, label: 'การเปลี่ยนหน่วยมิติ ปริมาตรและมิลลิลิตร (Units)' }
+      };
+
+      RAW_QUESTIONS.forEach(q => {
+        catStats[q.cat].total++;
+        if (userAnswers[q.id] === q.ansIndex) {
+          score++;
+          catStats[q.cat].correct++;
+        }
+      });
+
+      document.getElementById('scoreDisplay').innerText = `${score} / 25`;
+      const pct = Math.round((score / 25) * 100);
+      document.getElementById('scorePercent').innerText = `คิดเป็น ${pct}% ของคะแนนเต็ม`;
+
+      const strongList = document.getElementById('strongList');
+      const weakList = document.getElementById('weakList');
+      strongList.innerHTML = '';
+      weakList.innerHTML = '';
+
+      let hasWeak = false;
+      let hasStrong = false;
+
+      for (const [key, val] of Object.entries(catStats)) {
+        const ratio = val.correct / val.total;
+        const li = document.createElement('li');
+        li.style.marginBottom = '6px';
+        li.innerText = `${val.label}: ถูก ${val.correct}/${val.total} ข้อ`;
+
+        if (ratio >= 0.7) {
+          hasStrong = true;
+          strongList.appendChild(li);
+        } else {
+          hasWeak = true;
+          weakList.appendChild(li);
+        }
+      }
+
+      if (!hasStrong) {
+        strongList.innerHTML = '<li>พยายามฝึกฝนเพิ่มเติมอีกนิด จะเริ่มเห็นจุดเด่นชัดเจนขึ้นครับ</li>';
+      }
+      if (!hasWeak) {
+        weakList.innerHTML = '<li>ยอดเยี่ยมมาก! ไม่มีจุดอ่อนที่มีนัยสำคัญในหัวข้อเรขาคณิตชุดนี้</li>';
+      }
+
+      panel.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Interactive Whiteboard Implementation
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+    let strokeColor = '#000000';
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+    }
+
+    function setPenColor(color, btn) {
+      strokeColor = color;
+      document.querySelectorAll('.canvas-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function startDraw(e) {
+      drawing = true;
+      ctx.strokeStyle = strokeColor;
+      ctx.beginPath();
+      const pos = getPos(e);
+      ctx.moveTo(pos.x, pos.y);
+    }
+
+    function draw(e) {
+      if (!drawing) return;
+      const pos = getPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    }
+
+    function stopDraw() {
+      drawing = false;
+    }
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDraw);
+
+    canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      startDraw(e);
+    }, { passive: false });
+
+    canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      draw(e);
+    }, { passive: false });
+
+    window.addEventListener('touchend', stopDraw);
+
+    // Initial load
+    window.addEventListener('load', () => {
+      resizeCanvas();
+      initQuiz();
+    });
+
+    window.addEventListener('resize', resizeCanvas);
+  </script>
+</body>
+</html>
