@@ -3,29 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบทดสอบ Unit 4: Present Simple Tense - พระจอมเกล้าติวเตอร์</title>
+    <title>แบบฝึกหัด Present Simple Tense: พระจอมเกล้าติวเตอร์</title>
     <style>
         body { font-family: 'Sarabun', Tahoma, sans-serif; margin: 20px; background-color: #f0f4f8; color: #2d3748; line-height: 1.6; }
         .container { max-width: 920px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
         h1 { color: #1a365d; text-align: center; margin-bottom: 20px; font-size: 24px; }
         h2 { color: #2b6cb0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-top: 25px; font-size: 18px; }
         .summary-box { background: #ebf8ff; border-left: 5px solid #3182ce; padding: 20px; margin-bottom: 30px; border-radius: 6px; }
-        .question-card { background: #ffffff; border: 1px solid #e2e8f0; padding: 18px; margin-bottom: 16px; border-radius: 8px; border-left: 4px solid #4299e1; }
-        .q-title { font-weight: bold; margin-bottom: 10px; color: #1a202c; font-size: 15px; }
-        .form-group { margin-bottom: 8px; }
-        label { display: block; font-size: 13px; font-weight: bold; color: #4a5568; margin-bottom: 4px; }
-        input[type="text"] { width: 100%; padding: 8px 12px; border: 1px solid #cbd5e0; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
-        .btn-group { display: flex; gap: 8px; margin-top: 10px; }
-        button { border: none; padding: 7px 16px; border-radius: 4px; font-size: 13px; cursor: pointer; font-weight: bold; }
+        .question-card { background: #ffffff; border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 20px; border-radius: 8px; border-left: 4px solid #4299e1; }
+        .base-sentence { font-size: 16px; font-weight: bold; color: #2c5282; margin-bottom: 12px; background: #edf2f7; padding: 10px 14px; border-radius: 6px; }
+        .form-group { margin-bottom: 10px; }
+        label { display: block; font-size: 14px; font-weight: bold; color: #4a5568; margin-bottom: 4px; }
+        input[type="text"] { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e0; border-radius: 4px; box-sizing: border-box; font-size: 15px; }
+        input[type="text"]:focus { outline: none; border-color: #3182ce; box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.2); }
+        .btn-group { display: flex; gap: 10px; margin-top: 12px; }
+        button { border: none; padding: 9px 20px; border-radius: 5px; font-size: 14px; cursor: pointer; font-weight: bold; transition: 0.2s; }
         .btn-check { background-color: #3182ce; color: #ffffff; }
         .btn-check:hover { background-color: #2b6cb0; }
         .btn-reveal { background-color: #718096; color: #ffffff; }
         .btn-reveal:hover { background-color: #4a5568; }
-        .feedback { margin-top: 10px; padding: 10px; border-radius: 4px; display: none; font-size: 13px; }
+        .feedback { margin-top: 14px; padding: 12px; border-radius: 6px; display: none; font-size: 14px; }
         .feedback.correct { background-color: #c6f6d5; color: #22543d; border: 1px solid #9ae6b4; }
         .feedback.incorrect { background-color: #fed7d7; color: #742a2a; border: 1px solid #feb2b2; }
         .feedback.revealed { background-color: #edf2f7; color: #2d3748; border: 1px solid #cbd5e0; }
-        .exp-text { margin-top: 4px; font-size: 12px; color: #4a5568; }
+        .exp-text { margin-top: 6px; font-size: 13px; color: #2d3748; border-top: 1px dashed #cbd5e0; padding-top: 6px; }
         #summary-report { margin-top: 35px; padding: 20px; background: #fffaf0; border: 1px solid #feebc8; border-radius: 8px; }
     </style>
 </head>
@@ -34,333 +35,339 @@
 <div class="container">
     <h1>ระบบแบบทดสอบวิชาภาษาอังกฤษ: พระจอมเกล้าติวเตอร์</h1>
 
-    <!-- สรุปเนื้อหาและกระบวนการคิดมากกว่า 400 คำ -->
+    <!-- สรุปเนื้อหาและเทคนิคมากกว่า 400 คำ -->
     <div class="summary-box">
-        <h2>สรุปเนื้อหาหลักและการวิเคราะห์ข้อผิดพลาด: Unit 4 Present Simple Tense</h2>
+        <h2>สรุปเข้มไวยากรณ์: การแปลงประโยค Present Simple Tense และเทคนิคป้องกันจุดพลาด</h2>
         <p>
-            <strong>Present Simple Tense</strong> ใช้บอกเล่าข้อเท็จจริงทั่วไป (Facts), กฎธรรมชาติ (Scientific Truths), และกิจวัตรประจำวัน (Routines) ซึ่งในแบบฝึกหัดชุดนี้มีแกนความรู้ 3 ส่วนหลักที่นักเรียน ม.1 มักผิดพลาดบ่อยครั้ง:
+            <strong>Present Simple Tense</strong> ใช้แสดงข้อเท็จจริงทั่วไป สัจธรรมทางธรรมชาติ และกิจวัตรประจำวัน เมื่อต้องเปลี่ยนประโยคบอกเล่า (Affirmative) ให้เป็น <strong>ประโยคปฏิเสธ (Negative)</strong> หรือ <strong>ประโยคคำถาม (Question)</strong> นักเรียนต้องให้ความสำคัญกับ 2 กลไกหลัก คือ การเลือกกริยาช่วย (Helping Verb: Do/Does) และการคืนรูปกริยาแท้ (V.infinitive)
         </p>
         <p>
-            <strong>1. รูปกริยาในประโยคบอกเล่า (Affirmative):</strong>
-            ผันตามประธานเป็นสำคัญ ถ้าประธานเป็นเอกพจน์บุรุษที่ 3 (He, She, It, ชื่อคนเดียว เช่น Jane, My sister) กริยาแท้ต้องเติม <code>s/es</code> หรือเปลี่ยนรูปตามกฎ เช่น <em>enjoy &rarr; enjoys</em> (หน้า y เป็นสระเติม s ได้เลย ไม่เปลี่ยนเป็น ies), <em>rise &rarr; rises</em>, <em>cook &rarr; cooks</em> แต่ถ้าประธานเป็นพหูพจน์ (My sisters, The children, Carlos and Alan) หรือ I/You กริยาแท้จะคงรูปเดิม (V.infinitive) เสมอ เช่น <em>walk, eat</em>
+            <strong>1. กฎการเลือกกริยาช่วย Do / Does ตามประธาน:</strong>
+            <br>&bull; <strong>กลุ่มประธานเอกพจน์ (Singular Subject):</strong> He, She, It, นามเอกพจน์นับได้ตัวเดียว หรือชื่อคนคนเดียว (เช่น <em>Jane, Peter, Pipim, My sister, The sun, The cat, Your brother</em>) &rarr; ใช้ <code>does not (doesn't)</code> ในปฏิเสธ และขึ้นต้นประโยคคำถามด้วย <code>Does</code>
+            <br>&bull; <strong>กลุ่มประธานพหูพจน์ (Plural Subject) รวมทั้ง I และ You:</strong> I, You, We, They, นามพหูพจน์ที่มีการเติม s/es (เช่น <em>My sisters</em>), คำเชื่อมหลายคน (เช่น <em>Carlos and Alan</em>), และ <strong>คำนามเปลี่ยนรูปพหูพจน์พิเศษ</strong> (เช่น <em>The children</em> แปลว่าเด็กหลายคน) &rarr; ใช้ <code>do not (don't)</code> ในปฏิเสธ และขึ้นต้นคำถามด้วย <code>Do</code>
         </p>
         <p>
-            <strong>2. ประโยคปฏิเสธและประโยคคำถาม (Negative & Questions):</strong>
-            เมื่อไม่มี Verb to be (is, am, are) ต้องดึง <strong>Verb to do (do / does)</strong> เข้ามาช่วยเสมอ
-            <br>- ประธานเอกพจน์: ใช้ <code>does not (doesn't)</code> หรือขึ้นต้นคำถามด้วย <code>Does</code>
-            <br>- ประธานพหูพจน์ และ I, You: ใช้ <code>do not (don't)</code> หรือขึ้นต้นคำถามด้วย <code>Do</code>
-            <br>- สำหรับ Wh-Questions เช่น When: วางโครงสร้างเป็น <code>Wh-word + do/does + Subject + V.infinitive...?</code> เช่น <em>When does your brother tidy his room?</em>
+            <strong>2. โครงสร้างแม่แบบที่ต้องท่องจำ:</strong>
+            <br>&bull; <strong>ประโยคปฏิเสธ:</strong> <code>Subject + do not / does not + V.infinitive (กริยาแท้รูปเดิม ตัด s/es ออก) + ส่วนขยาย.</code>
+            <br>&bull; <strong>ประโยคคำถาม (Yes/No):</strong> <code>Do / Does + Subject + V.infinitive (กริยาแท้รูปเดิม) + ส่วนขยาย ?</code>
+            <br>&bull; <strong>ประโยคคำถาม (Wh-Question):</strong> <code>Wh-word + do / does + Subject + V.infinitive + ส่วนขยาย ?</code>
         </p>
         <p>
-            <strong>3. ตำแหน่งของ Adverbs of Frequency (always, usually, sometimes):</strong>
-            คำบอกความถี่จะวางอยู่ <strong>หน้ากริยาแท้ (Main Verb)</strong> เสมอ เช่น <em>You always drink...</em>, <em>She sometimes goes...</em>, <em>He usually studies...</em> โดยกริยาแท้ยังต้องผันตามประธานตามปกติ
-        </p>
-        <p>
-            <strong>กระบวนการคิดและจุดบกพร่องที่พบจริงในใบงาน (Thought Process & Real Traps):</strong>
-            <br>&bull; <strong>กับดักคำสั่งข้อเขียน:</strong> ในข้อ 14-17 คำสั่งระบุว่า <em>"Write the sentences in negative" (ให้เขียนเป็นปฏิเสธ)</em> แต่นักเรียนมักสับสนไปเขียนเป็นประโยคคำถาม (เช่น เขียน Does play football แทนที่จะเขียน He does not play football) และที่สำคัญคือ <strong>ลืมใส่ประธาน (Subject)</strong> ลงไป
-            <br>&bull; <strong>คำนามพหูพจน์เปลี่ยนรูป:</strong> คำว่า <em>The children</em> เป็นพหูพจน์ (เด็กหลายคน) ต้องใช้ <code>don't go</code> ไม่ใช่ doesn't go
-            <br>&bull; <strong>กฎริบ s/es คืน:</strong> เมื่อใช้ do/does แล้ว กริยาแท้ข้างหลังต้องคืนสภาพเป็นรูปเดิม (Base form) ห้ามเติม s/es ซ้ำซ้อน เช่น <em>Does he study...</em> ไม่ใช่ <em>Does he studies...</em>
+            <strong>กระบวนการคิดและจุดบกพร่องที่ต้องแก้ไขทันที (Checklist ป้องกันเขียนผิด):</strong>
+            <br><strong>1. ลืมประธาน (Subject):</strong> พบมากที่สุดในห้องสอบ นักเรียนชอบดึงกริยาช่วยมาแล้วต่อด้วยกริยาแท้ทันที เช่น เขียน <em>Does play football?</em> ซึ่งผิดไวยากรณ์ ต้องเขียนประธานกำกับไว้เสมอ: <em>Does <u>he</u> play football?</em>
+            <br><strong>2. กฎริบ s/es คืน:</strong> เมื่อมี <em>Do</em> หรือ <em>Does</em> เข้ามารับภาระหน้าที่ในประโยคแล้ว กริยาแท้ต้องถูกปลด s/es กลับเป็นร่างปกติ เช่น <em>studies &rarr; study</em>, <em>watches &rarr; watch</em>, <em>enjoys &rarr; enjoy</em>
+            <br><strong>3. เครื่องหมายท้ายประโยค:</strong> ประโยคบอกเล่าและปฏิเสธต้องลงท้ายด้วยจุด (Full stop .) ประโยคคำถามต้องลงท้ายด้วยเครื่องหมายปรัศนี (Question mark ?) เสมอ
         </p>
     </div>
 
-    <h2>แบบทดสอบและตรวจคำตอบรายข้อ (20 ข้อ อิงตามใบงาน)</h2>
-    <div id="quiz-container"></div>
+    <h2>แบบฝึกหัดเขียนแปลงประโยค (20 ข้อ จากโจทย์ใบงานจริง - ตรวจข้อต่อข้อ)</h2>
+    <p style="color: #718096; font-size: 14px; margin-bottom: 20px;">* คำชี้แจง: ให้แปลงประโยคบอกเล่าที่กำหนดให้ เป็นประโยคปฏิเสธและประโยคคำถามแบบเต็มประโยค</p>
+    <div id="quiz-list"></div>
 
     <div id="summary-report">
         <h3>สรุปผลการประเมินและการวิเคราะห์จุดอ่อน</h3>
-        <p id="total-score" style="font-size: 16px; font-weight: bold;">ทำแบบทดสอบให้ครบ แล้วกดตรวจคำตอบทีละข้อ</p>
-        <div id="analysis-content">เมื่อกดตรวจคำตอบ ระบบจะวิเคราะห์ว่าผู้เรียนยังบกพร่องในหัวข้อใด</div>
+        <p id="total-score" style="font-size: 17px; font-weight: bold;">ตรวจคำตอบแล้ว: 0 / 20 ข้อ (ผ่าน 0 ข้อ)</p>
+        <div id="analysis-content">เมื่อกดปุ่ม "ตรวจคำตอบข้อนี้" ในแต่ละข้อ ระบบจะเก็บข้อมูลและวิเคราะห์จุดบกพร่องให้ที่นี่</div>
     </div>
 </div>
 
 <script>
-const examData = [
+const quizData = [
     {
         id: 1,
-        section: "Part 1: Complete the sentences",
-        prompt: "1. She ________ (not/get up) at seven o'clock.",
-        inputs: [{ id: "ans", label: "เติมคำในช่องว่าง:" }],
-        accepted: ["doesn't get up", "does not get up"],
-        category: "negative",
-        exp: "ประธาน She เป็นเอกพจน์ ใช้ does not (doesn't) ตามด้วยกริยาไม่ผัน get up"
+        base: "She gets up at seven o'clock.",
+        type: "singular",
+        neg: "She does not get up at seven o'clock.",
+        q: "Does she get up at seven o'clock?",
+        exp: "ประธาน She (เอกพจน์) ปฏิเสธใช้ does not get up / คำถามใช้ Does she get up...? (ตัด s ออกจาก gets)"
     },
     {
         id: 2,
-        section: "Part 1: Complete the sentences",
-        prompt: "2. My sisters ________ (walk) to school every day.",
-        inputs: [{ id: "ans", label: "เติมคำในช่องว่าง:" }],
-        accepted: ["walk"],
-        category: "plural",
-        exp: "My sisters เติม s เป็นประธานพหูพจน์ (พี่สาว/น้องสาวหลายคน) กริยา walk ใช้รูปเดิม ไม่เติม s"
+        base: "My sisters walk to school every day.",
+        type: "plural",
+        neg: "My sisters do not walk to school every day.",
+        q: "Do my sisters walk to school every day?",
+        exp: "My sisters (พหูพจน์) ใช้ do not / Do และกริยา walk คงรูปเดิม"
     },
     {
         id: 3,
-        section: "Part 1: Complete the sentences",
-        prompt: "3. ________ Maria ________ (listen) to music?",
-        inputs: [
-            { id: "ans1", label: "ช่องว่างที่ 1 (กริยาช่วย):" },
-            { id: "ans2", label: "ช่องว่างที่ 2 (กริยาแท้):" }
-        ],
-        acceptedPair: [["does"], ["listen"]],
-        category: "question",
-        exp: "Maria เป็นเอกพจน์ ขึ้นต้นด้วย Does และกริยาแท้ listen อยู่ในรูปเดิม"
+        base: "Maria listens to music.",
+        type: "singular",
+        neg: "Maria does not listen to music.",
+        q: "Does Maria listen to music?",
+        exp: "Maria (คนเดียว) ปฏิเสธใช้ does not listen / คำถามใช้ Does Maria listen...? (ตัด s จาก listens)"
     },
     {
         id: 4,
-        section: "Part 1: Complete the sentences",
-        prompt: "4. When ________ your brother ________ (tidy) his room?",
-        inputs: [
-            { id: "ans1", label: "ช่องว่างที่ 1 (กริยาช่วย):" },
-            { id: "ans2", label: "ช่องว่างที่ 2 (กริยาแท้):" }
-        ],
-        acceptedPair: [["does"], ["tidy"]],
-        category: "wh-question",
-        exp: "โครงสร้าง Wh-Question: When + does + your brother (เอกพจน์) + tidy (รูปเดิม)?"
+        base: "Your brother tidies his room.",
+        type: "singular",
+        neg: "Your brother does not tidy his room.",
+        q: "Does your brother tidy his room?",
+        exp: "Your brother (เอกพจน์) ปฏิเสธใช้ does not tidy / คำถามใช้ Does your brother tidy...? (เปลี่ยนรูป tidies กลับเป็น tidy)"
     },
     {
         id: 5,
-        section: "Part 1: Complete the sentences",
-        prompt: "5. Carlos and Alan ________ (not/like) talking to new people.",
-        inputs: [{ id: "ans", label: "เติมคำในช่องว่าง:" }],
-        accepted: ["don't like", "do not like"],
-        category: "plural",
-        exp: "Carlos and Alan สองคน เป็นประธานพหูพจน์ ใช้ do not (don't) + like"
+        base: "Carlos and Alan like talking to new people.",
+        type: "plural",
+        neg: "Carlos and Alan do not like talking to new people.",
+        q: "Do Carlos and Alan like talking to new people?",
+        exp: "Carlos and Alan (2 คน เป็นพหูพจน์) ใช้ do not like / Do Carlos and Alan like...?"
     },
     {
         id: 6,
-        section: "Part 1: Complete the sentences",
-        prompt: "6. I ________ (eat) a hamburger every weekend.",
-        inputs: [{ id: "ans", label: "เติมคำในช่องว่าง:" }],
-        accepted: ["eat"],
-        category: "plural",
-        exp: "ประธาน I กริยาแท้ eat คงรูปเดิมเสมอ ไม่เติม s"
+        base: "I eat a hamburger every weekend.",
+        type: "plural",
+        neg: "I do not eat a hamburger every weekend.",
+        q: "Do you eat a hamburger every weekend?",
+        altQ: "Do I eat a hamburger every weekend?",
+        exp: "ประธาน I ปฏิเสธใช้ I do not eat... / ถามด้วย Do you eat...? หรือ Do I eat...?"
     },
     {
         id: 7,
-        section: "Part 1: Complete the sentences",
-        prompt: "7. It often ________ (snow) in winter.",
-        inputs: [{ id: "ans", label: "เติมคำในช่องว่าง:" }],
-        accepted: ["snows"],
-        category: "singular",
-        exp: "ประธาน It เป็นเอกพจน์ กริยา snow ต้องเติม s เป็น snows"
+        base: "It snows in winter.",
+        type: "singular",
+        neg: "It does not snow in winter.",
+        q: "Does it snow in winter?",
+        exp: "ประธาน It (เอกพจน์) ใช้ does not snow / Does it snow...? (ตัด s ออกจาก snows)"
     },
     {
         id: 8,
-        section: "Part 1: Complete the sentences",
-        prompt: "8. ________ you ________ (read) English book?",
-        inputs: [
-            { id: "ans1", label: "ช่องว่างที่ 1 (กริยาช่วย):" },
-            { id: "ans2", label: "ช่องว่างที่ 2 (กริยาแท้):" }
-        ],
-        acceptedPair: [["do"], ["read"]],
-        category: "question",
-        exp: "ประธาน you ใช้กริยาช่วย Do และกริยาแท้ read คงรูปเดิม"
+        base: "You read an English book.",
+        type: "plural",
+        neg: "You do not read an English book.",
+        q: "Do you read an English book?",
+        exp: "ประธาน You ใช้ do not read / Do you read...?"
     },
     {
         id: 9,
-        section: "Part 1: Complete the sentences",
-        prompt: "9. Pipim ________ (not/collect) stamps.",
-        inputs: [{ id: "ans", label: "เติมคำในช่องว่าง:" }],
-        accepted: ["doesn't collect", "does not collect"],
-        category: "negative",
-        exp: "Pipim คนเดียว (เอกพจน์) ใช้ does not (doesn't) + collect"
+        base: "Pipim collects stamps.",
+        type: "singular",
+        neg: "Pipim does not collect stamps.",
+        q: "Does Pipim collect stamps?",
+        exp: "Pipim (เอกพจน์) ใช้ does not collect / Does Pipim collect...? (ตัด s จาก collects)"
     },
     {
         id: 10,
-        section: "Part 1: Complete the sentences",
-        prompt: "10. Jane ________ (enjoy) singing.",
-        inputs: [{ id: "ans", label: "เติมคำในช่องว่าง:" }],
-        accepted: ["enjoys"],
-        category: "singular",
-        exp: "Jane เอกพจน์ enjoy ลงท้ายด้วย y หน้า y เป็นสระ (o) เติม s ได้ทันทีเป็น enjoys (ไม่ต้องเปลี่ยนเป็น ies)"
+        base: "Jane enjoys singing.",
+        type: "singular",
+        neg: "Jane does not enjoy singing.",
+        q: "Does Jane enjoy singing?",
+        exp: "Jane (เอกพจน์) ใช้ does not enjoy / Does Jane enjoy...? (ตัด s ออกจาก enjoys)"
     },
     {
         id: 11,
-        section: "Part 1: Complete the sentences",
-        prompt: "11. The children ________ (not/go) to school by bus.",
-        inputs: [{ id: "ans", label: "เติมคำในช่องว่าง:" }],
-        accepted: ["don't go", "do not go"],
-        category: "irregular-noun",
-        exp: "The children เป็นพหูพจน์ (เด็กหลายคน รูปเอกพจน์คือ child) ต้องใช้ do not (don't) ไม่ใช่ doesn't"
+        base: "The children go to school by bus.",
+        type: "children",
+        neg: "The children do not go to school by bus.",
+        q: "Do the children go to school by bus?",
+        exp: "The children เป็นพหูพจน์เปลี่ยนรูป (เด็กหลายคน) ต้องใช้ do not go / Do the children go...? ห้ามใช้ does"
     },
     {
         id: 12,
-        section: "Part 1: Complete the sentences",
-        prompt: "12. The sun ________ (rise) in the east.",
-        inputs: [{ id: "ans", label: "เติมคำในช่องว่าง:" }],
-        accepted: ["rises"],
-        category: "singular",
-        exp: "The sun สิ่งเดียวในโลก (เอกพจน์) กริยา rise เติม s เป็น rises"
+        base: "The sun rises in the east.",
+        type: "singular",
+        neg: "The sun does not rise in the east.",
+        q: "Does the sun rise in the east?",
+        exp: "The sun (เอกพจน์) ใช้ does not rise / Does the sun rise...? (ตัด s จาก rises)"
     },
     {
         id: 13,
-        section: "Part 1: Complete the sentences",
-        prompt: "13. My sister ________ (cook) all our meals.",
-        inputs: [{ id: "ans", label: "เติมคำในช่องว่าง:" }],
-        accepted: ["cooks"],
-        category: "singular",
-        exp: "My sister คนเดียว (ไม่มี s ที่ sister) กริยา cook ต้องเติม s เป็น cooks"
+        base: "My sister cooks all our meals.",
+        type: "singular",
+        neg: "My sister does not cook all our meals.",
+        q: "Does my sister cook all our meals?",
+        exp: "My sister (เอกพจน์ ไม่มี s ที่ประธาน) ใช้ does not cook / Does my sister cook...?"
     },
     {
         id: 14,
-        section: "Part 2: Write the sentences in negative",
-        prompt: "14. โจทย์: He plays football. &rarr; เขียนเป็นประโยคปฏิเสธ:",
-        inputs: [{ id: "ans", label: "ประโยคปฏิเสธแบบเต็ม:" }],
-        accepted: ["he does not play football", "he doesn't play football"],
-        category: "sentence-negative",
-        exp: "ต้องมีประธาน He + does not (doesn't) + play (ตัด s ออก) + football ห้ามลืมใส่ประธาน He เด็ดขาด"
+        base: "He plays football.",
+        type: "singular",
+        neg: "He does not play football.",
+        q: "Does he play football?",
+        exp: "ประธาน He (เอกพจน์) ใช้ does not play / Does he play...? (จุดที่เด็กมักผิด: ลืมใส่ประธาน He)"
     },
     {
         id: 15,
-        section: "Part 2: Write the sentences in negative",
-        prompt: "15. โจทย์: They watch TV. &rarr; เขียนเป็นประโยคปฏิเสธ:",
-        inputs: [{ id: "ans", label: "ประโยคปฏิเสธแบบเต็ม:" }],
-        accepted: ["they do not watch tv", "they don't watch tv"],
-        category: "sentence-negative",
-        exp: "ต้องมีประธาน They + do not (don't) + watch TV"
+        base: "They watch TV.",
+        type: "plural",
+        neg: "They do not watch TV.",
+        q: "Do they watch TV?",
+        exp: "ประธาน They (พหูพจน์) ใช้ do not watch TV / Do they watch TV...?"
     },
     {
         id: 16,
-        section: "Part 2: Write the sentences in negative",
-        prompt: "16. โจทย์: We go to the cinema. &rarr; เขียนเป็นประโยคปฏิเสธ:",
-        inputs: [{ id: "ans", label: "ประโยคปฏิเสธแบบเต็ม:" }],
-        accepted: ["we do not go to the cinema", "we don't go to the cinema"],
-        category: "sentence-negative",
-        exp: "ต้องมีประธาน We + do not (don't) + go to the cinema"
+        base: "We go to the cinema.",
+        type: "plural",
+        neg: "We do not go to the cinema.",
+        q: "Do we go to the cinema?",
+        altQ: "Do you go to the cinema?",
+        exp: "ประธาน We ใช้ do not go / Do we go to the cinema...?"
     },
     {
         id: 17,
-        section: "Part 2: Write the sentences in negative",
-        prompt: "17. โจทย์: Peter studies French. &rarr; เขียนเป็นประโยคปฏิเสธ:",
-        inputs: [{ id: "ans", label: "ประโยคปฏิเสธแบบเต็ม:" }],
-        accepted: ["peter does not study french", "peter doesn't study french"],
-        category: "sentence-negative",
-        exp: "Peter + does not (doesn't) + study (เปลี่ยน studies กลับเป็นรูปเดิม study) + French"
+        base: "Peter studies French.",
+        type: "singular",
+        neg: "Peter does not study French.",
+        q: "Does Peter study French?",
+        exp: "Peter (เอกพจน์) ใช้ does not study / Does Peter study French...? (เปลี่ยน studies กลับเป็น study)"
     },
     {
         id: 18,
-        section: "Part 3: Put the adverb in the right place",
-        prompt: "18. You drink coffee in the morning. (always)",
-        inputs: [{ id: "ans", label: "เขียนประโยคใหม่ให้สมบูรณ์:" }],
-        accepted: ["you always drink coffee in the morning"],
-        category: "adverb",
-        exp: "วาง always ไว้หน้ากริยาแท้ drink ได้ประโยค: You always drink coffee in the morning."
+        base: "You drink coffee in the morning.",
+        type: "plural",
+        neg: "You do not drink coffee in the morning.",
+        q: "Do you drink coffee in the morning?",
+        exp: "ประธาน You ใช้ do not drink / Do you drink...?"
     },
     {
         id: 19,
-        section: "Part 3: Put the adverb in the right place",
-        prompt: "19. She goes to a restaurant. (sometimes)",
-        inputs: [{ id: "ans", label: "เขียนประโยคใหม่ให้สมบูรณ์:" }],
-        accepted: ["she sometimes goes to a restaurant"],
-        category: "adverb",
-        exp: "วาง sometimes ไว้หน้ากริยาแท้ goes ได้ประโยค: She sometimes goes to a restaurant."
+        base: "She goes to a restaurant.",
+        type: "singular",
+        neg: "She does not go to a restaurant.",
+        q: "Does she go to a restaurant?",
+        exp: "ประธาน She ใช้ does not go / Does she go...? (เปลี่ยน goes กลับเป็น go)"
     },
     {
         id: 20,
-        section: "Part 3: Put the adverb in the right place",
-        prompt: "20. He studies English. (usually)",
-        inputs: [{ id: "ans", label: "เขียนประโยคใหม่ให้สมบูรณ์:" }],
-        accepted: ["he usually studies english"],
-        category: "adverb",
-        exp: "วาง usually ไว้หน้ากริยาแท้ studies ได้ประโยค: He usually studies English."
+        base: "He studies English.",
+        type: "singular",
+        neg: "He does not study English.",
+        q: "Does he study English?",
+        exp: "ประธาน He ใช้ does not study / Does he study...? (เปลี่ยน studies กลับเป็น study)"
     }
 ];
 
 const state = {};
 
 function clean(str) {
-    return (str || '').replace(/[.?!]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+    return (str || '')
+        .replace(/[.?!]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase()
+        .replace("doesn't", "does not")
+        .replace("don't", "do not");
 }
 
-const container = document.getElementById('quiz-container');
-examData.forEach(item => {
+const quizList = document.getElementById('quiz-list');
+quizData.forEach((item, index) => {
     const card = document.createElement('div');
     card.className = 'question-card';
-    
-    let inputsHTML = '';
-    item.inputs.forEach(inp => {
-        inputsHTML += `
-            <div class="form-group">
-                <label>${inp.label}</label>
-                <input type="text" id="input-${item.id}-${inp.id}" placeholder="พิมพ์คำตอบที่นี่...">
-            </div>
-        `;
-    });
-
     card.innerHTML = `
-        <div style="font-size: 12px; color: #718096; font-weight: bold;">${item.section}</div>
-        <div class="q-title">${item.prompt}</div>
-        ${inputsHTML}
+        <div class="base-sentence">ข้อที่ ${index + 1}: ${item.base}</div>
+        
+        <div class="form-group">
+            <label>1. แต่งเป็นประโยคปฏิเสธ (Negative):</label>
+            <input type="text" id="neg-${item.id}" placeholder="พิมพ์ประโยคปฏิเสธแบบเต็ม เช่น He does not...">
+        </div>
+        
+        <div class="form-group">
+            <label>2. แต่งเป็นประโยคคำถาม (Question):</label>
+            <input type="text" id="q-${item.id}" placeholder="พิมพ์ประโยคคำถามแบบเต็ม เช่น Does he... ?">
+        </div>
+        
         <div class="btn-group">
             <button class="btn-check" onclick="checkItem(${item.id})">ตรวจคำตอบข้อนี้</button>
-            <button class="btn-reveal" onclick="revealItem(${item.id})">ดูเฉลย</button>
+            <button class="btn-reveal" onclick="revealItem(${item.id})">ดูเฉลยข้อนี้</button>
         </div>
+        
         <div id="fb-${item.id}" class="feedback"></div>
     `;
-    container.appendChild(card);
+    quizList.appendChild(card);
 });
 
 function checkItem(id) {
-    const item = examData.find(q => q.id === id);
+    const item = quizData.find(q => q.id === id);
+    const userNeg = document.getElementById(`neg-${id}`).value;
+    const userQ = document.getElementById(`q-${id}`).value;
     const fb = document.getElementById(`fb-${id}`);
-    let isCorrect = false;
 
-    if (item.accepted) {
-        const val = clean(document.getElementById(`input-${id}-ans`).value);
-        isCorrect = item.accepted.some(acc => clean(acc) === val);
-    } else if (item.acceptedPair) {
-        const val1 = clean(document.getElementById(`input-${id}-ans1`).value);
-        const val2 = clean(document.getElementById(`input-${id}-ans2`).value);
-        const match1 = item.acceptedPair[0].some(a => clean(a) === val1);
-        const match2 = item.acceptedPair[1].some(a => clean(a) === val2);
-        isCorrect = match1 && match2;
-    }
+    const cUserNeg = clean(userNeg);
+    const cTargetNeg = clean(item.neg);
+
+    const cUserQ = clean(userQ);
+    const cTargetQ = clean(item.q);
+    const cAltQ = item.altQ ? clean(item.altQ) : null;
+
+    const isNegCorrect = (cUserNeg === cTargetNeg);
+    const isQCorrect = (cUserQ === cTargetQ || (cAltQ && cUserQ === cAltQ));
+
+    // ตรวจจับการลืมใส่ประธานในประโยคคำถาม
+    const questionTokens = cUserQ.split(' ');
+    const hasSubject = questionTokens.length >= 3; // ต้องมี กริยาช่วย + ประธาน + กริยาแท้ เป็นอย่างน้อย
 
     fb.style.display = 'block';
-    if (isCorrect) {
+
+    if (isNegCorrect && isQCorrect) {
         fb.className = 'feedback correct';
-        fb.innerHTML = `<strong>ถูกต้องครับ!</strong><div class="exp-text"><strong>คำอธิบาย:</strong> ${item.exp}</div>`;
-        state[id] = { correct: true, category: item.category };
+        fb.innerHTML = `
+            <strong>ถูกต้องสมบูรณ์แบบทั้ง 2 รูปแบบ!</strong>
+            <div class="exp-text"><strong>คำอธิบาย:</strong> ${item.exp}</div>
+        `;
+        state[id] = { correct: true, type: item.type, missingSubject: false };
     } else {
         fb.className = 'feedback incorrect';
-        const expected = item.accepted ? item.accepted[0] : `${item.acceptedPair[0][0]} ... ${item.acceptedPair[1][0]}`;
-        fb.innerHTML = `<strong>ยังไม่ถูกต้อง</strong> (คำตอบที่ถูกต้อง: <em>${expected}</em>)<div class="exp-text"><strong>คำอธิบาย:</strong> ${item.exp}</div>`;
-        state[id] = { correct: false, category: item.category };
+        let detail = '';
+        if (!isNegCorrect) {
+            detail += `<br>&bull; <strong>ประโยคปฏิเสธ:</strong> ยังไม่ถูกต้อง (เฉลย: <em>${item.neg}</em>)`;
+        }
+        if (!isQCorrect) {
+            detail += `<br>&bull; <strong>ประโยคคำถาม:</strong> ยังไม่ถูกต้อง (เฉลย: <em>${item.q}</em>)`;
+            if (!hasSubject && userQ.trim() !== '') {
+                detail += ` <span style="color:#c53030;"><strong>(ข้อควรระวัง: ดูเหมือนว่าคุณลืมใส่ประธานหลัง Do/Does)</strong></span>`;
+            }
+        }
+
+        fb.innerHTML = `
+            <strong>ยังมีจุดที่ต้องแก้ไข:</strong>${detail}
+            <div class="exp-text"><strong>คำอธิบาย:</strong> ${item.exp}</div>
+        `;
+        state[id] = { correct: false, type: item.type, missingSubject: !hasSubject };
     }
+
     updateSummary();
 }
 
 function revealItem(id) {
-    const item = examData.find(q => q.id === id);
+    const item = quizData.find(q => q.id === id);
     const fb = document.getElementById(`fb-${id}`);
-    const expected = item.accepted ? item.accepted.join(' หรือ ') : `${item.acceptedPair[0][0]} / ${item.acceptedPair[1][0]}`;
     fb.style.display = 'block';
     fb.className = 'feedback revealed';
-    fb.innerHTML = `<strong>เฉลยข้อที่ ${id}:</strong> ${expected}<div class="exp-text"><strong>คำอธิบาย:</strong> ${item.exp}</div>`;
+    fb.innerHTML = `
+        <strong>เฉลยข้อที่ ${id}:</strong><br>
+        - <strong>ประโยคปฏิเสธ:</strong> ${item.neg}<br>
+        - <strong>ประโยคคำถาม:</strong> ${item.q}<br>
+        <div class="exp-text"><strong>คำอธิบาย:</strong> ${item.exp}</div>
+    `;
 }
 
 function updateSummary() {
-    const totalAnswered = Object.keys(state).length;
-    const totalCorrect = Object.values(state).filter(s => s.correct).length;
-    document.getElementById('total-score').innerText = `คะแนนปัจจุบัน: ${totalCorrect} / 20 ข้อ (ตรวจแล้ว ${totalAnswered} ข้อ)`;
+    const checkedIds = Object.keys(state);
+    const totalPassed = Object.values(state).filter(s => s.correct).length;
+    document.getElementById('total-score').innerText = `ตรวจคำตอบแล้ว: ${checkedIds.length} / 20 ข้อ (ถูกต้องครบถ้วน ${totalPassed} ข้อ)`;
 
-    const errors = Object.values(state).filter(s => !s.correct).map(s => s.category);
+    const errors = Object.values(state).filter(s => !s.correct);
     let analysisHTML = "<ul>";
-    
-    if (errors.includes('sentence-negative')) {
-        analysisHTML += "<li><strong>จุดอ่อนการเขียนประโยคปฏิเสธ (ข้อ 14-17):</strong> พบการลืมใส่ประธานหน้าประโยค หรือสับสนเขียนรูปคำถามแทนปฏิเสธ ให้ท่องโครงสร้าง: <code>Subject + do/does not + V.1</code></li>";
+
+    const missingSub = errors.some(e => e.missingSubject);
+    const singularErr = errors.filter(e => e.type === 'singular').length;
+    const pluralErr = errors.filter(e => e.type === 'plural').length;
+    const childrenErr = errors.some(e => e.type === 'children');
+
+    if (missingSub) {
+        analysisHTML += "<li><strong>พบปัญหาการลืมใส่ประธาน (Subject):</strong> ในประโยคคำถาม อย่าลืมใส่ประธานหลังกริยาช่วย เช่น <code>Does + he + play...</code> ไม่ใช่ <code>Does + play...</code></li>";
     }
-    if (errors.includes('irregular-noun')) {
-        analysisHTML += "<li><strong>จุดอ่อนเรื่องคำนามเปลี่ยนรูป (ข้อ 11):</strong> สับสนคำว่า <em>The children</em> จัดเป็นประธานพหูพจน์ ต้องใช้ <code>don't</code></li>";
+    if (singularErr > 0) {
+        analysisHTML += "<li><strong>จุดอ่อนเรื่องประธานเอกพจน์:</strong> มีข้อผิดพลาดในการใช้ does not / Does และการตัด s/es ออกจากกริยาแท้หลัง does</li>";
     }
-    if (errors.includes('wh-question') || errors.includes('question')) {
-        analysisHTML += "<li><strong>จุดอ่อนเรื่องประโยคคำถาม (ข้อ 3, 4, 8):</strong> สับสนระหว่างการเลือกใช้ Do กับ Does และการคืนรูปกริยาแท้</li>";
+    if (pluralErr > 0) {
+        analysisHTML += "<li><strong>จุดอ่อนเรื่องประธานพหูพจน์:</strong> มีข้อผิดพลาดในการเลือกใช้ do not / Do</li>";
     }
-    if (errors.includes('adverb')) {
-        analysisHTML += "<li><strong>จุดอ่อนตำแหน่ง Adverb (ข้อ 18-20):</strong> ต้องวางคำบอกความถี่ไว้หน้ากริยาแท้เสมอ</li>";
+    if (childrenErr) {
+        analysisHTML += "<li><strong>จุดอ่อนคำนามพหูพจน์ไม่เติม s:</strong> คำว่า <em>The children</em> เป็นพหูพจน์ ต้องใช้ <code>do not / Do</code> เท่านั้น</li>";
     }
-    if (totalCorrect === 20) {
-        analysisHTML += "<li><strong>ยอดเยี่ยมมาก!</strong> ทำถูกต้องครบถ้วนทุกข้อ แม่นยำโครงสร้างไวยากรณ์อย่างสมบูรณ์</li>";
+    if (checkedIds.length === 20 && totalPassed === 20) {
+        analysisHTML += "<li><strong>ยอดเยี่ยมมาก!</strong> นักเรียนสามารถสร้างประโยคปฏิเสธและประโยคคำถามได้ถูกต้องสมบูรณ์ครบทั้ง 20 ข้อ</li>";
     }
     analysisHTML += "</ul>";
     document.getElementById('analysis-content').innerHTML = analysisHTML;
