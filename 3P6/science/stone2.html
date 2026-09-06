@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ข้อสอบวัฏจักรหินและปิโตรวิทยา ชุดที่ 2 - พระจอมเกล้าติวเตอร์</title>
+<style>
+  :root {
+    --primary: #1e3a8a;
+    --primary-light: #2563eb;
+    --secondary: #0f766e;
+    --accent: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #0f172a;
+    --text-sub: #475569;
+    --border: #cbd5e1;
+    --success: #15803d;
+    --success-bg: #dcfce7;
+    --danger: #b91c1c;
+    --danger-bg: #fee2e2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Sarabun", "Segoe UI", Roboto, sans-serif; }
+  body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+  
+  header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 1.75rem 1rem; text-align: center; }
+  header h1 { font-size: 1.65rem; margin-bottom: 0.35rem; }
+  header p { font-size: 0.95rem; opacity: 0.92; }
+
+  .wrapper { max-width: 1380px; margin: 0 auto; padding: 1.25rem 1rem; }
+
+  /* Summary Section */
+  .summary-panel { background: var(--card); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.25rem; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04); }
+  .summary-panel h2 { color: var(--primary); font-size: 1.3rem; margin-bottom: 0.8rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.4rem; }
+  .summary-panel h3 { color: var(--secondary); font-size: 1.05rem; margin-top: 1rem; margin-bottom: 0.3rem; }
+  .highlight-box { background: #eff6ff; border-left: 4px solid var(--primary-light); padding: 1rem; border-radius: 4px; margin-top: 1rem; font-size: 0.95rem; }
+
+  /* Controls */
+  .action-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: var(--card); padding: 0.85rem 1.25rem; border-radius: 8px; margin-bottom: 1.25rem; border: 1px solid var(--border); }
+  .stat-badge { font-weight: 700; color: var(--primary); font-size: 0.95rem; }
+  .btn { padding: 0.55rem 1.15rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.88rem; transition: all 0.2s ease; }
+  .btn-blue { background: var(--primary-light); color: white; }
+  .btn-blue:hover { background: var(--primary); }
+  .btn-amber { background: var(--accent); color: white; }
+  .btn-amber:hover { opacity: 0.9; }
+
+  /* Main 2-Frame Layout: Left 70%, Right 30% */
+  .layout-grid { display: flex; flex-direction: row; gap: 1.25rem; align-items: flex-start; }
+  .frame-left { flex: 0 0 70%; max-width: 70%; }
+  .frame-right { flex: 0 0 30%; max-width: 30%; position: sticky; top: 1rem; }
+
+  @media (max-width: 992px) {
+    .layout-grid { flex-direction: column; }
+    .frame-left, .frame-right { flex: 0 0 100%; max-width: 100%; position: static; }
+  }
+
+  /* Question Card */
+  .quiz-item { background: var(--card); border-radius: 10px; padding: 1.25rem; margin-bottom: 1.25rem; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+  .q-number { font-weight: 800; color: var(--primary); font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .q-hint { display: inline-block; background: #f1f5f9; border-left: 3px solid var(--accent); padding: 5px 10px; font-size: 0.82rem; color: var(--text-sub); margin-bottom: 0.85rem; border-radius: 3px; }
+  .options-container { display: flex; flex-direction: column; gap: 8px; }
+  .choice-btn { background: #ffffff; border: 1px solid var(--border); border-radius: 6px; padding: 9px 12px; text-align: left; cursor: pointer; font-size: 0.92rem; transition: background 0.15s, border-color 0.15s; line-height: 1.45; }
+  .choice-btn:hover:not(:disabled) { background: #f8fafc; border-color: var(--primary-light); }
+  .choice-btn.correct-choice { background-color: var(--success-bg) !important; border-color: var(--success) !important; color: #064e3b !important; font-weight: 600; }
+  .choice-btn.wrong-choice { background-color: var(--danger-bg) !important; border-color: var(--danger) !important; color: #7f1d1d !important; }
+  
+  .detail-exp { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 0.88rem; display: none; line-height: 1.5; }
+  .detail-exp.active { display: block; }
+  .exp-pass { background: var(--success-bg); color: #064e3b; border-left: 4px solid var(--success); }
+  .exp-fail { background: var(--danger-bg); color: #7f1d1d; border-left: 4px solid var(--danger); }
+
+  /* Whiteboard */
+  .board-box { background: var(--card); border-radius: 10px; border: 1px solid var(--border); padding: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+  .board-box h3 { font-size: 1rem; color: var(--primary); margin-bottom: 0.6rem; }
+  .board-actions { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+  .tool-btn { padding: 4px 8px; font-size: 0.78rem; border: 1px solid var(--border); background: white; border-radius: 4px; cursor: pointer; }
+  .tool-btn.active { background: var(--primary-light); color: white; border-color: var(--primary-light); }
+  #whiteboard-cv { width: 100%; height: 350px; border: 1px solid var(--border); border-radius: 6px; background: #ffffff; cursor: crosshair; touch-action: none; }
+
+  /* Report Card */
+  .score-card { background: white; border-radius: 12px; padding: 1.75rem; border: 1px solid var(--border); margin-top: 1.5rem; text-align: center; }
+  .score-card h2 { color: var(--primary); font-size: 1.4rem; }
+  .score-number { font-size: 2.75rem; font-weight: 800; color: var(--secondary); margin: 0.8rem 0; }
+  .analytics-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.25rem; text-align: left; }
+  @media (max-width: 768px) { .analytics-wrapper { grid-template-columns: 1fr; } }
+  .metric-block { padding: 1rem; border-radius: 8px; font-size: 0.9rem; }
+  .metric-block h4 { margin-bottom: 0.5rem; font-size: 1rem; }
+  .box-strengths { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .box-strengths h4 { color: var(--success); }
+  .box-deficits { background: #fef2f2; border: 1px solid #fecaca; }
+  .box-deficits h4 { color: var(--danger); }
+
+  footer { text-align: center; padding: 2rem 1rem; color: var(--text-sub); font-size: 0.88rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ระบบข้อสอบวัดผลสัมฤทธิ์: วัฏจักรหินและปิโตรวิทยา (ชุดที่ 2)</h1>
+  <p>ข้อสอบวิเคราะห์ระดับยาก 30 ข้อถ้วน ตามมาตรฐานหลักสูตร สสวท. | พระจอมเกล้าติวเตอร์</p>
+</header>
+
+<div class="wrapper">
+  
+  <!-- ส่วนสรุปเนื้อหาและเทคนิคช่วยจำ -->
+  <section class="summary-panel">
+    <h2>แก่นความรู้ธรณีวิทยาและการคิดเชิงวิเคราะห์ (Advanced Petrological Thinking)</h2>
+    <p>
+      หินบนเปลือกโลกมีการเปลี่ยนแปลงสถานะทางแร่และโครงสร้างอยู่ตลอดเวลาผ่านแรงขับเคลื่อนภายในโลก (ธรณีแปรสัณฐาน อุณหภูมิ และความดัน) 
+      และแรงขับเคลื่อนภายนอกโลก (บรรยากาศ น้ำ และสิ่งมีชีวิต) การจำแนกประเภทหินจึงต้องวิเคราะห์ลึกลงไปถึง <strong>สภาวะแวดล้อมทางกายภาพและเคมีขณะกำเนิด</strong>
+    </p>
+
+    <h3>1. การแยกส่วนทางเคมีของหินอัคนี (Magmatic Differentiation)</h3>
+    <p>
+      แมกมาดั้งเดิมมีความเป็นด่างต่ำ ซิลิกาต่ำ (Mafic) เมื่อเคลื่อนตัวสูงขึ้นและเย็นตัวลง แร่โอลิวีนและแคลเซียมเฟลด์สปาร์จะตกผลึกออกไปก่อน 
+      ส่งผลให้น้ำแมกมาที่เหลือมีปริมาณซิลิกา (SiO₂) สูงขึ้น กลายเป็นแมกมาแบบ Intermediate และ Felsic ตามลำดับ 
+      หินอัคนีจึงถูกจัดกลุ่มตามสัดส่วนของซิลิกา ตั้งแต่ Ultramafic (เพริโดไทต์), Mafic (แกบโบร, บะซอลต์), Intermediate (ไดโอไรต์, แอนดีไซต์) จนถึง Felsic (แกรนิต, ไรโอไลต์)
+    </p>
+
+    <h3>2. วงจรการตกตะกอนและการเปลี่ยนสภาพ (Lithification & Diagenesis)</h3>
+    <p>
+      หินตะกอนสะท้อนพลังงานของตัวกลางในการพัดพา เม็ดตะกอนขนาดใหญ่ตกสะสมตัวในสภาพแวดล้อมพลังงานสูง เม็ดละเอียดตกในบริเวณน้ำนิ่ง 
+      กระบวนการเปลี่ยนสภาพเป็นหินประกอบด้วยการบดอัดไล่น้ำ (Compaction) และการตกผลึกของสารเชื่อมประสาน (Cementation เช่น แคลไซต์, ควอตซ์, ซิลิกา) 
+      ในบริเวณทะเลลึกที่ต่ำกว่าระดับวิกฤตการละลายแคลไซต์ (CCD) โครงร่างหินปูนจะถูกละลายหมด เหลือเพียงตะกอนซิลิกาที่ก่อตัวเป็นหินเชิร์ต
+    </p>
+
+    <h3>3. การแปรสภาพและดัชนีแร่บ่งชี้ (Metamorphism & Metamorphic Facies)</h3>
+    <p>
+      การแปรสภาพเกิดขึ้นในสถานะของแข็ง (Solid-state Recrystallization) เสมอ หากหินเริ่มหลอมเหลวจะถือว่าก้าวข้ามเข้าสู่วัฏจักรหินอัคนี 
+      การแปรสภาพบริเวณไพศาลส่งผลให้แร่ที่มีรูปทรงแผ่น เช่น ไมกา เรียงตัวตั้งฉากกับแรงเค้นบีบอัด เกิดโครงสร้างริ้วขนาน (Foliation) 
+      โดยเริ่มจากหินชนวน (Slate) &rarr; หินฟิลไลต์ (Phyllite) &rarr; หินชิสต์ (Schist) &rarr; หินไนส์ (Gneiss) ตามระดับอุณหภูมิและความดันที่เพิ่มขึ้น
+    </p>
+
+    <div class="highlight-box">
+      <strong>เทคนิคช่วยจำและกระบวนการตัดสินใจขั้นสูง (Tutor Shortcuts):</strong>
+      <br>&bull; <em>ตัดช้อยส์หินแปรไร้ริ้วขนาน:</em> "หินอ่อน ฟู่กรด ขูดเข้า มีดกรีดเป็นรอย | หินควอร์ตไซต์ นิ่งสนิท มีดกรีดไม่เข้า แข็งระดับ 7"
+      <br>&bull; <em>สูตรสายปฏิกิริยาไม่ต่อเนื่องของโบเวน:</em> "โอ &rarr; ไพร &rarr; แอม &rarr; ไบ" (Olivine &rarr; Pyroxene &rarr; Amphibole &rarr; Biotite)
+      <br>&bull; <em>หลักการตัดสินใจวัฏจักร:</em> พบคำว่า "หลอมเหลว (Melting)" ตัดเข้าสู่อัคนีทันที, พบคำว่า "ของแข็งตกผลึกใหม่ภายใต้ความดัน/ความร้อน" ตัดเข้าสู่หินแปร
+    </div>
+  </section>
+
+  <!-- แถบควบคุมสถานะ -->
+  <div class="action-bar">
+    <div>
+      <span class="stat-badge" id="txt-progress">ทำไปแล้ว: 0 / 30 ข้อ</span>
+      <span style="margin-left: 15px;" class="stat-badge" id="txt-score">คะแนนสะสม: 0</span>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <button class="btn btn-blue" onclick="toggleLang()">สลับภาษา (TH / EN)</button>
+      <button class="btn btn-amber" onclick="resetQuizState()">รีเซ็ตข้อสอบ (Reset)</button>
+    </div>
+  </div>
+
+  <!-- โครงสร้างหลัก 2 ฝั่ง (70% ข้อสอบ, 30% Whiteboard) -->
+  <div class="layout-grid">
+    
+    <!-- ฝั่งซ้าย 70%: ข้อสอบ 30 ข้อ -->
+    <div class="frame-left" id="quiz-mount"></div>
+
+    <!-- ฝั่งขวา 30%: กระดานไวท์บอร์ดทดเลข/วาดผัง -->
+    <div class="frame-right">
+      <div class="board-box">
+        <h3>กระดานทดข้อสอบ (Whiteboard)</h3>
+        <div class="board-actions">
+          <button class="tool-btn active" id="btn-pen" onclick="changeWbTool('pen')">ดินสอ</button>
+          <button class="tool-btn" id="btn-eraser" onclick="changeWbTool('eraser')">ยางลบ</button>
+          <button class="tool-btn" onclick="wipeWhiteboard()">ล้างกระดาน</button>
+        </div>
+        <canvas id="whiteboard-cv"></canvas>
+        <p style="font-size: 0.75rem; color: var(--text-sub); margin-top: 6px;">ใช้ทดแผนภาพปฏิกิริยาโบเวน หรือคำนวณลำดับชั้นหิน</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- หน้าสรุปผลคะแนนและการประเมิน -->
+  <div id="evaluation-card" style="display: none;">
+    <div class="score-card">
+      <h2>รายงานสรุปผลการประเมินทักษะปิโตรวิทยา (ชุดที่ 2)</h2>
+      <div class="score-number" id="lbl-total-score">0 / 30</div>
+      <p id="lbl-feedback" style="font-weight: 700; font-size: 1.05rem;"></p>
+
+      <div class="analytics-wrapper">
+        <div class="metric-block box-strengths">
+          <h4>จุดเด่นที่ท่านเชี่ยวชาญ (Strengths)</h4>
+          <ul id="ul-strengths" style="padding-left: 1.2rem;"></ul>
+        </div>
+        <div class="metric-block box-deficits">
+          <h4>จุดที่ต้องทบทวนเพิ่มเติม (Weaknesses)</h4>
+          <ul id="ul-weaknesses" style="padding-left: 1.2rem;"></ul>
+        </div>
+      </div>
+
+      <button class="btn btn-blue" style="margin-top: 1.75rem;" onclick="resetQuizState()">ทำแบบทดสอบใหม่อีกครั้ง</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>สื่อการเรียนรู้เชิงโต้ตอบแบบ Standalone | เขียนโดย พระจอมเกล้าติวเตอร์</p>
+</footer>
+
+<script>
+// ธนาคารข้อสอบชุดที่ 2 (30 ข้อถ้วน ไม่ซ้ำชุดแรก)
+const questionBankSet2 = [
+  {
+    id: 1,
+    topic: "igneous",
+    q_th: "โครงสร้างหินภูเขาไฟแบบ 'Pillow Basalt' (บะซอลต์รูปหมอน) บ่งชี้สภาพแวดล้อมการเย็นตัวแบบใดอย่างชัดเจนที่สุด?",
+    q_en: "Which eruptive environment is unequivocally indicated by the presence of 'Pillow Basalt'?",
+    clue_th: "พิจารณาการสัมผัสความเย็นฉับพลันของลาวาใต้แหล่งน้ำขนาดใหญ่",
+    clue_en: "Consider rapid quenching of lava under a substantial aquatic body",
+    options_th: [
+      "การปะทุและเย็นตัวของลาวาอย่างรวดเร็วใต้น้ำทะเลลึกหรือแอ่งน้ำ",
+      "การเย็นตัวช้าๆ ใต้กระเปาะหินหนืดที่ระดับลึกของเปลือกโลกทวีป",
+      "การปะทุพ่นเถ้าภูเขาไฟสู่ชั้นบรรยากาศชั้นสูงในสภาวะแห้งแล้ง",
+      "การไหลล้นของลาวาซิลิกาสูงบนที่ราบสูงลาดชันปานกลาง"
+    ],
+    options_en: [
+      "Extrusion and rapid subaqueous quenching of lava under marine or lacustrine water",
+      "Slow plutonic cooling inside deep crustal magma chambers",
+      "Subaerial explosive pyroclastic ejection into the upper arid atmosphere",
+      "Viscous felsic effusive flow cascading across moderately inclined plains"
+    ],
+    answer: 0,
+    exp_th: "บะซอลต์รูปหมอนเกิดจากลาวาบะซอลต์ปะทุขึ้นมาสัมผัสกับน้ำเย็นจัดใต้ทะเล ทำให้ผิวนอกแข็งตัวฉับพลันเป็นเปลือกแก้ว ขณะที่ลาวาภายในยังดันตัวออกมาจนป่องออกเป็นก้อนมนคล้ายหมอน",
+    exp_en: "Pillow basalts form when mafic lava erupts underwater; rapid quenching creates a chilled outer crust that expands into bulbous lobes."
+  },
+  {
+    id: 2,
+    topic: "sedimentary",
+    q_th: "หากพบชั้นหินตะกอนที่มีโครงสร้างริ้วคลื่นแบบสมมาตร (Symmetrical Ripple Marks) สามารถแปลความหมายสภาพแวดล้อมโบราณได้อย่างไร?",
+    q_en: "What paleoenvironmental condition is inferred from symmetrical ripple marks in sedimentary strata?",
+    clue_th: "ริ้วคลื่นสมมาตรเกิดจากกระแสน้ำที่พัดแกว่งไปมาสองทิศทางเท่าๆ กัน",
+    clue_en: "Symmetrical wave forms require oscillatory bidirectional water motion",
+    options_th: [
+      "เขตน้ำตื้นริมชายฝั่งทะเลหรือทะเลสาบที่มีคลื่นซัดแกว่งไปมาสองทิศทาง",
+      "ทางน้ำแม่น้ำสายหลักที่มีกระแสน้ำไหลเชี่ยวมุ่งหน้าไปในทิศทางเดียว",
+      "เนินทรายในทะเลทรายที่ถูกพัดพาด้วยลมมรสุมทิศทางเดียวตลอดปี",
+      "ร่องลึกก้นสมุทรที่เกิดกระแสน้ำขุ่นข้นพัดพาตะกอนถล่มลงมา"
+    ],
+    options_en: [
+      "Shallow shoreline or lacustrine setting with bidirectional oscillatory wave action",
+      "Fluvial river channel governed by unidirectional high-velocity current",
+      "Aeolian desert dunes driven by persistent unidirectional trade winds",
+      "Abyssal submarine trenches influenced by episodic catastrophic turbidity currents"
+    ],
+    answer: 0,
+    exp_th: "ริ้วคลื่นสมมาตร (Oscillation ripples) สันคลื่นจะสมมาตรทั้งสองด้าน เกิดจากการแกว่งตัวไปมาของคลื่นน้ำตื้น ต่างจากริ้วคลื่นอสมมาตร (Asymmetrical ripples) ที่เกิดจากกระแสน้ำหรือลมพัดทางเดียว",
+    exp_en: "Symmetrical ripples reflect back-and-forth oscillatory wave energy typical of shallow lacustrine or littoral marine zones."
+  },
+  {
+    id: 3,
+    topic: "metamorphic",
+    q_th: "แร่ดัชนีแปรสภาพ (Index Mineral) ชนิดใดที่บ่งชี้ว่าหินก้อนนั้นผ่านการแปรสภาพบริเวณไพศาลที่ระดับอุณหภูมิและความดันสูงที่สุด (High-grade)?",
+    q_en: "Which metamorphic index mineral signifies the highest metamorphic grade under regional conditions?",
+    clue_th: "เป็นแร่อะลูมิโนซิลิเกตที่เสถียรที่สุดในสภาวะอุณหภูมิสูงจัด",
+    clue_en: "The aluminosilicate polymorph stable under extreme thermal and pressure regimes",
+    options_th: [
+      "ซิลลิมาไนต์ (Sillimanite)",
+      "คลอไรต์ (Chlorite)",
+      "ไบโอไทต์ (Biotite)",
+      "การ์เนต (Garnet)"
+    ],
+    options_en: [
+      "Sillimanite",
+      "Chlorite",
+      "Biotite",
+      "Garnet"
+    ],
+    answer: 0,
+    exp_th: "ลำดับแร่ดัชนีจากเกรดต่ำไปสูง: คลอไรต์ &rarr; ไบโอไทต์ &rarr; การ์เนต &rarr; สตอโรไลต์ &rarr; ไคยาไนต์ &rarr; ซิลลิมาไนต์ (Sillimanite เสถียรที่อุณหภูมิเกิน 600–750 °C ถือเป็นเกรดสูงสุดก่อนหินจะหลอม)",
+    exp_en: "Progressive regional metamorphism develops: Chlorite &rarr; Biotite &rarr; Garnet &rarr; Staurolite &rarr; Kyanite &rarr; Sillimanite (highest grade)."
+  },
+  {
+    id: 4,
+    topic: "bowen",
+    q_th: "ใน Bowen's Reaction Series เมื่อแร่โอลิวีนตกผลึกแยกตัวออกจากแมกมา จะทำให้สัดส่วนของธาตุใดในน้ำหินหลอมเหลวที่เหลือ 'ลดลง' อย่างรวดเร็ว?",
+    q_en: "In Bowen's Reaction Series, crystallization and removal of olivine depletes which elements from the melt?",
+    clue_th: "โอลิวีนมีสูตรเคมีคือ (Mg,Fe)₂SiO₄",
+    clue_en: "Recall the chemical stoichiometry of olivine: (Mg,Fe)₂SiO₄",
+    options_th: [
+      "แมกนีเซียม (Mg) และ เหล็ก (Fe)",
+      "โซเดียม (Na) และ โพแทสเซียม (K)",
+      "อะลูมิเนียม (Al) และ ซิลิคอน (Si)",
+      "แคลเซียม (Ca) และ คาร์บอน (C)"
+    ],
+    options_en: [
+      "Magnesium (Mg) and Iron (Fe)",
+      "Sodium (Na) and Potassium (K)",
+      "Aluminum (Al) and Silicon (Si)",
+      "Calcium (Ca) and Carbon (C)"
+    ],
+    answer: 0,
+    exp_th: "โอลิวีนดึงเอา Fe²⁺ และ Mg²⁺ ออกจากแมกมาไปสร้างโครงสร้างผลึกอย่างรวดเร็ว ทำให้น้ำแมกมาที่เหลือสูญเสียธาตุเหล็กและแมกนีเซียม และมีความเข้มข้นสัมพัทธ์ของ Si, Na, K สูงขึ้น",
+    exp_en: "Precipitation of magnesian-iron olivine sequesters Mg and Fe, progressively driving the residual magma toward felsic compositions."
+  },
+  {
+    id: 5,
+    topic: "rockcycle",
+    q_th: "หินไมโลไนต์ (Mylonite) เกิดจากกลไกทางธรณีวิทยาในข้อใดของวัฏจักรหิน?",
+    q_en: "Mylonite is formed by which dynamic geological mechanism within the rock cycle?",
+    clue_th: "เกิดจากแรงเฉือนมหาศาลบริเวณแนวรอยเลื่อนที่ระดับความลึกปานกลางใต้เปลือกโลก",
+    clue_en: "Produced by intense ductile shearing along ductile fault shear zones at depth",
+    options_th: [
+      "การแปรสภาพพลวัต (Dynamic Metamorphism) จากแรงเฉือนรุนแรงบริเวณระนาบรอยเลื่อนระดับลึก",
+      "การตกตะกอนทางเคมีจากสารละลายน้ำพุร้อนในถ้ำหินปูน",
+      "การพ่นละอองเถ้าและเศษหินจากการระเบิดของภูเขาไฟทรงกรวยสลับชั้น",
+      "การหลอมละลายสมบูรณ์ของแผ่นเปลือกโลกทวีปกลายเป็นหินแกรนิต"
+    ],
+    options_en: [
+      "Dynamic metamorphism caused by intense ductile shear strain along deep fault zones",
+      "Chemical precipitation from hydrothermal springs in subterranean karst caverns",
+      "Pyroclastic fall deposition from explosive stratovolcanic eruptions",
+      "Complete anatectic melting of continental lithosphere forming granite"
+    ],
+    answer: 0,
+    exp_th: "หินไมโลไนต์ (Mylonite) เป็นหินแปรพลวัต เกิดจากแรงเค้นเฉือน (Shear Stress) บดขยี้และดัดรูปผลึกแร่แบบเหนียว (Ductile deformation) ในเขตรอยเลื่อนลึกใต้เปลือกโลก ทำให้เนื้อหินละเอียดเป็นแถบริ้วริ้ว",
+    exp_en: "Mylonites are foliated metamorphic rocks produced by ductile grain-size reduction within intense shear zones."
+  },
+  {
+    id: 6,
+    topic: "igneous",
+    q_th: "หินเพกมาไทต์ (Pegmatite) มีลักษณะผลึกแร่ขนาดใหญ่พิเศษ (อาจยาวหลายสิบเซนติเมตร) เกิดจากปัจจัยหลักใด?",
+    q_en: "What primary factor enables Pegmatite to develop exceptionally coarse, giant crystal sizes?",
+    clue_th: "น้ำหินหลอมเหลวช่วงท้ายอุดมด้วยสารระเหยและน้ำ ช่วยให้อะตอมเคลื่อนที่จับตัวง่ายขึ้น",
+    clue_en: "Late-stage melts enriched in volatile fluids and water drastically lower viscosity and accelerate ionic diffusion",
+    options_th: [
+      "น้ำแมกมาระยะท้ายอุดมด้วยน้ำและสารระเหย ทำให้อะตอมแพร่กระจายตัวได้อย่างรวดเร็วเข้าสู่ผลึก",
+      "แมกมาเย็นตัวอย่างช้าๆ เป็นเวลาหลายพันล้านปีในชั้นเนื้อโลกตอนล่าง",
+      "การได้รับความดันรอบทิศทางสูงจัดจนบีบให้ผลึกแร่ขยายขนาดอย่างฉับพลัน",
+      "การปะทุพ่นขึ้นมาบนผิวโลกแล้วสัมผัสกับอากาศเย็นยิ่งยวดขั้วโลก"
+    ],
+    options_en: [
+      "Late-stage fluid-rich volatile melt lowers viscosity, facilitating extremely rapid ion diffusion",
+      "Extremely slow cooling over billions of years within the lower mantle",
+      "Ultra-high lithostatic confining pressure forcibly enlarging individual crystal lattices",
+      "Subaerial volcanic quenching upon contact with sub-zero polar atmosphere"
+    ],
+    answer: 0,
+    exp_th: "ผลึกยักษ์ในเพกมาไทต์ไม่ได้เกิดจากความเย็นตัวช้าเพียงอย่างเดียว แต่เกิดจากน้ำแมกมาช่วงท้ายอุดมไปด้วยน้ำและก๊าซ (Volatiles) ซึ่งช่วยลดความหนืด ทำให้ไอออนวิ่งเข้าเกาะโครงข่ายผลึกได้อย่างรวดเร็วมาก",
+    exp_en: "Pegmatitic giant crystal textures arise from low-viscosity, water-saturated residual melts permitting rapid chemical diffusion."
+  },
+  {
+    id: 7,
+    topic: "sedimentary",
+    q_th: "ปรากฏการณ์ Calcite Compensation Depth (CCD) มีบทบาทกำหนดลักษณะการสะสมตัวของหินชนิดใดใต้ทะเลลึก?",
+    q_en: "The Calcite Compensation Depth (CCD) controls the abyssal depositional limits of which rocks?",
+    clue_th: "ระดับความลึกที่อัตราการละลายของ CaCO₃ เท่ากับอัตราการตกสะสมตัว",
+    clue_en: "The threshold where calcium carbonate dissolution equals supply rate",
+    options_th: [
+      "หินชอล์กและหินปูนชีวภาพ (Chalk & Pelagic Limestone) จะไม่สะสมตัวใต้ระดับ CCD ลงไป",
+      "หินเชิร์ตชีวภาพจากซิลิกาจะไม่สามารถตกผลึกได้เหนือระดับ CCD",
+      "หินเกลือหินจะตกสะสมตัวหนาแน่นเฉพาะบริเวณใต้ระดับ CCD เท่านั้น",
+      "หินทรายควอร์ตไซต์จะไม่ถูกกัดเซาะหากอยู่ต่ำกว่าแนว CCD"
+    ],
+    options_en: [
+      "Chalk and pelagic calcareous ooze cease to accumulate below the CCD threshold",
+      "Siliceous chert is thermodynamically inhibited from depositing above the CCD",
+      "Rock salt evaporites exclusively precipitate in deep basins beneath the CCD",
+      "Quartzite sandstones are protected from chemical weathering below the CCD"
+    ],
+    answer: 0,
+    exp_th: "ใต้ระดับ CCD (ลึกประมาณ 4–4.5 กม.) น้ำทะเลมีอุณหภูมิต่ำ ความดันสูง และมี CO₂ ละลายมาก ทำให้เปลือกแคลเซียมคาร์บอเนต (CaCO₃) ละลายหมด ตะกอนหินปูนจึงไม่สามารถสะสมตัวได้ ตะกอนใต้เส้นนี้จึงเป็นซิลิกาหรือโคลนแดง",
+    exp_en: "Below the CCD, cold acidic deep water dissolves calcium carbonate completely, preventing pelagic chalk and limestone preservation."
+  },
+  {
+    id: 8,
+    topic: "metamorphic",
+    q_th: "หากนำกรดเกลือ (HCl) เจือจาง 10% หยดลงบนหน้าตัดหินอ่อน (Marble) และหินควอร์ตไซต์ (Quartzite) ผลการทดสอบจะเป็นอย่างไร?",
+    q_en: "What happens when 10% dilute HCl is applied to fresh surfaces of Marble and Quartzite?",
+    clue_th: "หินอ่อนประกอบด้วยแร่แคลไซต์ ขณะที่หินควอร์ตไซต์ประกอบด้วยแร่ควอตซ์",
+    clue_en: "Marble is calcitic, whereas quartzite consists of crystalline quartz",
+    options_th: [
+      "หินอ่อนเกิดฟองฟู่อย่างรวดเร็ว ส่วนหินควอร์ตไซต์ไม่ทำปฏิกิริยาใดๆ",
+      "หินควอร์ตไซต์ละลายตัวเป็นของเหลว ส่วนหินอ่อนไม่มีการเปลี่ยนแปลง",
+      "หินทั้งสองชนิดเกิดฟองฟู่อย่างรุนแรงเนื่องจากเป็นหินแปรทั้งคู่",
+      "หินทั้งสองชนิดไม่ทำปฏิกิริยากับกรดทุกชนิดในอุณหภูมิห้อง"
+    ],
+    options_en: [
+      "Marble vigorously effervesces, while Quartzite shows zero reaction",
+      "Quartzite readily dissolves into liquid, whereas Marble exhibits no change",
+      "Both rocks vigorously effervesce because both are metamorphic derivatives",
+      "Neither rock reacts with any acid under standard room temperatures"
+    ],
+    answer: 0,
+    exp_th: "หินอ่อนแปรมาจากหินปูน มีองค์ประกอบคือ Calcite (CaCO₃) ซึ่งทำปฏิกิริยากับกรดเกิดก๊าซ CO₂ (ฟองฟู่) ทันที ส่วนควอร์ตไซต์มีองค์ประกอบคือ ซิลิกา (SiO₂) ซึ่งไม่ทำปฏิกิริยากับกรดเกลือ",
+    exp_en: "Marble (CaCO₃) effervesces releasing CO₂ gas with dilute HCl, whereas quartz-rich Quartzite (SiO₂) is chemically inert to HCl."
+  },
+  {
+    id: 9,
+    topic: "bowen",
+    q_th: "หินอัคนีชนิดใดต่อไปนี้มีแนวโน้มที่จะพบ 'แร่ควอตซ์' เป็นส่วนประกอบอิสระได้มากที่สุด?",
+    q_en: "Which of the following igneous rocks is most likely to contain abundant free Quartz?",
+    clue_th: "หินที่มีความเข้มข้นของซิลิกาเกินกว่า 65% ขึ้นไป (Silica-oversaturated)",
+    clue_en: "Felsic rocks that are silica-oversaturated (>65% SiO₂)",
+    options_th: [
+      "หินไรโอไลต์ (Rhyolite)",
+      "หินบะซอลต์ (Basalt)",
+      "หินแกบโบร (Gabbro)",
+      "หินเพริโดไทต์ (Peridotite)"
+    ],
+    options_en: [
+      "Rhyolite",
+      "Basalt",
+      "Gabbro",
+      "Peridotite"
+    ],
+    answer: 0,
+    exp_th: "ไรโอไลต์ (Rhyolite) เป็นหินอัคนีพุกลุ่ม Felsic มีซิลิกาสูงมาก (>65%) เกินพอที่จะจับตัวกับแร่หมวดอื่น ทำให้เหลือซิลิกาอิสระตกผลึกเป็นเม็ดแร่ควอตซ์ ต่างจาก Basalt/Gabbro ที่เป็น Mafic และ Peridotite ที่เป็น Ultramafic",
+    exp_en: "Rhyolite is a felsic igneous rock with high silica saturation, enabling the crystallization of abundant modal quartz."
+  },
+  {
+    id: 10,
+    topic: "sedimentary",
+    q_th: "หินเชิร์ต (Chert) เกิดจากสารประกอบเคมีชนิดใด และมีความแข็งตามโมห์สเกล (Mohs Scale) อยู่ในระดับใด?",
+    q_en: "Chert is composed of which chemical compound and possesses what Mohs hardness level?",
+    clue_th: "มีสูตรเคมีเดียวกับแร่ควอตซ์ และขูดกระจกเป็นรอยได้สบาย",
+    clue_en: "Shares the chemical formula of quartz and scratches window glass easily",
+    options_th: [
+      "ไมโครคริสตัลไลน์ซิลิกา (SiO₂), ความแข็งระดับ 7",
+      "แคลเซียมคาร์บอเนต (CaCO₃), ความแข็งระดับ 3",
+      "แคลเซียมซัลเฟต (CaSO₄·2H₂O), ความแข็งระดับ 2",
+      "โซเดียมคลอไรด์ (NaCl), ความแข็งระดับ 2.5"
+    ],
+    options_en: [
+      "Microcrystalline silica (SiO₂), Mohs hardness 7",
+      "Calcium carbonate (CaCO₃), Mohs hardness 3",
+      "Hydrous calcium sulfate (CaSO₄·2H₂O), Mohs hardness 2",
+      "Sodium chloride (NaCl), Mohs hardness 2.5"
+    ],
+    answer: 0,
+    exp_th: "หินเชิร์ตประกอบด้วยผลึกซิลิกาขนาดเล็กละเอียดมาก (Microcrystalline/Cryptocrystalline Quartz) มีความแข็งระดับ 7 มีรอยแตกเว้าแบบก้นหอย (Conchoidal fracture) มนุษย์โบราณจึงนำมาทำหินไฟหรือหัวลูกศร",
+    exp_en: "Chert is composed of cryptocrystalline quartz (SiO₂), displaying a characteristic conchoidal fracture and a hardness of 7."
+  },
+  {
+    id: 11,
+    topic: "metamorphic",
+    q_th: "หินเอกโลไจต์ (Eclogite) ประกอบด้วยแร่เด่นสีเขียวและสีแดงคู่ใด และบ่งบอกสภาวะการเกิดแบบใด?",
+    q_en: "Eclogite features which green and red mineral pair, indicating what metamorphic condition?",
+    clue_th: "แร่ไพรอกซีนสีเขียวมรกตคู่กับการ์เนตสีแดง เกิดในแนวมุดตัวลึกจัด",
+    clue_en: "Omphacite pyroxene and pyrope garnet formed under ultra-high pressure",
+    options_th: [
+      "Omphacite (เขียว) + Garnet (แดง), บ่งบอกความดันสูงยิ่งยวดที่ร่องลึกแนวมุดตัว",
+      "Olivine (เขียว) + Hematite (แดง), บ่งบอกการผุพังบนผิวโลกเขตร้อน",
+      "Chlorite (เขียว) + Cinnabar (แดง), บ่งบอกการระเหิดของก๊าซภูเขาไฟ",
+      "Epidote (เขียว) + Orthoclase (แดง), บ่งบอกการอบสัมผัสอุณหภูมิต่ำ"
+    ],
+    options_en: [
+      "Omphacite (green) + Garnet (red), signifying ultra-high pressure in subduction trenches",
+      "Olivine (green) + Hematite (red), indicating tropical subaerial lateritic weathering",
+      "Chlorite (green) + Cinnabar (red), reflecting low-pressure volcanic fumarolic venting",
+      "Epidote (green) + Orthoclase (red), pointing to low-temperature hydrostatic baking"
+    ],
+    answer: 0,
+    exp_th: "Eclogite เป็นหินแปรสภาวะความดันสูงยิ่งยวด (Ultra-High Pressure: UHP) ประกอบด้วย Omphacite (Clinopyroxene สีเขียวมรกต) และ Pyrope Garnet (สีแดง) เกิดจากการมุดตัวของเปลือกโลกมหาสมุทรลงไปในเนื้อโลก",
+    exp_en: "Eclogite consists of jadeite-rich omphacite pyroxene and pyrope garnet, diagnosing ultra-high-pressure subduction metamorphism."
+  },
+  {
+    id: 12,
+    topic: "rockcycle",
+    q_th: "กระบวนการใดในวัฏจักรหินที่สามารถเปลี่ยน 'หินอัคนี' ให้กลายเป็น 'หินแปร' ได้โดยตรงโดยไม่ต้องผ่านการเป็นหินตะกอนก่อน?",
+    q_en: "Which process directly converts an igneous rock into a metamorphic rock without passing through a sedimentary stage?",
+    clue_th: "การได้รับแรงกดดันและความร้อนสูงใต้พิภพโดยไม่มีการหลอมละลาย",
+    clue_en: "Subjection to intense directed stress and high temperature in the solid state",
+    options_th: [
+      "การถูกความร้อนจากกระเปาะแมกมาข้างเคียงหรือแรงเค้นทางธรณีแปรสัณฐานบีบอัดในสถานะของแข็ง",
+      "การถูกกระแสน้ำพัดพาลงสู่ก้นทะเลสาบแล้วเกิดการเชื่อมประสานเม็ดแร่",
+      "การหลอมละลายสมบูรณ์กลายเป็นสารหลอมเหลวแล้วตกผลึกใหม่บนผิวโลก",
+      "การสัมผัสกับออกซิเจนและก๊าซคาร์บอนไดออกไซด์ในชั้นบรรยากาศจนสลายตัว"
+    ],
+    options_en: [
+      "Solid-state heating from adjacent plutons or differential orogenic deformation stress",
+      "Hydrodynamic transport into deep lacustrine basins followed by authigenic cementation",
+      "Complete anatectic melting into magma followed by rapid surface quenching",
+      "Atmospheric oxidation and carbonation driving complete mineral disaggregation"
+    ],
+    answer: 0,
+    exp_th: "ในวัฏจักรหิน หินอัคนี (เช่น หินแกรนิต) สามารถถูกความร้อนและแรงดันมหาศาลจากการชนกันของเปลือกโลก แปรสภาพโดยตรงในสถานะของแข็งกลายเป็นหินแปร (หินแกรนิต &rarr; หินออร์โธไนส์: Granite Gneiss) ได้ทันที",
+    exp_en: "Igneous rocks can directly undergo solid-state recrystallization into orthogneiss under tectonic thermal and stress regimes."
+  },
+  {
+    id: 13,
+    topic: "igneous",
+    q_th: "หินสคอเรีย (Scoria) แตกต่างจากหินพัมมิซ (Pumice) ในแง่ใดชัดเจนที่สุด?",
+    q_en: "In what principal characteristic does Scoria fundamentally differ from Pumice?",
+    clue_th: "พิจารณาองค์ประกอบทางเคมี สี และความสามารถในการลอยน้ำ",
+    clue_en: "Consider compositional silica content, bulk color, and hydrodynamic buoyancy",
+    options_th: [
+      "Scoria มีองค์ประกอบแบบ Mafic สีเข้มเขื่องและจมน้ำ ส่วน Pumice มีองค์ประกอบ Felsic สีอ่อนและลอยน้ำได้",
+      "Scoria เป็นหินอัคนีแทรกซอนผลึกหยาบ ส่วน Pumice เป็นหินอัคนีพุเนื้อแก้ว",
+      "Scoria เกิดจากการทับถมของซากสิ่งมีชีวิต ส่วน Pumice เกิดจากการตกผลึกทางเคมี",
+      "Scoria มีความแข็งแกร่งระดับ 9 ตามโมห์สเกล ส่วน Pumice ละลายน้ำได้ทันที"
+    ],
+    options_en: [
+      "Scoria is mafic, dark-colored, and sinks; Pumice is felsic, light-colored, and floats",
+      "Scoria is a coarse plutonic intrusive; Pumice is an aphanitic volcanic glass",
+      "Scoria is an organic biochemical sediment; Pumice is an authigenic evaporite",
+      "Scoria ranks 9 on Mohs scale; Pumice readily dissolves upon hydration"
+    ],
+    answer: 0,
+    exp_th: "ทั้งคู่มีเนื้อฟองก๊าซพรุน (Vesicular) เหมือนกัน แต่ Scoria เกิดจากลาวา Mafic (บะซอลต์) สีดำ/น้ำตาลเข้ม มีผนังรูพรุนหนากว่าและจมน้ำ ส่วน Pumice เกิดจากลาวา Felsic มีสีขาว/เทา ผนังรูพรุนบางมากจนลอยน้ำได้",
+    exp_en: "Scoria is mafic, denser, and sinks in water, whereas felsic pumice has thin glass membranes creating low bulk density that floats."
+  },
+  {
+    id: 14,
+    topic: "sedimentary",
+    q_th: "หินทรายเกรย์แวก (Greywacke) มีลักษณะเด่นอย่างไรที่บ่งชี้ว่าถูกพัดพาและตกสะสมตัวอย่างรวดเร็ว?",
+    q_en: "Which diagnostic feature in Greywacke sandstone indicates rapid deposition without prolonged sorting?",
+    clue_th: "มีเศษหินเหลี่ยมคมและมีเนื้อโคลนดินเหนียวปนอยู่มากกว่า 15%",
+    clue_en: "Contains poorly sorted angular clasts matrix-supported by over 15% clay/silt",
+    options_th: [
+      "การคัดขนาดแย่ มีเม็ดตะกอนเหลี่ยมคมปนอยู่ในมวลพื้นดินเหนียวมากกว่า 15% (หินทรายสกปรก)",
+      "เม็ดแร่ควอตซ์กลมมนสม่ำเสมอเกือบ 100% ปราศจากมวลพื้นดินเหนียว",
+      "ประกอบด้วยผลึกแร่เกลือบริสุทธิ์ตกผลึกเป็นทรงลูกบาศก์",
+      "มีรอยฟอสซิลใบไม้ซ้อนทับกันเป็นแผ่นบางๆ สีดำเงา"
+    ],
+    options_en: [
+      "Poor sorting with angular sand grains embedded in >15% muddy matrix ('dirty sandstone')",
+      "Over 95% well-rounded quartz grains lacking any detrital clay matrix",
+      "Monomineralic euhedral halite cubes precipitated under arid conditions",
+      "Thinly laminated carbonaceous shale partings rich in compressional plant fossils"
+    ],
+    answer: 0,
+    exp_th: "Greywacke (หินทรายสกปรก) เกิดจากกระแสน้ำขุ่นข้นใต้ทะเล (Turbidity currents) ตะกอนจึงพัดพามาสะสมตัวรวดเร็ว ไม่ผ่านการคัดขนาด มีทั้งเศษหิน ทราย และโคลนปนกัน โดยเม็ดตะกอนยังคงความเหลี่ยมคม",
+    exp_en: "Greywacke is a texturally immature sandstone deposited by turbidity currents, characterized by angular grains and abundant matrix."
+  },
+  {
+    id: 15,
+    topic: "metamorphic",
+    q_th: "หินฟิลไลต์ (Phyllite) แตกต่างจากหินชนวน (Slate) อย่างไรเมื่อสังเกตด้วยตาเปล่า?",
+    q_en: "How is Phyllite macroscopically differentiated from Slate?",
+    clue_th: "ผลึกแร่ไมกาเริ่มโตขึ้นจนสะท้อนแสงแวววาวคล้ายไหม (Silky Sheen)",
+    clue_en: "Microscopic micas have grown large enough to impart a distinct silky, satiny sheen",
+    options_th: [
+      "ระนาบการแตกของ Phyllite มีประกายแวววาวคล้ายไหม (Silky Sheen) จากผลึกไมกาที่เริ่มโตขึ้น",
+      "Phyllite มีแถบแยกชั้นของแร่สีขาวและดำหนาเป็นเซนติเมตร",
+      "Phyllite ประกอบด้วยผลึกแคลไซต์ขนาดใหญ่ที่ทำปฏิกิริยากับกรด",
+      "Phyllite มีเนื้อฟองก๊าซพรุนทั่วทั้งก้อนหิน"
+    ],
+    options_en: [
+      "Cleavage surfaces in phyllite exhibit a silky, wavy luster due to enlarged platy micas",
+      "Phyllite possesses centimeter-scale compositional banding of felsic and mafic minerals",
+      "Phyllite consists of coarse recrystallized calcite effervescing violently in acid",
+      "Phyllite displays an interconnected vesicular cellular sponge-like fabric"
+    ],
+    answer: 0,
+    exp_th: "หินฟิลไลต์ (Phyllite) ผ่านการแปรสภาพระดับสูงกว่าหินชนวน (Slate) ความร้อนทำให้แร่ไมกา (Muscovite/Chlorite) เติบโตขึ้น แม้ยังมองไม่เห็นเป็นแผ่นเดี่ยวด้วยตาเปล่า แต่ส่งผลให้ผิวระนาบแตกสะท้อนแสงเป็นประกายคล้ายแพรไหม",
+    exp_en: "Phyllite represents a higher metamorphic grade than slate; microscopic sericite and chlorite growth produces a diagnostic silky sheen."
+  },
+  {
+    id: 16,
+    topic: "bowen",
+    q_th: "แร่ในข้อใดต่อไปนี้จัดอยู่ในสายปฏิกิริยาต่อเนื่อง (Continuous Reaction Series) ของโบเวน?",
+    q_en: "Which mineral belongs to Bowen's Continuous Reaction Series?",
+    clue_th: "แร่ตระกูลเฟลด์สปาร์ที่มีการแทนที่ระหว่าง Ca และ Na",
+    clue_en: "The feldspar series characterized by Ca-Na solid solution substitution",
+    options_th: [
+      "แพลจิโอเคลสเฟลด์สปาร์ (Plagioclase Feldspar)",
+      "ไพรอกซีน (Pyroxene)",
+      "แอมฟิโบล (Amphibole)",
+      "ไบโอไทต์ (Biotite)"
+    ],
+    options_en: [
+      "Plagioclase Feldspar",
+      "Pyroxene",
+      "Amphibole",
+      "Biotite"
+    ],
+    answer: 0,
+    exp_th: "สายปฏิกิริยาต่อเนื่อง (Continuous series) คือการเปลี่ยนแปลงส่วนผสมในกลุ่ม Plagioclase Feldspar ตั้งแต่สายพันธุ์ที่มีแคลเซียมสูง (Anorthite) ค่อยๆ แทนที่ด้วยโซเดียมจนกลายเป็น Albite โดยโครงสร้างซิลิเกตไม่เปลี่ยนรูป",
+    exp_en: "The continuous branch consists exclusively of the plagioclase solid-solution series (Anorthite to Albite)."
+  },
+  {
+    id: 17,
+    topic: "sedimentary",
+    q_th: "โครงสร้างทางตะกอนแบบ 'Cross-Bedding' (รอยชั้นเฉียงระดับ) บ่งบอกข้อมูลทางธรณีวิทยาข้อใดได้อย่างแม่นยำ?",
+    q_en: "What geological information is accurately derived from sedimentary Cross-Bedding?",
+    clue_th: "ทิศทางการเอียงของชั้นเฉียงสะท้อนทิศทางการเคลื่อนที่ของตัวกลาง",
+    clue_en: "The dip direction of foreset beds reveals the flow vector of ancient fluids",
+    options_th: [
+      "ทิศทางการไหลโบราณ (Paleocurrent Direction) ของกระแสน้ำหรือกระแสลม",
+      "อุณหภูมิสัมบูรณ์ของน้ำทะเลขณะที่ตะกอนกำลังตกสะสมตัว",
+      "อายุทางรังสีสัมบูรณ์ของหินตะกอนในหน่วยล้านปี",
+      "ความลึกของชั้นหินหลอมเหลวใต้แผ่นเปลือกโลก"
+    ],
+    options_en: [
+      "Paleocurrent direction of ancient water streams or aeolian wind regimes",
+      "Absolute ambient sea surface temperature during deposition",
+      "Radiometric isotopic absolute age of the sedimentary stratum",
+      "Subterranean burial depth of the underlying asthenospheric mantle"
+    ],
+    answer: 0,
+    exp_th: "รอยชั้นเฉียงระดับ (Cross-Bedding) เกิดจากการเคลื่อนตัวของเนินทราย (Dunes/Ripples) ทิศทางการเอียงเทของชั้นตะกอนเฉียงจะชี้บอกทิศทางการไหลของกระแสน้ำหรือทิศทางลมในอดีต (Paleocurrent)",
+    exp_en: "Cross-bedding dips downward in the down-current direction, providing reliable paleocurrent orientation."
+  },
+  {
+    id: 18,
+    topic: "igneous",
+    q_th: "หินอัคนีชนิดใดต่อไปนี้มีปริมาณซิลิกา (SiO₂) ต่ำที่สุด (น้อยกว่า 45%)?",
+    q_en: "Which of the following igneous rocks possesses the lowest silica (SiO₂) content (<45%)?",
+    clue_th: "หินกลุ่มอัลตรามาฟิกที่เป็นองค์ประกอบของเนื้อโลก",
+    clue_en: "An ultramafic rock characteristic of mantle lithology",
+    options_th: [
+      "หินเพริโดไทต์ (Peridotite)",
+      "หินบะซอลต์ (Basalt)",
+      "หินแอนดีไซต์ (Andesite)",
+      "หินแกรนิต (Granite)"
+    ],
+    options_en: [
+      "Peridotite",
+      "Basalt",
+      "Andesite",
+      "Granite"
+    ],
+    answer: 0,
+    exp_th: "เพริโดไทต์ (Peridotite) เป็นหินกลุ่ม Ultramafic มีซิลิกาต่ำกว่า 45% (อุดมด้วย Olivine และ Pyroxene), หินบะซอลต์เป็น Mafic (45-52%), แอนดีไซต์เป็น Intermediate (52-65%), และแกรนิตเป็น Felsic (>65%)",
+    exp_en: "Peridotite is an ultramafic rock containing less than 45% silica, dominated by iron-magnesium silicates."
+  },
+  {
+    id: 19,
+    topic: "metamorphic",
+    q_th: "หินเซอร์เพนทิไนต์ (Serpentinite) มักก่อตัวขึ้นจากกระบวนการแปรสภาพแบบใด?",
+    q_en: "Serpentinite is typically generated through which metamorphic process?",
+    clue_th: "การทำปฏิกิริยาของน้ำทะเลร้อนกับหินเพริโดไทต์ใต้เปลือกโลกมหาสมุทร",
+    clue_en: "Hydrothermal alteration of ultramafic seafloor peridotites by hot seawater",
+    options_th: [
+      "การแปรสภาพไฮโดรเทอร์มอล (Hydrothermal Metamorphism) ของหินเนื้อโลกใต้รอยแยกมหาสมุทร",
+      "การแปรสภาพสัมผัสจากความร้อนของหินแกรนิตแทรกดันเข้ามาในถ่านหิน",
+      "การบดอัดของตะกอนดินเหนียวในหนองน้ำปิดไร้ออกซิเจน",
+      "การกระแทกของอุกกาบาตขนาดใหญ่บนพื้นผิวทวีปโบราณ"
+    ],
+    options_en: [
+      "Hydrothermal metamorphism of ultramafic mantle peridotite at mid-ocean spreading ridges",
+      "Thermal contact metamorphism of bituminous coal by granitic intrusions",
+      "Compactional lithification of smectite clays in anoxic backwater swamps",
+      "Hypervelocity bolide shock impact metamorphism on stable continental cratons"
+    ],
+    answer: 0,
+    exp_th: "Serpentinite เกิดจาก Hydrothermal Metamorphism โดยน้ำทะเลไหลซึมลงไปตามรอยแยกบริเวณสันเขากลางสมุทร ทำปฏิกิริยากับแร่ Olivine/Pyroxene ในหินเพริโดไทต์ เกิดการเติมน้ำ (Hydration) เปลี่ยนเป็นแร่ Serpentinite สีเขียวคล้ายหนังงู",
+    exp_en: "Serpentinization involves hydrothermal circulation altering ultramafic oceanic lithosphere through hydration reactions."
+  },
+  {
+    id: 20,
+    topic: "sedimentary",
+    q_th: "หินทราเวอร์ทีน (Travertine) จัดเป็นหินประเภทใดและเกิดขึ้นได้อย่างไร?",
+    q_en: "Travertine is classified as which rock type, and how does it originate?",
+    clue_th: "หินตะกอนเคมีที่ตกผลึกจากน้ำพุร้อนหรือในถ้ำหินปูนเมื่อ CO₂ ระเหยออก",
+    clue_en: "A chemical precipitate formed around hot springs or cavern waterfalls as CO₂ degasses",
+    options_th: [
+      "หินตะกอนเคมี เกิดจากการตกตะกอนของแคลเซียมคาร์บอเนตเมื่อก๊าซ CO₂ หลุดออกจากน้ำพุร้อนหรือถ้ำหินปูน",
+      "หินอัคนีพุ เกิดจากการเย็นตัวของฟองลาวาบนภูเขาไฟใต้น้ำ",
+      "หินตะกอนอนุภาค เกิดจากการผุพังของหินแกรนิตบนยอดเขาสูง",
+      "หินแปรริ้วขนาน เกิดจากแรงเค้นเฉือนบริเวณรอยเลื่อนแปรสภาพ"
+    ],
+    options_en: [
+      "Chemical sedimentary rock formed by CaCO₃ precipitation as CO₂ degasses from hot springs or caverns",
+      "Extrusive igneous rock formed by cooling frothy carbonatite lavas underwater",
+      "Clastic sedimentary rock derived from physical disintegration of highland granite",
+      "Foliated metamorphic rock produced by lateral shearing across continental strike-slip faults"
+    ],
+    answer: 0,
+    exp_th: "Travertine คือหินปูนเคมี (Chemical Limestone) ก่อตัวขึ้นเมื่อน้ำใต้ดินที่อิ่มตัวด้วยสารละลายแคลเซียมไบคาร์บอเนตไหลออกมาสู่ผิวดิน เมื่อความดันลดลงและ CO₂ ระเหยหนีไป จะทำให้สมดุลเคมีเอียงจนเกิดการตกผลึก CaCO₃ ทันที",
+    exp_en: "Travertine forms via rapid chemical precipitation of calcium carbonate driven by degassing of CO₂ from supersaturated groundwater."
+  },
+  {
+    id: 21,
+    topic: "rockcycle",
+    q_th: "เหตุการณ์ในข้อใดจัดเป็นขั้นตอนการเริ่มต้นของ 'วัฏจักรหิน' บนพื้นผิวโลกใหม่เสมอ?",
+    q_en: "Which geologic event constantly initiates a new surface cycle for any rock exposed on Earth?",
+    clue_th: "การยกตัวของเปลือกโลกขึ้นมาสัมผัสกับสภาวะบรรยากาศภายนอก",
+    clue_en: "Tectonic uplift exposing subterranean rock bodies to subaerial atmospheric conditions",
+    options_th: [
+      "การยกตัวทางธรณีแปรสัณฐาน (Tectonic Uplift) เปิดหน้าหินสู่กระบวนการผุพังอยู่กับที่",
+      "การมุดตัวของแผ่นเปลือกโลกลงสู่ชั้นเนื้อโลกจนหลอมละลาย",
+      "การตกผลึกของแร่โอลิวีนในกระเปาะหินหนืดใต้เปลือกโลก",
+      "การแปรสภาพสัมผัสรอบขอบหินอัคนีแทรกซอน"
+    ],
+    options_en: [
+      "Tectonic uplift exposing rocks to subaerial weathering and denudation",
+      "Slab subduction dragging lithosphere into the asthenosphere for melting",
+      "Deep-seated magmatic cumulate settling of early olivine crystals",
+      "Static contact metamorphism surrounding hypabyssal plutonic aureoles"
+    ],
+    answer: 0,
+    exp_th: "ไม่ว่าหินเดิมจะเป็นหินอัคนีหรือหินแปรใต้ดินลึก จุดเริ่มต้นที่จะนำมันเข้าสู่วัฏจักรการเป็นหินตะกอนบนผิวโลกได้ คือ 'Tectonic Uplift' (การยกตัว) ร่วมกับการเปิดหน้าหิน (Denudation) เพื่อให้สัมผัสกับลม ฝน และอุณหภูมิ",
+    exp_en: "Tectonic uplift is the prerequisite kinematic process that brings subterranean rocks to the surface to undergo surficial rock cycling."
+  },
+  {
+    id: 22,
+    topic: "igneous",
+    q_th: "หินทัฟฟ์ (Tuff) จัดเป็นหินชนิดใดและมีต้นกำเนิดมาจากอะไร?",
+    q_en: "Tuff is classified as which rock type, and what is its specific genetic origin?",
+    clue_th: "เกิดจากการเชื่อมประสานตัวของเถ้าธุลีภูเขาไฟที่ตกลงมาทับถมกัน",
+    clue_en: "Consolidated rock composed of compacted and welded volcanic ash",
+    options_th: [
+      "หินอัคนีตะกอนภูเขาไฟ (Pyroclastic Rock) เกิดจากการทับถมและเชื่อมประสานของเถ้าภูเขาไฟ",
+      "หินตะกอนเคมี เกิดจากการระเหยของน้ำแร่ในบ่อน้ำพุร้อน",
+      "หินอัคนีแทรกซอนลึก เกิดจากการตกผลึกช้าๆ ใต้เปลือกโลกมหาสมุทร",
+      "หินแปรไร้ริ้วขนาน เกิดจากการหลอมละลายของหินอ่อน"
+    ],
+    options_en: [
+      "Pyroclastic igneous rock formed by consolidation and welding of volcanic ash",
+      "Chemical sedimentary rock produced by rapid brine lake evaporation",
+      "Plutonic intrusive rock crystallized slowly beneath oceanic crust",
+      "Non-foliated metamorphic rock derived from anatexis of pure marble"
+    ],
+    answer: 0,
+    exp_th: "หินทัฟฟ์ (Tuff) เป็นหินตะกอนภูเขาไฟ (Pyroclastic) เกิดจากอนุภาคเถ้าภูเขาไฟ (Volcanic Ash ขนาด < 2 มม.) ที่ถูกพ่นออกมาทางอากาศ ตกลงมาทับถม อัดแน่น และเชื่อมประสานตัวกันเป็นหินแข็ง",
+    exp_en: "Tuff is a pyroclastic rock formed when fine volcanic ash fragments ejected during explosive eruptions consolidate."
+  },
+  {
+    id: 23,
+    topic: "metamorphic",
+    q_th: "ลำดับการแปรสภาพบริเวณไพศาลจากหินดินดาน (Shale) ข้อใดเรียงลำดับ 'ขนาดของผลึกแร่ไมกา' จากเล็กไปใหญ่ได้ถูกต้อง?",
+    q_en: "Which correctly sequences the growth of mica crystal size during progressive regional metamorphism of shale?",
+    clue_th: "เกรดต่ำผลึกมองไม่เห็นด้วยตาเปล่า เกรดสูงผลึกโตเป็นแผ่นเด่นชัด",
+    clue_en: "Lowest grade has submicroscopic micas; higher grades feature macroscopic coarse plates",
+    options_th: [
+      "หินชนวน (Slate) &rarr; หินฟิลไลต์ (Phyllite) &rarr; หินชิสต์ (Schist)",
+      "หินชิสต์ (Schist) &rarr; หินฟิลไลต์ (Phyllite) &rarr; หินชนวน (Slate)",
+      "หินฟิลไลต์ (Phyllite) &rarr; หินชิสต์ (Schist) &rarr; หินชนวน (Slate)",
+      "หินชนวน (Slate) &rarr; หินชิสต์ (Schist) &rarr; หินฟิลไลต์ (Phyllite)"
+    ],
+    options_en: [
+      "Slate &rarr; Phyllite &rarr; Schist",
+      "Schist &rarr; Phyllite &rarr; Slate",
+      "Phyllite &rarr; Schist &rarr; Slate",
+      "Slate &rarr; Schist &rarr; Phyllite"
+    ],
+    answer: 0,
+    exp_th: "Slate: ผลึกไมกาละเอียดมากมองไม่เห็นด้วยตาเปล่า &rarr; Phyllite: ผลึกไมกาเริ่มโตขึ้นแต่ยังมองไม่เห็นเป็นเม็ดเดี่ยว (ให้ประกายเงาแพรไหม) &rarr; Schist: ผลึกไมกาโตชัดเจนจนมองเห็นเป็นแผ่นระยิบระยับด้วยตาเปล่า",
+    exp_en: "Grain size of sheet silicates increases progressively with metamorphic grade: submicroscopic in slate, microscopic in phyllite, and macroscopic in schist."
+  },
+  {
+    id: 24,
+    topic: "sedimentary",
+    q_th: "สารเชื่อมประสาน (Cement) ในหินตะกอนชนิดใดที่เมื่อสัมผัสกรด HCl แล้วจะเกิดฟองฟู่ทันที?",
+    q_en: "Which sedimentary cement type vigorously effervesces upon exposure to dilute HCl?",
+    clue_th: "สารเชื่อมประสานกลุ่มคาร์บอเนต",
+    clue_en: "Authigenic carbonate mineral cement",
+    options_th: [
+      "ซีเมนต์แคลไซต์ (Calcite Cement)",
+      "ซีเมนต์ซิลิกา (Silica Cement)",
+      "ซีเมนต์เหล็กออกไซด์ (Hematite Cement)",
+      "ซีเมนต์แร่ดินเหนียว (Clay Cement)"
+    ],
+    options_en: [
+      "Calcite Cement",
+      "Silica Cement",
+      "Iron Oxide (Hematite) Cement",
+      "Authigenic Clay Matrix Cement"
+    ],
+    answer: 0,
+    exp_th: "สารเชื่อมประสานที่พบทั่วไปมี 3 ชนิด: Calcite (ทำปฏิกิริยากับกรดเกิดฟองฟู่), Silica (แข็งแกร่งมาก มีดกรีดไม่เข้า ไม่ทำปฏิกิริยากับกรด), และ Iron oxide (มักให้สีแดงหรือน้ำตาลสนิม)",
+    exp_en: "Calcite cement consists of CaCO₃ and effervesces readily with dilute hydrochloric acid, releasing carbon dioxide."
+  },
+  {
+    id: 25,
+    topic: "bowen",
+    q_th: "เหตุใดแร่ควอตซ์ (Quartz) จึงมีความทนทานต่อการผุพังทางเคมีบนพื้นผิวโลกสูงที่สุด?",
+    q_en: "Why does Quartz exhibit the highest resistance to chemical weathering at Earth's surface?",
+    clue_th: "โครงสร้างเตตระฮีดรอนแบบร่างตาข่าย 3 มิติที่ใช้ออกซิเจนร่วมกันทุกมุม และไม่มีไอออนบวกแปลกปลอม",
+    clue_en: "A completely interconnected 3D framework of silicate tetrahedra devoid of weak cleavage cations",
+    options_th: [
+      "มีโครงสร้างซิลิเกตร่างตาข่าย 3 มิติ (Framework) ยึดด้วยพันธะโควาเลนต์ที่แข็งแรงทุกทิศทางและไม่มี Fe/Mg ให้เกิดปฏิกิริยาออกซิเดชัน",
+      "มีสารปรอทและกำมะถันเคลือบผิวผลึกเพื่อป้องกันการละลายน้ำ",
+      "เป็นแร่ที่มีจุดหลอมเหลวสูงที่สุดในบรรดาแร่ซิลิเกตทั้งหมด",
+      "เป็นผลึกเดี่ยวที่ไม่มีอะตอมของออกซิเจนเป็นองค์ประกอบ"
+    ],
+    options_en: [
+      "Fully linked 3D framework silicate structure held entirely by strong Si-O bonds lacking readily oxidizable cations like Fe/Mg",
+      "Naturally shielded by an impermeable monolayer of native mercury and elemental sulfur",
+      "Possesses the highest absolute thermodynamic melting point among all known silicates",
+      "Monocrystalline lattice completely devoid of oxygen anions"
+    ],
+    answer: 0,
+    exp_th: "ควอตซ์มีโครงสร้างแบบ Tectosilicate (ร่างตาข่าย 3 มิติ) อะตอม Si และ O เชื่อมกันด้วยพันธะโควาเลนต์ที่เหนียวแน่นครบทุกมุม ไม่มีพันธะไอออนิกของ Fe หรือ Mg ที่ไวต่อกรดหรือออกซิเดชัน ทำให้เสถียรที่สุดบนผิวโลก",
+    exp_en: "Quartz is a tectosilicate composed purely of SiO₂ with no vulnerable interstitial cations, imparting extraordinary resistance to chemical breakdown."
+  },
+  {
+    id: 26,
+    topic: "igneous",
+    q_th: "หินอัคนีชนิดใดต่อไปนี้มีเนื้อผลึกหยาบ (Phaneritic) และจัดอยู่ในกลุ่มหินที่มีองค์ประกอบปานกลาง (Intermediate)?",
+    q_en: "Which igneous rock possesses a phaneritic (coarse-grained) texture and an intermediate composition?",
+    clue_th: "คู่เหมือนใต้เปลือกโลกของหินแอนดีไซต์",
+    clue_en: "The plutonic intrusive equivalent of andesite",
+    options_th: [
+      "หินไดโอไรต์ (Diorite)",
+      "หินแกรนิต (Granite)",
+      "หินแกบโบร (Gabbro)",
+      "หินไรโอไลต์ (Rhyolite)"
+    ],
+    options_en: [
+      "Diorite",
+      "Granite",
+      "Gabbro",
+      "Rhyolite"
+    ],
+    answer: 0,
+    exp_th: "หินกลุ่ม Intermediate: หากเย็นตัวบนผิวโลกผลึกละเอียดคือ แอนดีไซต์ (Andesite) หากเย็นตัวช้าใต้เปลือกโลกผลึกหยาบคือ ไดโอไรต์ (Diorite)",
+    exp_en: "Diorite is the coarse-grained (phaneritic) intrusive equivalent of intermediate andesitic magma."
+  },
+  {
+    id: 27,
+    topic: "sedimentary",
+    q_th: "ข้อใดจัดเป็นหินตะกอนอินทรีย์ (Organic Sedimentary Rock) ที่แท้จริง?",
+    q_en: "Which of the following is classified as a genuine Organic Sedimentary Rock?",
+    clue_th: "เกิดจากการสะสมตัวและแปรสภาพของซากพืชในสภาวะขาดออกซิเจน",
+    clue_en: "Formed from accumulated and compressed plant matter under anoxic conditions",
+    options_th: [
+      "หินถ่านหินบิทูมินัส (Bituminous Coal)",
+      "หินทรายควอร์ตไซต์ (Quartz Sandstone)",
+      "หินเกลือหิน (Rock Salt)",
+      "หินเชิร์ต (Chert)"
+    ],
+    options_en: [
+      "Bituminous Coal",
+      "Quartz Sandstone",
+      "Rock Salt",
+      "Inorganic Banded Chert"
+    ],
+    answer: 0,
+    exp_th: "ถ่านหิน (Peat &rarr; Lignite &rarr; Bituminous) เกิดจากการสะสมตัวของซากพืชในหนองน้ำที่มีสภาวะแอนแอโรบิก (ไร้ออกซิเจน) จึงจัดเป็นหินตะกอนอินทรีย์อย่างแท้จริง",
+    exp_en: "Bituminous coal forms directly from compressed vegetal carbon in anoxic wetlands, making it a true organic sedimentary rock."
+  },
+  {
+    id: 28,
+    topic: "metamorphic",
+    q_th: "โครงสร้างหินแปรแบบใดที่ 'ไม่พบ' รอยริ้วขนาน (Non-foliated) และเกิดจากการตกผลึกประสานกันของผลึกขนาดใกล้เคียงกัน?",
+    q_en: "Which non-foliated metamorphic fabric consists of interlocking equigranular crystals?",
+    clue_th: "พบได้ในหินอ่อนและหินควอร์ตไซต์",
+    clue_en: "Characteristic fabric of marble and quartzite",
+    options_th: [
+      "เนื้อแกรโนบลาสติก (Granoblastic Texture)",
+      "เนื้อชิสโทสิตี (Schistosity Texture)",
+      "เนื้อฟิลลิติก (Phyllitic Texture)",
+      "เนื้อสเลตีคลีเวจ (Slaty Cleavage)"
+    ],
+    options_en: [
+      "Granoblastic Texture",
+      "Schistosity Texture",
+      "Phyllitic Texture",
+      "Slaty Cleavage"
+    ],
+    answer: 0,
+    exp_th: "เนื้อ Granoblastic (หรือเนื้อผลึกกระเบื้องโมเสก) เป็นเนื้อหินแปรไม่มีริ้วขนาน ผลึกแร่มักเป็นทรงหลายเหลี่ยมขนาดสม่ำเสมอยึดประสานกันแน่น เช่น ในหินอ่อนและควอร์ตไซต์",
+    exp_en: "Granoblastic texture describes non-foliated rocks consisting of equant, interlocking recrystallized mineral grains."
+  },
+  {
+    id: 29,
+    topic: "rockcycle",
+    q_th: "หากหินบะซอลต์บริเวณพื้นมหาสมุทรถูกมุดตัวลงไปในเนื้อโลกที่ความลึกมาก สภาพแวดล้อมดังกล่าวจะขับเคลื่อนหินเข้าสู่กระบวนการใดตามลำดับ?",
+    q_en: "If seafloor basalt is subducted deeply into the mantle, which sequential processes are driven?",
+    clue_th: "แปรสภาพด้วยความดันสูงก่อน หากลึกพอก็จะหลอมละลายกลายเป็นแมกมา",
+    clue_en: "Undergoes high-pressure metamorphism first, and if sufficiently deep, partial anatectic melting",
+    options_th: [
+      "แปรสภาพกลายเป็นหินเอกโลไจต์ (Eclogite) &rarr; หลอมละลายกลายเป็นแมกมา &rarr; เข้าสู่วัฏจักรหินอัคนี",
+      "เกิดการผุพังทางกล &rarr; กลายเป็นหินทราย &rarr; พัดพาลงแม่น้ำ",
+      "ตกผลึกกลายเป็นเกลือหิน &rarr; ระเหยกลายเป็นก๊าซในชั้นบรรยากาศ",
+      "เกิดรอยแตกแห้ง &rarr; กลายเป็นหินปูน &rarr; แข็งตัวเป็นหินชนวน"
+    ],
+    options_en: [
+      "Metamorphoses into Eclogite &rarr; Undergoes partial melting into magma &rarr; Re-enters igneous cycle",
+      "Mechanical weathering &rarr; Sandstone conversion &rarr; Fluvial transport",
+      "Precipitates into halite &rarr; Vaporizes into atmospheric volatiles",
+      "Desiccation mud cracking &rarr; Limestone precipitation &rarr; Lithification to slate"
+    ],
+    answer: 0,
+    exp_th: "บะซอลต์ก้นสมุทรเมื่อมุดตัวจะผ่านการแปรสภาพภายใต้ความดันสูงกลายเป็น Blueschist และ Eclogite หากลงไปลึกขึ้น สารระเหยจะช่วยลดจุดหลอมเหลวทำให้เกิด Partial melting เกิดแมกมาใหม่และขึ้นมาเป็นหินอัคนี",
+    exp_en: "Subducted basalt transforms into blueschist/eclogite facies before hydrating the mantle wedge to trigger partial melting and volcanism."
+  },
+  {
+    id: 30,
+    topic: "igneous",
+    q_th: "โครงสร้างทางธรณีวิทยาแบบ 'บาโธลิท' (Batholith) มีความสัมพันธ์กับหินอัคนีกลุ่มใด?",
+    q_en: "A geological 'Batholith' is characteristic of which igneous group?",
+    clue_th: "มวลหินอัคนีแทรกซอนขนาดมหึมาใต้เปลือกโลก (พื้นที่มากกว่า 100 ตารางกิโลเมตร)",
+    clue_en: "Enormous discordant plutonic bodies exposed over areas greater than 100 km²",
+    options_th: [
+      "หินอัคนีแทรกซอนลึก เช่น หินแกรนิต ที่เย็นตัวช้าๆ ใต้เปลือกโลกทวีป",
+      "หินอัคนีพุ เช่น หินบะซอลต์ ที่ไหลหลากท่วมทุ่งลาวา",
+      "หินตะกอนภูเขาไฟที่ตกลงมาทับถมในแอ่งทะเลสาบ",
+      "หินแปรริ้วขนานที่ถูกบดขยี้ในแนวรอยเลื่อนมุดตัว"
+    ],
+    options_en: [
+      "Deep plutonic intrusive rocks, such as Granite, cooling slowly in continental basements",
+      "Extrusive plateau basalts formed from fissure flood lavas",
+      "Volcaniclastic fall deposits settling into lacustrine basins",
+      "High-strain cataclastic rocks pulverized along major strike-slip faults"
+    ],
+    answer: 0,
+    exp_th: "บาโธลิท (Batholith) คือหินอัคนีแทรกซอนรูปทรงกระเปาะขนาดมหึมา (หน้าตัด > 100 ตร.กม.) ก่อตัวจากการเย็นตัวของแมกมาใต้เปลือกโลกเป็นเวลาหลายล้านปี มักเป็นหินตระกูลแกรนิตและไดโอไรต์",
+    exp_en: "Batholiths represent massive discordant plutons of deep-seated granitic rocks exposed over expansive areas by tectonic unroofing."
+  }
+];
+
+// ตัวแปรควบคุมระบบ
+let appLang = 'th';
+let examItems = [];
+let studentSelections = {};
+let totalCorrect = 0;
+
+// ขั้นตอนวิธีสุ่มแบบ Fisher-Yates
+function runFisherYates(arr) {
+  let len = arr.length, rand;
+  while (len !== 0) {
+    rand = Math.floor(Math.random() * len);
+    len--;
+    [arr[len], arr[rand]] = [arr[rand], arr[len]];
+  }
+  return arr;
+}
+
+// เริ่มต้นระบบ / ตรวจสอบความจำ LocalStorage
+function bootQuizSystem() {
+  const cachedLang = localStorage.getItem('pk_tutor_s2_lang');
+  if (cachedLang) appLang = cachedLang;
+
+  const cachedExam = localStorage.getItem('pk_tutor_s2_exam');
+  const cachedAnswers = localStorage.getItem('pk_tutor_s2_ans');
+
+  if (cachedExam) {
+    examItems = JSON.parse(cachedExam);
+  } else {
+    // สลับตัวเลือกแบบสุ่มและบันทึกลำดับใหม่
+    examItems = questionBankSet2.map(item => {
+      const copy = { ...item };
+      let optOrder = [0, 1, 2, 3];
+      optOrder = runFisherYates(optOrder);
+
+      copy.dispOpts_th = optOrder.map(i => item.options_th[i]);
+      copy.dispOpts_en = optOrder.map(i => item.options_en[i]);
+      copy.targetIdx = optOrder.indexOf(item.answer);
+      return copy;
+    });
+    examItems = runFisherYates(examItems);
+    localStorage.setItem('pk_tutor_s2_exam', JSON.stringify(examItems));
+  }
+
+  if (cachedAnswers) {
+    studentSelections = JSON.parse(cachedAnswers);
+  } else {
+    studentSelections = {};
+  }
+
+  drawQuizScreen();
+  syncProgressUI();
+  bootWhiteboard();
+}
+
+// เรนเดอร์ข้อสอบ 30 ข้อในฝั่งซ้าย (70%)
+function drawQuizScreen() {
+  const mount = document.getElementById('quiz-mount');
+  mount.innerHTML = '';
+
+  examItems.forEach((item, index) => {
+    const qNum = index + 1;
+    const answered = studentSelections.hasOwnProperty(index);
+    const chosen = studentSelections[index];
+
+    const box = document.createElement('div');
+    box.className = 'quiz-item';
+    box.id = `q-wrap-${index}`;
+
+    const questionText = appLang === 'th' ? item.q_th : item.q_en;
+    const clueText = appLang === 'th' ? item.clue_th : item.clue_en;
+
+    box.innerHTML = `
+      <div class="q-number">ข้อที่ ${qNum}. ${questionText}</div>
+      <div class="q-hint"><strong>คำใบ้ (Clue):</strong> ${clueText}</div>
+      <div class="options-container" id="choices-${index}"></div>
+      <div class="detail-exp ${answered ? 'active' : ''} ${answered ? (chosen === item.targetIdx ? 'exp-pass' : 'exp-fail') : ''}" id="exp-block-${index}">
+        ${answered ? (appLang === 'th' ? item.exp_th : item.exp_en) : ''}
+      </div>
+    `;
+
+    mount.appendChild(box);
+
+    const choicesGroup = box.querySelector(`#choices-${index}`);
+    const activeOpts = appLang === 'th' ? item.dispOpts_th : item.dispOpts_en;
+
+    activeOpts.forEach((optText, optIdx) => {
+      const btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.innerHTML = `${String.fromCharCode(65 + optIdx)}. ${optText}`;
+
+      if (answered) {
+        btn.disabled = true;
+        if (optIdx === item.targetIdx) {
+          btn.classList.add('correct-choice');
+        } else if (optIdx === chosen) {
+          btn.classList.add('wrong-choice');
+        }
+      } else {
+        btn.onclick = () => onSelectChoice(index, optIdx);
+      }
+
+      choicesGroup.appendChild(btn);
+    });
+  });
+}
+
+// เมื่อผู้เรียนเลือกคำตอบ
+function onSelectChoice(qIdx, selectedChoice) {
+  if (studentSelections.hasOwnProperty(qIdx)) return;
+
+  studentSelections[qIdx] = selectedChoice;
+  localStorage.setItem('pk_tutor_s2_ans', JSON.stringify(studentSelections));
+
+  const target = examItems[qIdx];
+  const isRight = (selectedChoice === target.targetIdx);
+
+  const container = document.getElementById(`choices-${qIdx}`);
+  const buttons = container.querySelectorAll('.choice-btn');
+
+  buttons.forEach((btn, idx) => {
+    btn.disabled = true;
+    if (idx === target.targetIdx) {
+      btn.classList.add('correct-choice');
+    } else if (idx === selectedChoice) {
+      btn.classList.add('wrong-choice');
+    }
+  });
+
+  const expTag = document.getElementById(`exp-block-${qIdx}`);
+  expTag.innerHTML = `<strong>${isRight ? 'ถูกต้องยอดเยี่ยม!' : 'คำตอบยังไม่ถูกต้อง'}</strong> เฉลยและกระบวนการคิด: ` + 
+                     (appLang === 'th' ? target.exp_th : target.exp_en);
+  expTag.className = `detail-exp active ${isRight ? 'exp-pass' : 'exp-fail'}`;
+
+  syncProgressUI();
+}
+
+// อัปเดตตัวเลขสถิติคะแนนและความคืบหน้า
+function syncProgressUI() {
+  const answeredCount = Object.keys(studentSelections).length;
+  let currentScore = 0;
+
+  examItems.forEach((item, idx) => {
+    if (studentSelections[idx] === item.targetIdx) {
+      currentScore++;
+    }
+  });
+
+  totalCorrect = currentScore;
+  document.getElementById('txt-progress').innerText = `ทำไปแล้ว: ${answeredCount} / 30 ข้อ`;
+  document.getElementById('txt-score').innerText = `คะแนนสะสม: ${currentScore}`;
+
+  if (answeredCount === 30) {
+    displaySummaryAnalytics();
+  }
+}
+
+// หน้าจอสรุปผลและรายงานจุดแข็ง/จุดอ่อน
+function displaySummaryAnalytics() {
+  const evalView = document.getElementById('evaluation-card');
+  evalView.style.display = 'block';
+  evalView.scrollIntoView({ behavior: 'smooth' });
+
+  document.getElementById('lbl-total-score').innerText = `${totalCorrect} / 30`;
+
+  let verdict = "";
+  if (totalCorrect >= 26) verdict = "ระดับยอดเยี่ยมยิ่งยวด (Distinction): ท่านมีทักษะการคิดวิเคราะห์ธรณีวิทยาระดับ สอวน./โอลิมปิก";
+  else if (totalCorrect >= 20) verdict = "ระดับดีมาก (Advanced): ความเข้าใจหลักการมั่นคง สามารถเชื่อมโยงวัฏจักรได้ดี";
+  else if (totalCorrect >= 14) verdict = "ระดับปานกลาง (Intermediate): เข้าใจหลักการพื้นฐาน แต่ควรทบทวนเรื่องแร่ดัชนีและแฟซีส์หินแปร";
+  else verdict = "ระดับควรปรับปรุงเร่งด่วน (Needs Review): แนะนำให้ศึกษาตาราง Bowen และความแตกต่างของหินอย่างเป็นระบบ";
+  document.getElementById('lbl-feedback').innerText = verdict;
+
+  const domainScore = {
+    igneous: { total: 0, passed: 0, title: "หินอัคนีและวิวัฒนาการแมกมา (Igneous Systems)" },
+    sedimentary: { total: 0, passed: 0, title: "หินตะกอนและสภาพแวดล้อมโบราณ (Sedimentary Facies)" },
+    metamorphic: { total: 0, passed: 0, title: "หินแปร แฟซีส์ และแร่ดัชนี (Metamorphic Petrology)" },
+    bowen: { total: 0, passed: 0, title: "อนุกรมโบเวนและเสถียรภาพของแร่ (Bowen's Reaction)" },
+    rockcycle: { total: 0, passed: 0, title: "พลวัตวัฏจักรหินและธรณีแปรสัณฐาน (Rock Cycle Dynamics)" }
+  };
+
+  examItems.forEach((item, idx) => {
+    if (domainScore[item.topic]) {
+      domainScore[item.topic].total++;
+      if (studentSelections[idx] === item.targetIdx) {
+        domainScore[item.topic].passed++;
+      }
+    }
+  });
+
+  const listStrong = document.getElementById('ul-strengths');
+  const listWeak = document.getElementById('ul-weaknesses');
+  listStrong.innerHTML = '';
+  listWeak.innerHTML = '';
+
+  for (let key in domainScore) {
+    const d = domainScore[key];
+    const percentage = d.total > 0 ? (d.passed / d.total) * 100 : 0;
+    const node = document.createElement('li');
+    node.style.marginBottom = "6px";
+    node.innerHTML = `<strong>${d.title}:</strong> ตอบถูก ${d.passed}/${d.total} ข้อ (${Math.round(percentage)}%)`;
+
+    if (percentage >= 70) {
+      listStrong.appendChild(node);
+    } else {
+      listWeak.appendChild(node);
+    }
+  }
+
+  if (listStrong.children.length === 0) {
+    listStrong.innerHTML = "<li>ควรเพิ่มความรอบคอบและฝึกวิเคราะห์กลไกทางฟิสิกส์-เคมีของหินเพิ่มเติม</li>";
+  }
+  if (listWeak.children.length === 0) {
+    listWeak.innerHTML = "<li>ยอดเยี่ยมไร้ที่ติ! ผลการทดสอบผ่านเกณฑ์ 70% ในทุกมิติความรู้</li>";
+  }
+}
+
+// สลับภาษา TH / EN โดยไม่ทำลายประวัติ
+function toggleLang() {
+  appLang = (appLang === 'th') ? 'en' : 'th';
+  localStorage.setItem('pk_tutor_s2_lang', appLang);
+  drawQuizScreen();
+  syncProgressUI();
+}
+
+// รีเซ็ตข้อสอบทั้งหมด
+function resetQuizState() {
+  if (confirm("ท่านต้องการล้างค่าและเริ่มต้นทำข้อสอบชุดที่ 2 ใหม่ทั้งหมดใช่หรือไม่?")) {
+    localStorage.removeItem('pk_tutor_s2_ans');
+    localStorage.removeItem('pk_tutor_s2_exam');
+    studentSelections = {};
+    totalCorrect = 0;
+    document.getElementById('evaluation-card').style.display = 'none';
+    bootQuizSystem();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+// ================= ระบบกระดาน WHITEBOARD (ฝั่งขวา 30%) =================
+let cv, drawCtx;
+let isPainting = false;
+let currentPenMode = 'pen';
+
+function bootWhiteboard() {
+  cv = document.getElementById('whiteboard-cv');
+  drawCtx = cv.getContext('2d');
+
+  function fitBoard() {
+    cv.width = cv.parentElement.clientWidth - 20;
+    cv.height = 360;
+    drawCtx.lineCap = 'round';
+    drawCtx.lineJoin = 'round';
+  }
+  fitBoard();
+  window.addEventListener('resize', fitBoard);
+
+  function getPointerPos(e) {
+    const rect = cv.getBoundingClientRect();
+    const cx = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+    const cy = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+    return { x: cx, y: cy };
+  }
+
+  function startPainting(e) {
+    isPainting = true;
+    drawCtx.beginPath();
+    const pos = getPointerPos(e);
+    drawCtx.moveTo(pos.x, pos.y);
+  }
+
+  function movePainting(e) {
+    if (!isPainting) return;
+    const pos = getPointerPos(e);
+    if (currentPenMode === 'pen') {
+      drawCtx.strokeStyle = '#1e3a8a';
+      drawCtx.lineWidth = 2.2;
+    } else {
+      drawCtx.strokeStyle = '#ffffff';
+      drawCtx.lineWidth = 16;
+    }
+    drawCtx.lineTo(pos.x, pos.y);
+    drawCtx.stroke();
+  }
+
+  function endPainting() {
+    isPainting = false;
+  }
+
+  cv.addEventListener('mousedown', startPainting);
+  cv.addEventListener('mousemove', movePainting);
+  cv.addEventListener('mouseup', endPainting);
+  cv.addEventListener('mouseleave', endPainting);
+
+  cv.addEventListener('touchstart', (e) => { e.preventDefault(); startPainting(e); }, { passive: false });
+  cv.addEventListener('touchmove', (e) => { e.preventDefault(); movePainting(e); }, { passive: false });
+  cv.addEventListener('touchend', endPainting);
+}
+
+function changeWbTool(tool) {
+  currentPenMode = tool;
+  document.getElementById('btn-pen').classList.toggle('active', tool === 'pen');
+  document.getElementById('btn-eraser').classList.toggle('active', tool === 'eraser');
+}
+
+function wipeWhiteboard() {
+  if (drawCtx && cv) {
+    drawCtx.clearRect(0, 0, cv.width, cv.height);
+  }
+}
+
+// สั่งทำงานเมื่อโหลดหน้าเว็บสมบูรณ์
+window.addEventListener('DOMContentLoaded', bootQuizSystem);
+</script>
+</body>
+</html>
